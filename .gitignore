@@ -1,0 +1,7 @@
+# Design-iteration tool working state (local only)
+.impeccable/
+
+# Internal docs — not for the public repo
+_private/
+CLAUDE.md
+PRODUCT.md

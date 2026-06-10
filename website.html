@@ -4,14 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Somerset Systems</title>
+  <meta name="description" content="Somerset Systems connects your existing field-service software into a unified operations dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. Up and running in under two weeks." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --green:         #2A5C3F;
-      --green-light:   #346B4B;
-      --green-dim:     rgba(42, 92, 63, 0.08);
-      --green-border:  rgba(42, 92, 63, 0.18);
+      --green:         #456650;
+      --green-light:   #527B5E;
+      --green-dim:     rgba(69, 102, 80, 0.08);
+      --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
       --bg:            #F5F2EB;
       --bg-white:      #FFFFFF;
@@ -20,13 +29,18 @@
       --text:          #1A1512;
       --soft:          #4A4540;
       --muted:         #9A928A;
+
+      /* Spacing scale (4pt base) */
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+      --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+      --sp-20: 80px; --sp-24: 96px;
     }
 
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -41,8 +55,8 @@
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo { font-size: 15px; font-weight: 800; letter-spacing: .4px; }
-    .nav-logo span { color: var(--green); }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 52px; width: auto; display: block; }
     .nav-links {
       display: flex; gap: 30px; align-items: center; justify-content: center;
     }
@@ -79,27 +93,35 @@
     }
     .hero-glow {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(42,92,63,.09) 0%, transparent 65%);
+      background: radial-gradient(ellipse 65% 45% at 50% 0%, rgba(69,102,80,.09) 0%, transparent 65%);
     }
     .hero-wordmark {
       position: relative;
       font-size: clamp(60px, 11vw, 136px);
-      font-weight: 900; letter-spacing: -5px; line-height: .95;
+      font-weight: 900; letter-spacing: 0; line-height: 1;
       margin-bottom: 28px;
     }
+    .wm-row { display: block; }
+    .wm-row-somerset { font-weight: 900; letter-spacing: -3px; }
+    .wm-row-systems  { font-weight: 600; letter-spacing: 0.18em; color: var(--green); }
     .wm-letter {
       display: inline-block;
       animation: wm-wave 2.5s ease-in-out infinite;
     }
-    .wm-green { color: var(--green); }
     @keyframes wm-wave {
       0%, 100% { transform: translateY(0) scale(1); }
       50%       { transform: translateY(-11px) scale(1.04); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wm-letter { animation: none; }
+      .btn-green:hover, .btn-white:hover { transform: none; }
+      .play-overlay:hover .play-btn { transform: none; }
     }
     .hero-sub {
       position: relative;
       font-size: clamp(18px, 2vw, 22px); color: var(--soft);
       max-width: 520px; margin: 0 auto 44px; line-height: 1.7;
+      text-wrap: pretty;
     }
     .btn-green {
       position: relative;
@@ -111,29 +133,30 @@
     .btn-green:hover { background: var(--green-light); transform: translateY(-1px); }
 
     /* ── SHARED ────────────────────────────────────────────── */
-    .section-wrap { max-width: 1140px; margin: 0 auto; padding: 92px 60px; }
-    .eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
-      text-transform: uppercase; color: var(--green);
-      margin-bottom: 16px; display: block;
-    }
+    .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px); }
     .section-h {
       font-size: clamp(30px, 3.8vw, 50px);
       font-weight: 900; letter-spacing: -1.8px; line-height: 1.05;
-      margin-bottom: 16px;
+      margin-bottom: 20px; text-wrap: balance;
     }
     .section-h em { font-style: italic; color: var(--green); }
     .section-sub {
       font-size: 16px; color: var(--soft); line-height: 1.65;
-      max-width: 500px; margin-bottom: 52px;
+      max-width: 500px; margin-bottom: clamp(36px, 5vw, 52px); text-wrap: pretty;
     }
+
+    /* Heading → content gap for sections without sub-text */
+    .process-bg .section-h  { margin-bottom: 48px; }
+    .founders-bg .section-h { margin-bottom: 36px; }
+    .testi-bg .section-h    { margin-bottom: 36px; }
+    .faq-bg .section-h      { margin-bottom: 36px; }
 
     /* ── DEMO SECTION ──────────────────────────────────────── */
     .demo-section {
       background: var(--bg-white);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 92px 60px;
+      padding: clamp(56px, 7vw, 80px) clamp(28px, 5vw, 60px);
     }
     .demo-inner {
       max-width: 1140px; margin: 0 auto;
@@ -191,7 +214,7 @@
       font-size: 15px; color: rgba(255,255,255,.35); cursor: pointer;
       transition: background .15s;
     }
-    .db-nav-item.active { background: rgba(42,92,63,.4); color: #7EC99A; }
+    .db-nav-item.active { background: rgba(69,102,80,.4); color: #7EC99A; }
 
     .db-main {
       flex: 1; padding: 24px 28px; overflow: hidden;
@@ -203,9 +226,9 @@
     .db-greeting { font-size: 17px; font-weight: 700; color: #fff; }
     .db-date { font-size: 12px; color: rgba(255,255,255,.35); }
     .db-badge {
-      background: rgba(42,92,63,.3); color: #7EC99A;
+      background: rgba(69,102,80,.3); color: #7EC99A;
       font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-      border: 1px solid rgba(42,92,63,.5);
+      border: 1px solid rgba(69,102,80,.5);
     }
 
     .db-stats {
@@ -234,7 +257,7 @@
     .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
     .bar {
       width: 100%; border-radius: 4px 4px 0 0;
-      background: linear-gradient(to top, var(--green), rgba(42,92,63,.4));
+      background: linear-gradient(to top, var(--green), rgba(69,102,80,.4));
       transition: opacity .2s;
     }
     .bar-label { font-size: 10px; color: rgba(255,255,255,.25); }
@@ -253,7 +276,7 @@
       font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
       display: inline-block;
     }
-    .s-active  { background: rgba(42,92,63,.3);  color: #7EC99A; }
+    .s-active  { background: rgba(69,102,80,.3);  color: #7EC99A; }
     .s-review  { background: rgba(255,180,0,.15); color: #F5C842; }
     .s-invoice { background: rgba(100,140,255,.15); color: #9BB5FF; }
 
@@ -272,7 +295,7 @@
       background: var(--green); border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: transform .2s, background .2s;
-      box-shadow: 0 0 0 8px rgba(42,92,63,.2);
+      box-shadow: 0 0 0 8px rgba(69,102,80,.2);
     }
     .play-overlay:hover .play-btn { transform: scale(1.06); background: var(--green-light); }
     .play-arrow {
@@ -293,30 +316,21 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .category-block { margin-bottom: 56px; }
+    .category-block { margin-bottom: 60px; }
     .category-block:last-child { margin-bottom: 0; }
-    .category-header {
-      display: flex; align-items: center; gap: 14px;
-      padding-bottom: 14px; border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
+    .category-title {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
+      color: var(--text); margin-bottom: 28px; text-wrap: balance;
     }
-    .cat-num  { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--green); }
-    .cat-name { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-
-    .cards-grid {
+    .features-list {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border-strong);
-      border: 1px solid var(--border-strong); border-radius: 12px; overflow: hidden;
+      column-gap: 44px; border-top: 1px solid var(--border);
     }
-    .cards-grid.two-col  { grid-template-columns: repeat(2, 1fr); }
-    .cards-grid.four-col { grid-template-columns: repeat(4, 1fr); }
-    .feature-card {
-      background: var(--bg-white); padding: 26px 24px; transition: background .18s;
-    }
-    .feature-card:hover { background: var(--bg); }
-    .f-icon { font-size: 20px; margin-bottom: 12px; display: block; }
-    .f-name { font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
-    .f-desc { font-size: 13px; color: var(--soft); line-height: 1.65; }
+    .features-list.two-col { grid-template-columns: repeat(2, 1fr); column-gap: 64px; }
+    .f-item { padding: 26px 0; border-bottom: 1px solid var(--border); }
+    .f-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; }
+    .f-desc { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+    .f-item:first-child .f-name { color: var(--green); }
 
     /* ── PROCESS ───────────────────────────────────────────── */
     .process-bg {
@@ -324,14 +338,27 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-    .step-num {
-      font-size: 60px; font-weight: 900; line-height: 1;
-      color: rgba(42,92,63,.12); letter-spacing: -3px;
-      margin-bottom: 12px; display: block;
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+      position: relative;
     }
-    .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; }
-    .step-desc  { font-size: 13px; color: var(--soft); line-height: 1.7; }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 15px; left: 0; right: 0;
+      height: 1px;
+      background: var(--border-strong);
+    }
+    .step-num {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-size: 11px; font-weight: 800; letter-spacing: 0; line-height: 1;
+      margin-bottom: 16px;
+    }
+    .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
+    .step-desc  { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
 
     /* ── FOUNDERS ──────────────────────────────────────────── */
     .founders-bg {
@@ -361,19 +388,20 @@
 
     /* ── TESTIMONIALS ──────────────────────────────────────── */
     .testi-bg { background: var(--bg-white); border-top: 1px solid var(--border); }
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
+    .testi-card:nth-child(2) { margin-top: 24px; }
     .testi-card {
-      background: var(--bg); border: 1px solid var(--border);
+      background: var(--bg); border: 1px solid var(--border-strong);
       border-radius: 12px; padding: 24px 22px;
     }
-    .testi-stars { color: var(--brown); font-size: 13px; margin-bottom: 12px; }
-    .testi-text  { font-size: 13.5px; color: var(--soft); line-height: 1.75; margin-bottom: 18px; }
-    .testi-name  { font-size: 13px; font-weight: 700; }
-    .testi-role  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .testi-stars { color: var(--brown); font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; }
+    .testi-text  { font-size: 14px; color: var(--soft); line-height: 1.75; margin-bottom: 18px; }
+    .testi-name  { font-size: 13px; font-weight: 700; color: var(--text); }
+    .testi-role  { font-size: 12px; color: var(--soft); margin-top: 3px; font-weight: 500; }
 
     /* ── FAQ ───────────────────────────────────────────────── */
     .faq-bg { background: var(--bg); border-top: 1px solid var(--border); }
-    .faq-list { border-top: 1px solid var(--border); }
+    .faq-list { border-top: 1px solid var(--border); max-width: 760px; }
     .faq-item { border-bottom: 1px solid var(--border); cursor: pointer; }
     .faq-q {
       padding: 22px 0;
@@ -386,19 +414,21 @@
       font-size: 13.5px; color: var(--soft); line-height: 1.75;
       max-height: 0; overflow: hidden;
       transition: max-height .35s ease, padding .35s ease;
+      text-wrap: pretty;
     }
-    .faq-item.open .faq-a    { max-height: 300px; padding-bottom: 20px; }
+    .faq-item.open .faq-a    { max-height: 600px; padding-bottom: 20px; }
     .faq-item.open .faq-plus { transform: rotate(45deg); }
 
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-wrap {
-      text-align: center; padding: 108px 60px;
+      text-align: center;
+      padding: clamp(80px, 10vw, 108px) clamp(28px, 5vw, 60px);
       background: var(--green);
     }
     .cta-wrap h2 {
       font-size: clamp(34px, 4.5vw, 60px);
       font-weight: 900; letter-spacing: -2px; line-height: 1.05;
-      margin-bottom: 16px; color: #fff;
+      margin-bottom: 16px; color: #fff; text-wrap: balance;
     }
     .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.6); }
     .cta-wrap p { font-size: 17px; color: rgba(255,255,255,.65); margin-bottom: 44px; }
@@ -418,8 +448,8 @@
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 14px;
     }
-    .footer-logo { font-size: 14px; font-weight: 800; }
-    .footer-logo span { color: var(--green); }
+    .footer-logo img { height: 22px; width: auto; display: block; }
+    .cta-logo { height: 52px; width: auto; margin-bottom: 28px; opacity: .92; }
     .footer-links { display: flex; gap: 22px; }
     .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .footer-links a:hover { color: var(--text); }
@@ -430,20 +460,19 @@
       nav { display: flex; justify-content: space-between; padding: 0 24px; }
       .nav-links { display: none; }
       footer { padding: 28px 24px; flex-direction: column; }
-      .section-wrap { padding: 68px 28px; }
-      .demo-section { padding: 68px 28px; }
-      .cards-grid, .cards-grid.four-col { grid-template-columns: repeat(2, 1fr); }
-      .cards-grid.two-col { grid-template-columns: 1fr; }
+      .features-list { grid-template-columns: repeat(2, 1fr); }
+      .features-list.two-col { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
       .testi-grid { grid-template-columns: 1fr; }
+      .testi-card:nth-child(2) { margin-top: 0; }
       .founders-grid { grid-template-columns: 1fr; }
       .db-stats { grid-template-columns: repeat(2, 1fr); }
       .db-row { grid-template-columns: 1fr; }
-      .cta-wrap { padding: 72px 28px; }
     }
     @media (max-width: 560px) {
       .hero-wordmark { letter-spacing: -3px; }
-      .cards-grid, .cards-grid.four-col { grid-template-columns: 1fr; }
+      .features-list { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; }
       .founder-card { flex-direction: column; gap: 16px; }
       .db-stats { grid-template-columns: repeat(2, 1fr); }
@@ -454,7 +483,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Somerset <span>Systems</span></div>
+    <div class="nav-logo"><img src="Somerset-Systems-5.png" alt="Somerset Systems"></div>
     <div class="nav-links">
       <a href="#demo">Demo</a>
       <a href="#what-we-build">What We Build</a>
@@ -472,8 +501,11 @@
   <section class="hero">
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
-    <h1 class="hero-wordmark"><span class="wm-letter" style="animation-delay:0s">S</span><span class="wm-letter" style="animation-delay:.07s">o</span><span class="wm-letter" style="animation-delay:.14s">m</span><span class="wm-letter" style="animation-delay:.21s">e</span><span class="wm-letter" style="animation-delay:.28s">r</span><span class="wm-letter" style="animation-delay:.35s">s</span><span class="wm-letter" style="animation-delay:.42s">e</span><span class="wm-letter" style="animation-delay:.49s">t</span><br><span class="wm-letter wm-green" style="animation-delay:.60s">S</span><span class="wm-letter wm-green" style="animation-delay:.67s">y</span><span class="wm-letter wm-green" style="animation-delay:.74s">s</span><span class="wm-letter wm-green" style="animation-delay:.81s">t</span><span class="wm-letter wm-green" style="animation-delay:.88s">e</span><span class="wm-letter wm-green" style="animation-delay:.95s">m</span><span class="wm-letter wm-green" style="animation-delay:1.02s">s</span></h1>
-    <p class="hero-sub">We connect your existing software into one dashboard — jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running in under two weeks.</p>
+    <h1 class="hero-wordmark">
+      <span class="wm-row wm-row-somerset"><span class="wm-letter" style="animation-delay:0s">S</span><span class="wm-letter" style="animation-delay:.07s">O</span><span class="wm-letter" style="animation-delay:.14s">M</span><span class="wm-letter" style="animation-delay:.21s">E</span><span class="wm-letter" style="animation-delay:.28s">R</span><span class="wm-letter" style="animation-delay:.35s">S</span><span class="wm-letter" style="animation-delay:.42s">E</span><span class="wm-letter" style="animation-delay:.49s">T</span></span>
+      <span class="wm-row wm-row-systems"><span class="wm-letter" style="animation-delay:.60s">S</span><span class="wm-letter" style="animation-delay:.67s">Y</span><span class="wm-letter" style="animation-delay:.74s">S</span><span class="wm-letter" style="animation-delay:.81s">T</span><span class="wm-letter" style="animation-delay:.88s">E</span><span class="wm-letter" style="animation-delay:.95s">M</span><span class="wm-letter" style="animation-delay:1.02s">S</span></span>
+    </h1>
+    <p class="hero-sub">We connect your existing software into one dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running in under two weeks.</p>
     <a href="#contact" class="btn-green">Book a Consultation</a>
   </section>
 
@@ -481,7 +513,6 @@
   <!-- DEMO -->
   <div class="demo-section" id="demo">
     <div class="demo-inner">
-      <span class="eyebrow">See It In Action</span>
       <h2 class="section-h">Built on <em>Your Data</em></h2>
       <p class="section-sub">Every dashboard connects to your existing software and updates in real time. Here's what it looks like.</p>
 
@@ -589,7 +620,7 @@
         <!-- Play overlay -->
         <div class="play-overlay" onclick="this.style.display='none'">
           <div class="play-btn"><div class="play-arrow"></div></div>
-          <div class="play-label">Watch the demo</div>
+          <div class="play-label">View dashboard</div>
         </div>
       </div>
     </div>
@@ -599,74 +630,57 @@
   <!-- FEATURES -->
   <div class="features-bg" id="what-we-build">
     <div class="section-wrap">
-      <span class="eyebrow">What We Build</span>
       <h2 class="section-h" style="margin-bottom:12px;">Everything Your<br><em>Operation Needs</em></h2>
-      <p class="section-sub">Every dashboard includes the same core capabilities — adapted to your business, your software, and the way you actually work.</p>
+      <p class="section-sub">Every dashboard includes the same core capabilities, adapted to your business, your software, and the way you actually work.</p>
 
       <div class="category-block">
-        <div class="category-header">
-          <span class="cat-num">01</span>
-          <span class="cat-name">Run a Tighter Operation</span>
-        </div>
-        <div class="cards-grid">
-          <div class="feature-card">
-            <span class="f-icon">📋</span>
+        <h3 class="category-title">Run a Tighter Operation</h3>
+        <div class="features-list">
+          <div class="f-item">
             <div class="f-name">Document Automation</div>
-            <div class="f-desc">Proposals, contracts, and invoices drafted automatically from your existing data. Your team reviews and approves with one click — no manual writing.</div>
+            <div class="f-desc">Proposals, contracts, and invoices drafted automatically from your existing data. Your team reviews and approves with one click, no manual writing.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">⊞</span>
+          <div class="f-item">
             <div class="f-name">Live Operations Dashboard</div>
             <div class="f-desc">All active work, team assignments, and statuses in one real-time view. Stop chasing people to find out where things stand.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">🗺️</span>
+          <div class="f-item">
             <div class="f-name">Scheduling &amp; Coordination</div>
             <div class="f-desc">Assign the right people to the right work based on availability and priority. Less overhead, more output per day.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">📩</span>
+          <div class="f-item">
             <div class="f-name">Owner Briefings &amp; Reports</div>
-            <div class="f-desc">A daily summary written from your live data — what's overdue, what needs attention, how revenue is trending — delivered to your phone automatically.</div>
+            <div class="f-desc">A daily summary written from your live data: what's overdue, what needs attention, how revenue is trending, delivered to your phone automatically.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">📅</span>
+          <div class="f-item">
             <div class="f-name">Capacity Forecasting</div>
             <div class="f-desc">See how much work your team can take on 30, 60, and 90 days out. Know before a busy period whether you're stretched or have room to grow.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">💬</span>
+          <div class="f-item">
             <div class="f-name">AI Operations Assistant</div>
-            <div class="f-desc">Ask your business a plain-English question — "What's overdue?" "What was my margin last month?" — and get an instant answer from your live data.</div>
+            <div class="f-desc">Ask your business a plain-English question ("What's overdue?" "What was my margin last month?") and get an instant answer from your live data.</div>
           </div>
         </div>
       </div>
 
       <div class="category-block">
-        <div class="category-header">
-          <span class="cat-num">02</span>
-          <span class="cat-name">Find the Money You're Leaving on the Table</span>
-        </div>
-        <div class="cards-grid four-col">
-          <div class="feature-card">
-            <span class="f-icon">💰</span>
+        <h3 class="category-title">Find the Money You're Leaving on the Table</h3>
+        <div class="features-list two-col">
+          <div class="f-item">
             <div class="f-name">Profitability Analysis</div>
-            <div class="f-desc">See which clients, job types, and team members generate the most actual margin — not just revenue billed, but real profit after costs.</div>
+            <div class="f-desc">See which clients, job types, and team members generate the most actual margin: not just revenue billed, but real profit after costs.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">🔄</span>
+          <div class="f-item">
             <div class="f-name">Pipeline &amp; Estimate Tracking</div>
             <div class="f-desc">Surface open proposals and pending decisions before they go cold. Track conversion rates and follow up automatically before anything is missed.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">✉️</span>
+          <div class="f-item">
             <div class="f-name">Automated Follow-Up</div>
-            <div class="f-desc">Reminders, renewal nudges, and client check-ins running automatically — without anyone managing a list or remembering to send a message.</div>
+            <div class="f-desc">Reminders, renewal nudges, and client check-ins running automatically, without anyone managing a list or remembering to send a message.</div>
           </div>
-          <div class="feature-card">
-            <span class="f-icon">🔗</span>
+          <div class="f-item">
             <div class="f-name">Unified Reporting</div>
-            <div class="f-desc">All your software data — operations, accounting, CRM — reconciled into one clear view without pulling anything manually.</div>
+            <div class="f-desc">All your software data (operations, accounting, CRM) reconciled into one clear view without pulling anything manually.</div>
           </div>
         </div>
       </div>
@@ -678,13 +692,12 @@
   <!-- PROCESS -->
   <div class="process-bg" id="process">
     <div class="section-wrap">
-      <span class="eyebrow">The Process</span>
       <h2 class="section-h">Up and Running in<br><em>Under Two Weeks</em></h2>
       <div class="steps-grid">
         <div>
           <span class="step-num">01</span>
           <div class="step-title">Free Strategy Call</div>
-          <div class="step-desc">We learn your operation — what software you use, where time is lost, what you can't see clearly. No pitch deck, no commitment.</div>
+          <div class="step-desc">We learn your operation: what software you use, where time is lost, what you can't see clearly. No pitch deck, no commitment.</div>
         </div>
         <div>
           <span class="step-num">02</span>
@@ -699,7 +712,7 @@
         <div>
           <span class="step-num">04</span>
           <div class="step-title">Delivery &amp; Support</div>
-          <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee — updates and new automations as you grow.</div>
+          <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee. Updates and new automations as you grow.</div>
         </div>
       </div>
     </div>
@@ -709,7 +722,6 @@
   <!-- FOUNDERS -->
   <div class="founders-bg" id="founders">
     <div class="section-wrap">
-      <span class="eyebrow">The Team</span>
       <h2 class="section-h">Who You're<br><em>Working With</em></h2>
       <div class="founders-grid">
         <div class="founder-card">
@@ -717,7 +729,7 @@
           <div>
             <div class="founder-name">Thomas Ankenbrandt</div>
             <span class="founder-role">Co-Founder</span>
-            <div class="founder-bio">Electrical engineering background from Cal Poly SLO. Leads all technical builds. If it involves field crews, dispatch, job costing, or connecting software that wasn't designed to talk to each other — this is his territory.</div>
+            <div class="founder-bio">Electrical engineering from Cal Poly SLO. He also has experience at Couchbase working on finance, data, and marketing automations. Now he leads every technical build at Somerset: field crews, dispatch, job costing, and connecting software that wasn't designed to talk to each other.</div>
           </div>
         </div>
         <div class="founder-card">
@@ -736,14 +748,13 @@
   <!-- TESTIMONIALS -->
   <div class="testi-bg">
     <div class="section-wrap">
-      <span class="eyebrow">Testimonials</span>
       <h2 class="section-h">What Our<br><em>Clients Say</em></h2>
       <div class="testi-grid">
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
           <div class="testi-text">"The proposal automation alone saved us hours every week. Before, someone had to manually pull together every quote. Now it drafts itself and we just review it."</div>
           <div class="testi-name">Mike S.</div>
-          <div class="testi-role">Owner, HVAC Contractor — San Luis Obispo, CA</div>
+          <div class="testi-role">Owner, HVAC Contractor, San Luis Obispo, CA</div>
         </div>
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
@@ -765,20 +776,19 @@
   <!-- FAQ -->
   <div class="faq-bg" id="faq">
     <div class="section-wrap">
-      <span class="eyebrow">Common Questions</span>
       <h2 class="section-h">Straight <em>Answers</em></h2>
       <div class="faq-list">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">Do I have to switch any of my current software? <span class="faq-plus">+</span></div>
-          <div class="faq-a">No. We build on top of what you already use — QuickBooks, ServiceTitan, Jobber, Procore, Clio, whatever it is. Your team doesn't learn a new platform. We connect to the data you already have.</div>
+          <div class="faq-a">No. We build on top of what you already use: QuickBooks, ServiceTitan, Jobber, Procore, Clio, whatever it is. Your team doesn't learn a new platform. We connect to the data you already have.</div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">What does my team have to do differently? <span class="faq-plus">+</span></div>
-          <div class="faq-a">Less than you'd expect. Most automation runs in the background. Where your team is involved — like approving a document before it goes out — it's one click. The system does the drafting. Your people handle the judgment.</div>
+          <div class="faq-a">Less than you'd expect. Most automation runs in the background. Where your team is involved (like approving a document before it goes out), it's one click. The system does the drafting. Your people handle the judgment.</div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">How long does it take to get up and running? <span class="faq-plus">+</span></div>
-          <div class="faq-a">Most builds are live in under two weeks from kickoff. We test everything before delivery — what your team sees on day one works exactly as expected.</div>
+          <div class="faq-a">Most builds are live in under two weeks from kickoff. We test everything before delivery: what your team sees on day one works exactly as expected.</div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">What does this cost? <span class="faq-plus">+</span></div>
@@ -786,7 +796,7 @@
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">What does monthly maintenance cover? <span class="faq-plus">+</span></div>
-          <div class="faq-a">Everything it takes to keep the system running — updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</div>
+          <div class="faq-a">Everything it takes to keep the system running: updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</div>
         </div>
       </div>
     </div>
@@ -795,6 +805,7 @@
 
   <!-- CTA -->
   <div class="cta-wrap" id="contact">
+    <img src="Somerset-Systems-11.png" alt="Somerset Systems" class="cta-logo">
     <h2>Ready to See<br><em>What's Possible?</em></h2>
     <p>30 minutes. No pitch deck. Just a straight conversation about your business.</p>
     <a href="mailto:thomas@somersetsystems.co" class="btn-white">Book a Consultation</a>
@@ -803,7 +814,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Somerset <span>Systems</span></div>
+    <div class="footer-logo"><img src="Somerset-Systems-5.png" alt="Somerset Systems"></div>
     <div class="footer-links">
       <a href="mailto:thomas@somersetsystems.co">thomas@somersetsystems.co</a>
       <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>
@@ -818,5 +829,10 @@
       if (!isOpen) item.classList.add('open');
     }
   </script>
+
+
+<!-- impeccable-live-start -->
+<script src="http://localhost:8401/live.js"></script>
+<!-- impeccable-live-end -->
 </body>
 </html>
