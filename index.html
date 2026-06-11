@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Somerset Systems — Operations dashboards for field-service businesses</title>
-  <meta name="description" content="Somerset Systems connects your existing field-service software into a unified operations dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. Up and running in under two weeks." />
+  <title>Somerset Systems: Operations dashboards for field-service businesses</title>
+  <meta name="description" content="Somerset Systems connects your existing field-service software into a unified operations dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. Up and running about two weeks after scope is final." />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Somerset Systems — Operations dashboards for field-service businesses" />
-  <meta property="og:description" content="We connect your existing software into one dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running in under two weeks." />
+  <meta property="og:title" content="Somerset Systems: Operations dashboards for field-service businesses" />
+  <meta property="og:description" content="We connect your existing software into one dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running about two weeks after we finalize scope." />
   <meta property="og:url" content="https://somersetsystems.co/" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Somerset Systems — Operations dashboards for field-service businesses" />
-  <meta name="twitter:description" content="We connect your existing software into one dashboard. No new tools. Up and running in under two weeks." />
+  <meta name="twitter:title" content="Somerset Systems: Operations dashboards for field-service businesses" />
+  <meta name="twitter:description" content="We connect your existing software into one dashboard. No new tools. Up and running about two weeks after we finalize scope." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -25,7 +25,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -37,6 +37,8 @@
       --brown:         #7A4828;
       --green-deep:    #1C2E24;   /* hero + nav drenched surface */
       --green-deep-2:  #2C4636;   /* hero gradient lift */
+      --green-deep-3:  #21372B;   /* hero gradient top */
+      --green-deep-4:  #15231B;   /* hero gradient base */
       --sage:          #80A48B;   /* brand sage ramp */
       --sage-light:    #A0C4AB;   /* pale sage — accents on deep green */
       --bg:            #EFF2ED;   /* cool brand-neutral (replaces warm cream) */
@@ -59,6 +61,23 @@
     :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
     .cta-wrap a:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    /* Skip link + screen-reader-only utility */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: fixed; top: 10px; left: 10px; z-index: 300;
+      background: var(--green-deep); color: #fff;
+      padding: 11px 20px; border-radius: 8px;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transform: translateY(-160%); transition: transform .22s cubic-bezier(.22,1,.36,1);
+    }
+    .skip-link:focus-visible { transform: none; outline-offset: 2px; }
+    #main:focus { outline: none; }
+    @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
 
     body {
       background: var(--bg);
@@ -101,7 +120,7 @@
     .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
     .nav-toggle {
       display: none; flex-direction: column; justify-content: center; gap: 5px;
-      width: 40px; height: 40px; padding: 9px; margin-right: -9px;
+      width: 44px; height: 44px; padding: 11px; margin-right: -11px;
       background: none; border: none; cursor: pointer;
     }
     .nav-toggle span {
@@ -154,7 +173,7 @@
       color: #fff;
       background:
         radial-gradient(ellipse 90% 55% at 50% -8%, var(--green-deep-2) 0%, transparent 60%),
-        linear-gradient(168deg, #21372B 0%, var(--green-deep) 56%, #15231B 100%);
+        linear-gradient(168deg, var(--green-deep-3) 0%, var(--green-deep) 56%, var(--green-deep-4) 100%);
     }
     .hero-mark, .hero-wordmark, .hero-sub, .btn-hero { position: relative; z-index: 1; }
     .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -162,9 +181,8 @@
     /* translucent glass-panel geometry (brand kit motif) */
     .hero-panel {
       position: absolute; border-radius: 9px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
-      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
     }
     .hp1 { width: 360px; height: 260px; top: 5%;  left: 3%;  transform: rotate(-19deg); }
     .hp2 { width: 300px; height: 300px; top: 33%; left: 13%; transform: rotate(12deg); opacity: .65; }
@@ -507,6 +525,13 @@
       overflow: hidden;
       font-size: 13.5px; color: var(--soft); line-height: 1.75; text-wrap: pretty;
     }
+    .faq-a-inner p { margin-bottom: 12px; }
+    .faq-a-inner p:last-child { margin-bottom: 0; }
+    .faq-a-inner a {
+      color: var(--green); font-weight: 700;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .faq-a-inner a:hover { color: var(--green-light); }
     .faq-item.open .faq-a       { grid-template-rows: 1fr; }
     .faq-item.open .faq-a-inner { padding-bottom: 20px; }
     .faq-item.open .faq-plus    { transform: rotate(45deg); }
@@ -545,7 +570,7 @@
     .footer-logo img { height: 26px; width: auto; display: block; }
     .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: var(--text); }
     .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); }
-    .cta-logo { height: 52px; width: auto; margin-bottom: 28px; opacity: .92; }
+    .cta-logo { height: 64px; width: auto; margin-bottom: 30px; opacity: .92; }
     .footer-links { display: flex; gap: 22px; }
     .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .footer-links a:hover { color: var(--text); }
@@ -559,6 +584,8 @@
       .mobile-menu { display: flex; }
       .nav-end .nav-cta { display: none; }
       footer { padding: 28px 24px; flex-direction: column; }
+      .footer-links { gap: 6px; flex-direction: column; align-items: center; }
+      .footer-links a { padding: 12px 8px; }
       .features-list { grid-template-columns: repeat(2, 1fr); }
       .features-list.two-col { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
@@ -583,6 +610,8 @@
   </style>
 </head>
 <body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
 
   <!-- NAV -->
   <nav>
@@ -616,8 +645,10 @@
   </div>
 
 
+  <main id="main" tabindex="-1">
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-label="Somerset Systems">
     <div class="hero-bg" aria-hidden="true">
       <span class="hero-panel hp1"></span>
       <span class="hero-panel hp2"></span>
@@ -631,20 +662,20 @@
       </svg>
       <div class="hero-sheen"></div>
     </div>
-    <img class="hero-mark" src="Somerset-Systems-9.png" alt="Somerset Systems" width="86" height="86" decoding="async" />
+    <img class="hero-mark" src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="86" height="86" decoding="async" />
     <h1 class="hero-wordmark">
       <span class="wm-row wm-row-somerset"><span class="wm-letter" style="animation-delay:0s">S</span><span class="wm-letter" style="animation-delay:.07s">O</span><span class="wm-letter" style="animation-delay:.14s">M</span><span class="wm-letter" style="animation-delay:.21s">E</span><span class="wm-letter" style="animation-delay:.28s">R</span><span class="wm-letter" style="animation-delay:.35s">S</span><span class="wm-letter" style="animation-delay:.42s">E</span><span class="wm-letter" style="animation-delay:.49s">T</span></span>
       <span class="wm-row wm-row-systems"><span class="wm-letter" style="animation-delay:.60s">S</span><span class="wm-letter" style="animation-delay:.67s">Y</span><span class="wm-letter" style="animation-delay:.74s">S</span><span class="wm-letter" style="animation-delay:.81s">T</span><span class="wm-letter" style="animation-delay:.88s">E</span><span class="wm-letter" style="animation-delay:.95s">M</span><span class="wm-letter" style="animation-delay:1.02s">S</span></span>
     </h1>
-    <p class="hero-sub">We connect your existing software into one dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running in under two weeks.</p>
+    <p class="hero-sub">We connect your existing software into one dashboard: jobs tracked in real time, documents drafted automatically, and your numbers summarized every morning. No new tools. Up and running about two weeks after we finalize scope.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-hero">Book a Consultation</a>
   </section>
 
 
   <!-- DEMO -->
-  <div class="demo-section" id="demo">
+  <section class="demo-section" id="demo" aria-labelledby="demo-h">
     <div class="demo-inner">
-      <h2 class="section-h">Built on <em>Your Data</em></h2>
+      <h2 class="section-h" id="demo-h">Built on <em>Your Data</em></h2>
       <p class="section-sub">Every dashboard connects to your existing software and updates in real time. Here's what it looks like.</p>
 
       <div class="browser-wrap">
@@ -760,13 +791,13 @@
         </a>
       </div>
     </div>
-  </div>
+  </section>
 
 
   <!-- FEATURES -->
-  <div class="features-bg" id="what-we-build">
+  <section class="features-bg" id="what-we-build" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="section-h" style="margin-bottom:12px;">Everything Your<br><em>Operation Needs</em></h2>
+      <h2 class="section-h" id="features-h" style="margin-bottom:12px;">Everything Your<br><em>Operation Needs</em></h2>
       <p class="section-sub">Every dashboard includes the same core capabilities, adapted to your business, your software, and the way you actually work.</p>
 
       <div class="category-block">
@@ -822,18 +853,18 @@
       </div>
 
     </div>
-  </div>
+  </section>
 
 
   <!-- PROCESS -->
-  <div class="process-bg" id="process">
+  <section class="process-bg" id="process" aria-labelledby="process-h">
     <div class="section-wrap">
-      <h2 class="section-h">Up and Running in<br><em>Under Two Weeks</em></h2>
+      <h2 class="section-h" id="process-h">Up and Running<br><em>Two Weeks After Scope</em></h2>
       <div class="steps-grid">
         <div>
           <span class="step-num">01</span>
           <div class="step-title">Free Strategy Call</div>
-          <div class="step-desc">We learn your operation: what software you use, where time is lost, what you can't see clearly. No pitch deck, no commitment.</div>
+          <div class="step-desc">We learn your operation: what software you use, where time is lost, what you can't see clearly. The call is free, with no obligation either way.</div>
         </div>
         <div>
           <span class="step-num">02</span>
@@ -852,13 +883,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
 
   <!-- FOUNDERS -->
-  <div class="founders-bg" id="founders">
+  <section class="founders-bg" id="founders" aria-labelledby="founders-h">
     <div class="section-wrap">
-      <h2 class="section-h">Who You're<br><em>Working With</em></h2>
+      <h2 class="section-h" id="founders-h">Who You're<br><em>Working With</em></h2>
       <div class="founders-grid">
         <div class="founder-card">
           <img class="founder-avatar founder-photo" src="Tommy07-avatar.jpg" width="68" height="68" alt="Thomas Ankenbrandt" decoding="async" loading="lazy" />
@@ -878,64 +909,70 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
 
   <!-- INTEGRATIONS -->
-  <div class="integ-bg">
+  <section class="integ-bg" aria-labelledby="integ-h">
     <div class="section-wrap">
-      <h2 class="section-h">Works With the Tools<br><em>You Already Use</em></h2>
+      <h2 class="section-h" id="integ-h">Works With the Tools<br><em>You Already Use</em></h2>
       <p class="section-sub">No new platform to learn. We connect to the software your business already runs on and build on top of it.</p>
       <div class="integ-grid">
         <div class="integ-card">QuickBooks</div>
         <div class="integ-card">ServiceTitan</div>
         <div class="integ-card">Jobber</div>
         <div class="integ-card">Procore</div>
-        <div class="integ-card">Clio</div>
+        <div class="integ-card">Housecall Pro</div>
         <div class="integ-card integ-more">+ your software</div>
       </div>
       <p class="integ-note">Don't see yours? If it has an export or an API, we can almost certainly connect it.</p>
     </div>
-  </div>
+  </section>
 
 
   <!-- FAQ -->
-  <div class="faq-bg" id="faq">
+  <section class="faq-bg" id="faq" aria-labelledby="faq-h">
     <div class="section-wrap">
-      <h2 class="section-h">Straight <em>Answers</em></h2>
+      <h2 class="section-h" id="faq-h">Straight <em>Answers</em></h2>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>Do I have to switch any of my current software?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1"><div class="faq-a-inner">No. We build on top of what you already use: QuickBooks, ServiceTitan, Jobber, Procore, Clio, whatever it is. Your team doesn't learn a new platform. We connect to the data you already have.</div></div>
+          <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>What does my team have to do differently?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2"><div class="faq-a-inner">Less than you'd expect. Most automation runs in the background. Where your team is involved (like approving a document before it goes out), it's one click. The system does the drafting. Your people handle the judgment.</div></div>
+          <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2"><div class="faq-a-inner">Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>How long does it take to get up and running?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3"><div class="faq-a-inner">Most builds are live in under two weeks from kickoff. We test everything before delivery: what your team sees on day one works exactly as expected.</div></div>
+          <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3"><div class="faq-a-inner">Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4"><div class="faq-a-inner">Pricing is based on the size of your operation and scope of the build. The strategy call is free with no commitment on either side. We'll give you exact numbers before any work begins.</div></div>
+          <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4"><div class="faq-a-inner">No. The build is a one-time project, and ongoing support is a flat monthly fee you can cancel if it stops earning its keep. There are no long-term contracts and no setup tricks. We would rather keep your business because the system works than because you are locked in.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5"><div class="faq-a-inner">Everything it takes to keep the system running: updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</div></div>
+          <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5"><div class="faq-a-inner">Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. If you want a sense of what this could save you first, take the <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener">Operational Opportunity Assessment</a>.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6"><div class="faq-a-inner">Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</div></div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
 
   <!-- CTA -->
-  <div class="cta-wrap" id="contact">
-    <img src="Somerset-Systems-11.png" alt="Somerset Systems" class="cta-logo">
-    <h2>Ready to See<br><em>What's Possible?</em></h2>
-    <p>30 minutes. No pitch deck. Just a straight conversation about your business.</p>
+  <section class="cta-wrap" id="contact" aria-labelledby="cta-h">
+    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="64" height="64" decoding="async">
+    <h2 id="cta-h">Ready to See<br><em>What's Possible?</em></h2>
+    <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-white">Book a Consultation</a>
-  </div>
+  </section>
+
+  </main>
 
 
   <!-- FOOTER -->
