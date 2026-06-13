@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="What Somerset Systems can build today: document and proposal automation, a live operations dashboard, scheduling, owner briefings, capacity forecasting, profitability analysis, pipeline tracking, automated follow-up, and industry intelligence. We start with the one automation that moves the needle most, built to grow into a complete operational layer on a timeline we agree on upfront." />
+  <meta name="description" content="What Somerset Systems builds: document automation, a live operations dashboard, owner briefings, profitability analysis, and automated follow-up, on the software you already use. We start with the one automation that moves the needle most." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
@@ -32,7 +32,6 @@
     :root {
       --green:         #456650;
       --green-light:   #527B5E;
-      --green-dim:     rgba(69, 102, 80, 0.08);
       --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
       --green-deep:    #1C2E24;
@@ -84,15 +83,15 @@
 
     /* ── SCROLL REVEAL ─────────────────────────────────────── */
     .js .reveal {
-      opacity: 0; transform: translateY(28px); filter: blur(8px);
-      transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease);
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
     }
-    .js .reveal.in { opacity: 1; transform: none; filter: none; }
+    .js .reveal.in { opacity: 1; transform: none; }
     .js .stagger > * {
-      opacity: 0; transform: translateY(22px); filter: blur(6px);
-      transition: opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
     }
-    .js .stagger.in > * { opacity: 1; transform: none; filter: none; }
+    .js .stagger.in > * { opacity: 1; transform: none; }
     .js .stagger.in > *:nth-child(1) { transition-delay: .04s; }
     .js .stagger.in > *:nth-child(2) { transition-delay: .09s; }
     .js .stagger.in > *:nth-child(3) { transition-delay: .14s; }
@@ -101,7 +100,7 @@
     .js .stagger.in > *:nth-child(6) { transition-delay: .29s; }
     @media (prefers-reduced-motion: reduce) {
       .js .reveal, .js .stagger > * {
-        opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
+        opacity: 1 !important; transform: none !important; transition: none !important;
       }
     }
 
@@ -195,7 +194,7 @@
     .wwb-eyebrow:hover svg { transform: translateX(-3px); }
     .wwb-title {
       font-size: clamp(34px, 5vw, 62px);
-      font-weight: 900; letter-spacing: -2px; line-height: 1.04;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.04;
       margin-bottom: 22px; text-wrap: balance;
     }
     .wwb-title em { font-style: italic; color: var(--sage-light); }
@@ -208,14 +207,10 @@
     .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px); }
     .section-h {
       font-size: clamp(28px, 3.4vw, 44px);
-      font-weight: 900; letter-spacing: -1.6px; line-height: 1.06;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.06;
       margin-bottom: 18px; text-wrap: balance;
     }
     .section-h em { font-style: italic; color: var(--green); }
-    .section-sub {
-      font-size: 16px; color: var(--soft); line-height: 1.65;
-      max-width: 560px; margin-bottom: clamp(40px, 5vw, 56px); text-wrap: pretty;
-    }
 
     /* ── FEATURES ──────────────────────────────────────────── */
     .features-bg {
@@ -236,7 +231,7 @@
     .features-list.two-col { grid-template-columns: repeat(2, 1fr); column-gap: 64px; }
     .f-item { padding: 26px 0; border-bottom: 1px solid var(--border); }
     .f-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; }
-    .f-desc { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+    .f-desc { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
     .f-item:first-child .f-name { color: var(--green); }
 
     /* ── PROCESS ───────────────────────────────────────────── */
@@ -260,7 +255,7 @@
       font-size: 11px; font-weight: 800; line-height: 1; margin-bottom: 16px;
     }
     .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
-    .step-desc  { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+    .step-desc  { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
 
     /* ── ASSESSMENT ────────────────────────────────────────── */
     .assess-bg {
@@ -272,7 +267,7 @@
     }
     .assess-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
     .assess-h {
-      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; letter-spacing: -1.4px;
+      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; letter-spacing: -0.035em;
       line-height: 1.08; margin-bottom: 16px; text-wrap: balance;
     }
     .assess-h em { font-style: italic; color: var(--sage-light); }
@@ -301,10 +296,10 @@
     .cta-logo { height: 64px; width: auto; margin-bottom: 30px; opacity: .92; }
     .cta-wrap h2 {
       font-size: clamp(34px, 4.5vw, 60px);
-      font-weight: 900; letter-spacing: -2px; line-height: 1.05;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.05;
       margin-bottom: 16px; color: #fff; text-wrap: balance;
     }
-    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.6); }
+    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.72); }
     .cta-wrap p { font-size: 17px; color: rgba(255,255,255,.85); margin-bottom: 44px; }
     .btn-white {
       background: #fff; color: var(--green);
@@ -401,7 +396,7 @@
       Back to home
     </a>
     <h1 class="wwb-title">Start Focused,<br><em>Built to Grow</em></h1>
-    <p class="wwb-lede">We start focused — with the one automation that moves the needle most for your business — built to expand into a complete operational layer as you grow. Here's what we can build today, and where each piece earns its keep.</p>
+    <p class="wwb-lede">We start focused, with the one automation that moves the needle most for your business, then expand into a complete operational layer as you grow. Here's what we can build today, and where each piece earns its keep.</p>
   </header>
 
 
@@ -412,27 +407,27 @@
         <h2 class="category-title reveal" id="features-h">Run a Tighter Operation</h2>
         <div class="features-list stagger">
           <div class="f-item">
-            <div class="f-name">Document &amp; Proposal Automation</div>
+            <h3 class="f-name">Document &amp; Proposal Automation</h3>
             <div class="f-desc">Proposals, contracts, and invoices drafted automatically from your existing data. Your team reviews and approves with one click, no manual writing.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Live Operations Dashboard</div>
+            <h3 class="f-name">Live Operations Dashboard</h3>
             <div class="f-desc">All active work, team assignments, and statuses in one real-time view. Stop chasing people to find out where things stand.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Scheduling &amp; Coordination</div>
+            <h3 class="f-name">Scheduling &amp; Coordination</h3>
             <div class="f-desc">Assign the right people to the right work based on availability and priority. Less overhead, more output per day.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Owner Briefings &amp; Reports</div>
+            <h3 class="f-name">Owner Briefings &amp; Reports</h3>
             <div class="f-desc">A daily summary written from your live data: what's overdue, what needs attention, how revenue is trending, delivered to your phone automatically.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Capacity Forecasting</div>
+            <h3 class="f-name">Capacity Forecasting</h3>
             <div class="f-desc">See how much work your team can take on 30, 60, and 90 days out. Know before a busy period whether you're stretched or have room to grow.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">AI Operations Assistant</div>
+            <h3 class="f-name">AI Operations Assistant</h3>
             <div class="f-desc">Ask your business a plain-English question ("What's overdue?" "What was my margin last month?") and get an instant answer from your live data.</div>
           </div>
         </div>
@@ -442,23 +437,23 @@
         <h2 class="category-title reveal">Find the Money You're Leaving on the Table</h2>
         <div class="features-list two-col stagger">
           <div class="f-item">
-            <div class="f-name">Profitability Analysis</div>
+            <h3 class="f-name">Profitability Analysis</h3>
             <div class="f-desc">See which clients, job types, and team members generate the most actual margin: not just revenue billed, but real profit after costs.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Pipeline &amp; Estimate Tracking</div>
+            <h3 class="f-name">Pipeline &amp; Estimate Tracking</h3>
             <div class="f-desc">Surface open proposals and pending decisions before they go cold. Track conversion rates and follow up automatically before anything is missed.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Automated Follow-Up</div>
+            <h3 class="f-name">Automated Follow-Up</h3>
             <div class="f-desc">Reminders, renewal nudges, and client check-ins running automatically, without anyone managing a list or remembering to send a message.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Unified Reporting</div>
+            <h3 class="f-name">Unified Reporting</h3>
             <div class="f-desc">All your software data (operations, accounting, CRM) reconciled into one clear view without pulling anything manually.</div>
           </div>
           <div class="f-item">
-            <div class="f-name">Industry Intelligence &amp; Research</div>
+            <h3 class="f-name">Industry Intelligence &amp; Research</h3>
             <div class="f-desc">Surfaces the regulatory changes, recalls, and market signals that affect your business, each tied to your own accounts and equipment with the revenue opportunity attached. Market-made work lands on your desk instead of slipping past.</div>
           </div>
         </div>
@@ -474,22 +469,22 @@
       <div class="steps-grid stagger">
         <div>
           <span class="step-num">01</span>
-          <div class="step-title">Free Strategy Call &amp; Personalized Walkthrough</div>
-          <div class="step-desc">A free, no-obligation call where we learn your operation — what software you use, where time is lost, what you can't see clearly. Then we walk you through a demo built around your services, your pain points, and how your business actually runs.</div>
+          <h3 class="step-title">Free Strategy Call &amp; Personalized Walkthrough</h3>
+          <div class="step-desc">A free, no-obligation call where we learn your operation: what software you use, where time is lost, what you can't see clearly. Then we walk you through a demo built around your services, your pain points, and how your business actually runs.</div>
         </div>
         <div>
           <span class="step-num">02</span>
-          <div class="step-title">Written Scope &amp; Proposal</div>
+          <h3 class="step-title">Written Scope &amp; Proposal</h3>
           <div class="step-desc">A document laying out exactly what gets built, the timeline, and the price. Everything agreed before any work begins.</div>
         </div>
         <div>
           <span class="step-num">03</span>
-          <div class="step-title">Build &amp; Test</div>
+          <h3 class="step-title">Build &amp; Test</h3>
           <div class="step-desc">We build your dashboard around your data and workflows. You test it before it goes live. Nothing ships until it works.</div>
         </div>
         <div>
           <span class="step-num">04</span>
-          <div class="step-title">Delivery &amp; Support</div>
+          <h3 class="step-title">Delivery &amp; Support</h3>
           <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee. Updates and new automations as you grow.</div>
         </div>
       </div>
@@ -551,7 +546,7 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
-    // Scroll reveals — enhance already-visible content (gated behind .js)
+    // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {

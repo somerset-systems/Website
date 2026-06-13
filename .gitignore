@@ -4,7 +4,10 @@
 # Claude Code local agent config (hooks, local settings)
 .claude/
 
-# Internal docs — not for the public repo
+# Full-resolution source photos (only the cropped *-avatar.jpg ships)
+Tommy07.JPG
+
+# Internal docs (not for the public repo)
 _private/
 CLAUDE.md
 PRODUCT.md

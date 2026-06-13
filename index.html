@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Somerset Systems: Operations dashboards for field-service businesses</title>
-  <meta name="description" content="Somerset Systems connects the software your field-service business already runs and automates the busywork around it. Built on the tools you already use, on a clear timeline we agree on upfront." />
+  <meta name="description" content="Somerset Systems connects the software your field-service business already runs and automates the busywork around it. No new tools to learn, on a timeline you agree on upfront." />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
@@ -34,7 +34,6 @@
     :root {
       --green:         #456650;
       --green-light:   #527B5E;
-      --green-dim:     rgba(69, 102, 80, 0.08);
       --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
       --green-deep:    #1C2E24;   /* hero + nav drenched surface */
@@ -42,7 +41,7 @@
       --green-deep-3:  #21372B;   /* hero gradient top */
       --green-deep-4:  #15231B;   /* hero gradient base */
       --sage:          #80A48B;   /* brand sage ramp */
-      --sage-light:    #A0C4AB;   /* pale sage — accents on deep green */
+      --sage-light:    #A0C4AB;   /* pale sage: accents on deep green */
       --bg:            #EFF2ED;   /* cool brand-neutral (replaces warm cream) */
       --bg-white:      #FFFFFF;
       --border:        rgba(0, 0, 0, 0.09);
@@ -61,7 +60,7 @@
 
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
-    /* Keyboard focus — visible ring on every interactive element */
+    /* Keyboard focus: visible ring on every interactive element */
     :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
     .cta-wrap a:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -95,15 +94,15 @@
     /* ── SCROLL REVEAL ─────────────────────────────────────── */
     /* Hidden state applies only when .js is present (default = visible). */
     .js .reveal {
-      opacity: 0; transform: translateY(28px); filter: blur(8px);
-      transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease);
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
     }
-    .js .reveal.in { opacity: 1; transform: none; filter: none; }
+    .js .reveal.in { opacity: 1; transform: none; }
     .js .stagger > * {
-      opacity: 0; transform: translateY(22px); filter: blur(6px);
-      transition: opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
     }
-    .js .stagger.in > * { opacity: 1; transform: none; filter: none; }
+    .js .stagger.in > * { opacity: 1; transform: none; }
     .js .stagger.in > *:nth-child(1) { transition-delay: .04s; }
     .js .stagger.in > *:nth-child(2) { transition-delay: .10s; }
     .js .stagger.in > *:nth-child(3) { transition-delay: .16s; }
@@ -113,7 +112,7 @@
     .js .stagger.in > *:nth-child(7) { transition-delay: .40s; }
     @media (prefers-reduced-motion: reduce) {
       .js .reveal, .js .stagger > * {
-        opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
+        opacity: 1 !important; transform: none !important; transition: none !important;
       }
     }
 
@@ -194,6 +193,7 @@
     /* ── HERO ──────────────────────────────────────────────── */
     .hero {
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center;
@@ -239,7 +239,7 @@
       margin-bottom: 28px;
     }
     .wm-row { display: block; white-space: nowrap; }
-    .wm-row-somerset { font-weight: 900; letter-spacing: -3px; }
+    .wm-row-somerset { font-weight: 900; letter-spacing: -0.025em; }
     .wm-row-systems  { font-weight: 600; letter-spacing: 0.18em; color: var(--sage-light); }
     .wm-letter {
       display: inline-block;
@@ -282,14 +282,10 @@
     .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px); }
     .section-h {
       font-size: clamp(30px, 3.8vw, 50px);
-      font-weight: 900; letter-spacing: -1.8px; line-height: 1.05;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.05;
       margin-bottom: 20px; text-wrap: balance;
     }
     .section-h em { font-style: italic; color: var(--green); }
-    .section-sub {
-      font-size: 16px; color: var(--soft); line-height: 1.65;
-      max-width: 500px; margin-bottom: clamp(36px, 5vw, 52px); text-wrap: pretty;
-    }
     .integ-bg .section-h    { margin-bottom: 36px; }
     .founders-bg .section-h { margin-bottom: 36px; }
     .faq-bg .section-h      { margin-bottom: 36px; }
@@ -307,7 +303,7 @@
     }
     .value-h {
       font-size: clamp(28px, 3.7vw, 47px);
-      font-weight: 900; letter-spacing: -1.6px; line-height: 1.08;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.08;
       margin-bottom: clamp(44px, 6vw, 68px); text-wrap: balance;
     }
     .value-h em { font-style: italic; color: var(--green); }
@@ -386,13 +382,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
       color: var(--green); margin-bottom: 12px; display: block;
     }
-    .founder-bio { font-size: 13.5px; color: var(--soft); line-height: 1.7; }
-    .founders-note {
-      margin-top: 30px; text-align: center;
-      font-size: 14px; color: var(--muted); line-height: 1.7; text-wrap: pretty;
-      max-width: 620px; margin-left: auto; margin-right: auto;
-    }
-    .founders-note strong { color: var(--soft); font-weight: 700; }
+    .founder-bio { font-size: 15px; color: var(--soft); line-height: 1.7; }
 
     /* ── FAQ ───────────────────────────────────────────────── */
     .faq-bg { background: var(--bg); border-top: 1px solid var(--border); }
@@ -413,7 +403,7 @@
     }
     .faq-a-inner {
       overflow: hidden;
-      font-size: 13.5px; color: var(--soft); line-height: 1.75; text-wrap: pretty;
+      font-size: 15px; color: var(--soft); line-height: 1.7; text-wrap: pretty;
     }
     .faq-a-inner p { margin-bottom: 12px; }
     .faq-a-inner p:last-child { margin-bottom: 0; }
@@ -435,10 +425,10 @@
     }
     .cta-wrap h2 {
       font-size: clamp(34px, 4.5vw, 60px);
-      font-weight: 900; letter-spacing: -2px; line-height: 1.05;
+      font-weight: 900; letter-spacing: -0.035em; line-height: 1.05;
       margin-bottom: 16px; color: #fff; text-wrap: balance;
     }
-    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.6); }
+    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.72); }
     .cta-wrap p { font-size: 17px; color: rgba(255,255,255,.85); margin-bottom: 44px; }
     .cta-logo { height: 64px; width: auto; margin-bottom: 30px; opacity: .92; }
     .btn-white {
@@ -448,7 +438,6 @@
       display: inline-block; transition: opacity .2s, transform .15s;
     }
     .btn-white:hover { opacity: .92; transform: translateY(-1px); }
-    .cta-note { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,.4); }
 
     /* ── FOOTER ────────────────────────────────────────────── */
     footer {
@@ -544,11 +533,11 @@
       <div class="hero-sheen"></div>
     </div>
     <img class="hero-mark" src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="86" height="86" decoding="async" />
-    <h1 class="hero-wordmark">
+    <div class="hero-wordmark" aria-hidden="true">
       <span class="wm-row wm-row-somerset"><span class="wm-letter" style="animation-delay:0s">S</span><span class="wm-letter" style="animation-delay:.07s">O</span><span class="wm-letter" style="animation-delay:.14s">M</span><span class="wm-letter" style="animation-delay:.21s">E</span><span class="wm-letter" style="animation-delay:.28s">R</span><span class="wm-letter" style="animation-delay:.35s">S</span><span class="wm-letter" style="animation-delay:.42s">E</span><span class="wm-letter" style="animation-delay:.49s">T</span></span>
       <span class="wm-row wm-row-systems"><span class="wm-letter" style="animation-delay:.60s">S</span><span class="wm-letter" style="animation-delay:.67s">Y</span><span class="wm-letter" style="animation-delay:.74s">S</span><span class="wm-letter" style="animation-delay:.81s">T</span><span class="wm-letter" style="animation-delay:.88s">E</span><span class="wm-letter" style="animation-delay:.95s">M</span><span class="wm-letter" style="animation-delay:1.02s">S</span></span>
-    </h1>
-    <p class="hero-sub">We connect the software you already run, then automate the busywork around it.</p>
+    </div>
+    <h1 class="hero-sub">We connect the software you already run, then automate the busywork around it.</h1>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-hero">Book a Consultation</a>
     <div class="hero-scroll" aria-hidden="true">
       <span>Scroll</span>
@@ -612,7 +601,7 @@
         <div class="founder-card">
           <img class="founder-avatar founder-photo" src="Tommy07-avatar.jpg" width="68" height="68" alt="Thomas Ankenbrandt" decoding="async" loading="lazy" />
           <div>
-            <div class="founder-name">Thomas Ankenbrandt</div>
+            <h3 class="founder-name">Thomas Ankenbrandt</h3>
             <span class="founder-role">Co-Founder</span>
             <div class="founder-bio">Electrical engineering from Cal Poly SLO. He also has experience working on finance, data, and marketing automations. Now he leads every technical build at Somerset: field crews, dispatch, job costing, and connecting software that wasn't designed to talk to each other. Off the clock, you'll usually find him with a guitar in hand or on the basketball court.</div>
           </div>
@@ -620,7 +609,7 @@
         <div class="founder-card">
           <div class="founder-avatar av-brown">VJ</div>
           <div>
-            <div class="founder-name">Victor Josifovski</div>
+            <h3 class="founder-name">Victor Josifovski</h3>
             <span class="founder-role">Co-Founder</span>
             <div class="founder-bio">Legal background with a focus on professional services and document workflows. Handles contracts, compliance, and client structure. Ensures every engagement is scoped cleanly and every client is protected.</div>
           </div>
@@ -637,27 +626,27 @@
       <div class="faq-list reveal">
         <div class="faq-item">
           <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
+          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" inert><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2"><div class="faq-a-inner">Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</div></div>
+          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" inert><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3"><div class="faq-a-inner">Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</div></div>
+          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" inert><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4"><div class="faq-a-inner">No. The build is a one-time project, and ongoing support is a flat monthly fee you can cancel if it stops earning its keep. There are no long-term contracts and no setup tricks. We would rather keep your business because the system works than because you are locked in.</div></div>
+          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" inert><div class="faq-a-inner"><p>No. The build is a one-time project, and ongoing support is a flat monthly fee you can cancel if it stops earning its keep. There are no long-term contracts and no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5"><div class="faq-a-inner">Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. If you want a sense of what this could save you first, take the <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener">Operational Opportunity Assessment</a>.</div></div>
+          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" inert><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. If you want a sense of what this could save you first, take the <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener">Operational Opportunity Assessment</a>.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6"><div class="faq-a-inner">Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</div></div>
+          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6" inert><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
         </div>
       </div>
     </div>
@@ -695,10 +684,12 @@
       document.querySelectorAll('.faq-item').forEach(i => {
         i.classList.remove('open');
         i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq-a').setAttribute('inert', '');
       });
       if (!isOpen) {
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        item.querySelector('.faq-a').removeAttribute('inert');
       }
     }
 
@@ -718,7 +709,7 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
-    // Scroll reveals — enhance already-visible content (gated behind .js)
+    // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
