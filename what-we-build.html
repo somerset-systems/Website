@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What We Build: Somerset Systems</title>
+  <meta name="description" content="What Somerset Systems can build today: document and proposal automation, a live operations dashboard, scheduling, owner briefings, capacity forecasting, profitability analysis, pipeline tracking, automated follow-up, and industry intelligence. We start with the one automation that moves the needle most, built to grow into a complete operational layer on a timeline we agree on upfront." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="What We Build: Somerset Systems" />
+  <meta property="og:description" content="The full set of capabilities in a Somerset Systems build: automation, live operations, reporting, and the work that finds money you're leaving on the table." />
+  <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
+  <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
+  <meta property="og:site_name" content="Somerset Systems" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What We Build: Somerset Systems" />
+  <meta name="twitter:description" content="The full set of capabilities in a Somerset Systems build, on the software you already use." />
+  <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,900&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green:         #456650;
+      --green-light:   #527B5E;
+      --green-dim:     rgba(69, 102, 80, 0.08);
+      --green-border:  rgba(69, 102, 80, 0.18);
+      --brown:         #7A4828;
+      --green-deep:    #1C2E24;
+      --green-deep-2:  #2C4636;
+      --green-deep-3:  #21372B;
+      --green-deep-4:  #15231B;
+      --sage:          #80A48B;
+      --sage-light:    #A0C4AB;
+      --bg:            #EFF2ED;
+      --bg-white:      #FFFFFF;
+      --border:        rgba(0, 0, 0, 0.09);
+      --border-strong: rgba(0, 0, 0, 0.14);
+      --text:          #1A1512;
+      --soft:          #4A4540;
+      --muted:         #6E665E;
+
+      --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+      --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+      --sp-20: 80px; --sp-24: 96px;
+
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+    .cta-wrap a:focus-visible, .wwb-header a:focus-visible, .assess-bg a:focus-visible { outline-color: #fff; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    .skip-link {
+      position: fixed; top: 10px; left: 10px; z-index: 300;
+      background: var(--green-deep); color: #fff;
+      padding: 11px 20px; border-radius: 8px;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transform: translateY(-160%); transition: transform .22s var(--ease);
+    }
+    .skip-link:focus-visible { transform: none; outline-offset: 2px; }
+    #main:focus { outline: none; }
+    @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLL REVEAL ─────────────────────────────────────── */
+    .js .reveal {
+      opacity: 0; transform: translateY(28px); filter: blur(8px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease);
+    }
+    .js .reveal.in { opacity: 1; transform: none; filter: none; }
+    .js .stagger > * {
+      opacity: 0; transform: translateY(22px); filter: blur(6px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
+    }
+    .js .stagger.in > * { opacity: 1; transform: none; filter: none; }
+    .js .stagger.in > *:nth-child(1) { transition-delay: .04s; }
+    .js .stagger.in > *:nth-child(2) { transition-delay: .09s; }
+    .js .stagger.in > *:nth-child(3) { transition-delay: .14s; }
+    .js .stagger.in > *:nth-child(4) { transition-delay: .19s; }
+    .js .stagger.in > *:nth-child(5) { transition-delay: .24s; }
+    .js .stagger.in > *:nth-child(6) { transition-delay: .29s; }
+    @media (prefers-reduced-motion: reduce) {
+      .js .reveal, .js .stagger > * {
+        opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
+      }
+    }
+
+    /* ── NAV ───────────────────────────────────────────────── */
+    body > nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 60px; height: 66px;
+      background: rgba(22, 36, 28, 0.82);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo img { height: 34px; width: auto; display: block; }
+    .nav-logo .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
+    .nav-logo .nav-wm-1 { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; color: #fff; }
+    .nav-logo .nav-wm-2 { font-size: 8.5px; font-weight: 600; letter-spacing: 0.32em; color: var(--sage-light); margin-top: 2px; }
+    .nav-links { display: flex; gap: 30px; align-items: center; justify-content: center; }
+    .nav-links a {
+      font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.68);
+      text-decoration: none; transition: color .2s; white-space: nowrap;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active { color: var(--sage-light); }
+    .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 44px; height: 44px; padding: 11px; margin-right: -11px;
+      background: none; border: none; cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%; border-radius: 2px;
+      background: #fff; transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 66px; left: 0; right: 0; z-index: 190;
+      flex-direction: column; padding: 8px 24px 18px;
+      background: rgba(22, 36, 28, 0.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden;
+      transition: opacity .25s ease, transform .25s var(--ease), visibility .25s;
+    }
+    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    .mobile-menu a {
+      font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.82);
+      text-decoration: none; padding: 13px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu-cta {
+      margin-top: 12px; text-align: center; color: var(--green-deep) !important;
+      background: var(--sage-light); border-radius: 8px; padding: 14px 0 !important; font-weight: 800 !important;
+    }
+    @media (prefers-reduced-motion: reduce) { .mobile-menu { transition: opacity .2s ease; transform: none; } }
+    .nav-cta {
+      background: var(--sage-light); color: var(--green-deep);
+      padding: 9px 20px; border-radius: 7px;
+      font-size: 13px; font-weight: 800; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+    @media (prefers-reduced-motion: reduce) {
+      .nav-cta:hover, .btn-white:hover, .btn-assess:hover, .btn-back:hover { transform: none; }
+    }
+
+    /* ── PAGE HEADER (compact deep-green band) ─────────────── */
+    .wwb-header {
+      position: relative; overflow: hidden; color: #fff;
+      padding: 150px 40px 84px; text-align: center;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% -10%, var(--green-deep-2) 0%, transparent 62%),
+        linear-gradient(168deg, var(--green-deep-3) 0%, var(--green-deep) 58%, var(--green-deep-4) 100%);
+    }
+    .wwb-header-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .wwb-rings { position: absolute; width: 560px; height: 560px; opacity: .5; }
+    .wwb-rings circle { fill: none; stroke: rgba(255, 255, 255, 0.10); stroke-width: 2; }
+    .wwb-rings.tl { top: -260px; left: -200px; }
+    .wwb-rings.br { bottom: -280px; right: -190px; }
+    .wwb-header > * { position: relative; z-index: 1; }
+    .wwb-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+      color: var(--sage-light); text-decoration: none; margin-bottom: 22px; transition: color .2s;
+    }
+    .wwb-eyebrow svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .2s var(--ease); }
+    .wwb-eyebrow:hover { color: #fff; }
+    .wwb-eyebrow:hover svg { transform: translateX(-3px); }
+    .wwb-title {
+      font-size: clamp(34px, 5vw, 62px);
+      font-weight: 900; letter-spacing: -2px; line-height: 1.04;
+      margin-bottom: 22px; text-wrap: balance;
+    }
+    .wwb-title em { font-style: italic; color: var(--sage-light); }
+    .wwb-lede {
+      font-size: clamp(16px, 1.7vw, 19px); color: rgba(255, 255, 255, 0.82);
+      max-width: 640px; margin: 0 auto; line-height: 1.65; text-wrap: pretty;
+    }
+
+    /* ── SHARED SECTION ────────────────────────────────────── */
+    .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px); }
+    .section-h {
+      font-size: clamp(28px, 3.4vw, 44px);
+      font-weight: 900; letter-spacing: -1.6px; line-height: 1.06;
+      margin-bottom: 18px; text-wrap: balance;
+    }
+    .section-h em { font-style: italic; color: var(--green); }
+    .section-sub {
+      font-size: 16px; color: var(--soft); line-height: 1.65;
+      max-width: 560px; margin-bottom: clamp(40px, 5vw, 56px); text-wrap: pretty;
+    }
+
+    /* ── FEATURES ──────────────────────────────────────────── */
+    .features-bg {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .category-block { margin-bottom: 64px; }
+    .category-block:last-child { margin-bottom: 0; }
+    .category-title {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
+      color: var(--text); margin-bottom: 26px; text-wrap: balance;
+    }
+    .features-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      column-gap: 44px; border-top: 1px solid var(--border);
+    }
+    .features-list.two-col { grid-template-columns: repeat(2, 1fr); column-gap: 64px; }
+    .f-item { padding: 26px 0; border-bottom: 1px solid var(--border); }
+    .f-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; }
+    .f-desc { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+    .f-item:first-child .f-name { color: var(--green); }
+
+    /* ── PROCESS ───────────────────────────────────────────── */
+    .process-bg {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .process-bg .section-h { margin-bottom: 48px; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; position: relative;
+    }
+    .steps-grid::before {
+      content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 1px; background: var(--border-strong);
+    }
+    .step-num {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-size: 11px; font-weight: 800; line-height: 1; margin-bottom: 16px;
+    }
+    .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
+    .step-desc  { font-size: 13px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+
+    /* ── ASSESSMENT ────────────────────────────────────────── */
+    .assess-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, var(--green-deep-2) 0%, transparent 65%),
+        var(--green-deep);
+      color: #fff; text-align: center;
+      padding: clamp(64px, 8vw, 92px) clamp(28px, 5vw, 60px);
+    }
+    .assess-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+    .assess-h {
+      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; letter-spacing: -1.4px;
+      line-height: 1.08; margin-bottom: 16px; text-wrap: balance;
+    }
+    .assess-h em { font-style: italic; color: var(--sage-light); }
+    .assess-text {
+      font-size: 16px; color: rgba(255, 255, 255, 0.82); line-height: 1.65;
+      margin-bottom: 32px; max-width: 500px; text-wrap: pretty;
+    }
+    .btn-assess {
+      background: var(--sage-light); color: var(--green-deep);
+      padding: 15px 32px; border-radius: 8px;
+      font-size: 15px; font-weight: 800; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      max-width: 100%; line-height: 1.3; text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: background .2s, transform .15s;
+    }
+    .btn-assess svg { width: 16px; height: 16px; stroke: currentColor; flex-shrink: 0; }
+    .btn-assess:hover { background: #fff; transform: translateY(-1px); }
+
+    /* ── CTA ───────────────────────────────────────────────── */
+    .cta-wrap {
+      text-align: center;
+      padding: clamp(80px, 10vw, 108px) clamp(28px, 5vw, 60px);
+      background: var(--green);
+    }
+    .cta-logo { height: 64px; width: auto; margin-bottom: 30px; opacity: .92; }
+    .cta-wrap h2 {
+      font-size: clamp(34px, 4.5vw, 60px);
+      font-weight: 900; letter-spacing: -2px; line-height: 1.05;
+      margin-bottom: 16px; color: #fff; text-wrap: balance;
+    }
+    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.6); }
+    .cta-wrap p { font-size: 17px; color: rgba(255,255,255,.85); margin-bottom: 44px; }
+    .btn-white {
+      background: #fff; color: var(--green);
+      padding: 15px 40px; border-radius: 8px;
+      font-size: 15px; font-weight: 800; text-decoration: none;
+      display: inline-block; transition: opacity .2s, transform .15s;
+    }
+    .btn-white:hover { opacity: .92; transform: translateY(-1px); }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--bg); padding: 30px 60px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo img { height: 26px; width: auto; display: block; }
+    .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: var(--text); }
+    .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      body > nav { display: flex; justify-content: space-between; padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .mobile-menu { display: flex; }
+      .nav-end .nav-cta { display: none; }
+      footer { padding: 28px 24px; flex-direction: column; }
+      .footer-links { gap: 6px; flex-direction: column; align-items: center; }
+      .footer-links a { padding: 12px 8px; }
+      .features-list { grid-template-columns: repeat(2, 1fr); }
+      .features-list.two-col { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+    }
+    @media (max-width: 560px) {
+      .wwb-header { padding: 130px 20px 70px; }
+      .wwb-rings { display: none; }
+      .features-list { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Somerset Systems home">
+      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="34" height="34" />
+      <span class="nav-wordmark"><span class="nav-wm-1">SOMERSET</span><span class="nav-wm-2">SYSTEMS</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="what-we-build.html" class="active" aria-current="page">What We Build</a>
+      <a href="index.html#integrations">Integrations</a>
+      <a href="index.html#team">Team</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="nav-end">
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="nav-cta">Book a Consultation</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="what-we-build.html" onclick="closeMenu()">What We Build</a>
+    <a href="index.html#integrations">Integrations</a>
+    <a href="index.html#team">Team</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Consultation</a>
+  </div>
+
+
+  <main id="main" tabindex="-1">
+
+  <!-- PAGE HEADER -->
+  <header class="wwb-header">
+    <div class="wwb-header-bg" aria-hidden="true">
+      <svg class="wwb-rings tl" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg>
+      <svg class="wwb-rings br" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg>
+    </div>
+    <a href="index.html" class="wwb-eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to home
+    </a>
+    <h1 class="wwb-title">Start Focused,<br><em>Built to Grow</em></h1>
+    <p class="wwb-lede">We start focused — with the one automation that moves the needle most for your business — built to expand into a complete operational layer as you grow. Here's what we can build today, and where each piece earns its keep.</p>
+  </header>
+
+
+  <!-- FEATURES -->
+  <section class="features-bg" id="capabilities" aria-labelledby="features-h">
+    <div class="section-wrap">
+      <div class="category-block">
+        <h2 class="category-title reveal" id="features-h">Run a Tighter Operation</h2>
+        <div class="features-list stagger">
+          <div class="f-item">
+            <div class="f-name">Document &amp; Proposal Automation</div>
+            <div class="f-desc">Proposals, contracts, and invoices drafted automatically from your existing data. Your team reviews and approves with one click, no manual writing.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Live Operations Dashboard</div>
+            <div class="f-desc">All active work, team assignments, and statuses in one real-time view. Stop chasing people to find out where things stand.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Scheduling &amp; Coordination</div>
+            <div class="f-desc">Assign the right people to the right work based on availability and priority. Less overhead, more output per day.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Owner Briefings &amp; Reports</div>
+            <div class="f-desc">A daily summary written from your live data: what's overdue, what needs attention, how revenue is trending, delivered to your phone automatically.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Capacity Forecasting</div>
+            <div class="f-desc">See how much work your team can take on 30, 60, and 90 days out. Know before a busy period whether you're stretched or have room to grow.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">AI Operations Assistant</div>
+            <div class="f-desc">Ask your business a plain-English question ("What's overdue?" "What was my margin last month?") and get an instant answer from your live data.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <h2 class="category-title reveal">Find the Money You're Leaving on the Table</h2>
+        <div class="features-list two-col stagger">
+          <div class="f-item">
+            <div class="f-name">Profitability Analysis</div>
+            <div class="f-desc">See which clients, job types, and team members generate the most actual margin: not just revenue billed, but real profit after costs.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Pipeline &amp; Estimate Tracking</div>
+            <div class="f-desc">Surface open proposals and pending decisions before they go cold. Track conversion rates and follow up automatically before anything is missed.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Automated Follow-Up</div>
+            <div class="f-desc">Reminders, renewal nudges, and client check-ins running automatically, without anyone managing a list or remembering to send a message.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Unified Reporting</div>
+            <div class="f-desc">All your software data (operations, accounting, CRM) reconciled into one clear view without pulling anything manually.</div>
+          </div>
+          <div class="f-item">
+            <div class="f-name">Industry Intelligence &amp; Research</div>
+            <div class="f-desc">Surfaces the regulatory changes, recalls, and market signals that affect your business, each tied to your own accounts and equipment with the revenue opportunity attached. Market-made work lands on your desk instead of slipping past.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PROCESS -->
+  <section class="process-bg" id="process" aria-labelledby="process-h">
+    <div class="section-wrap">
+      <h2 class="section-h reveal" id="process-h">A Clear Timeline Upfront,<br><em>Then We Move Fast</em></h2>
+      <div class="steps-grid stagger">
+        <div>
+          <span class="step-num">01</span>
+          <div class="step-title">Free Strategy Call &amp; Personalized Walkthrough</div>
+          <div class="step-desc">A free, no-obligation call where we learn your operation — what software you use, where time is lost, what you can't see clearly. Then we walk you through a demo built around your services, your pain points, and how your business actually runs.</div>
+        </div>
+        <div>
+          <span class="step-num">02</span>
+          <div class="step-title">Written Scope &amp; Proposal</div>
+          <div class="step-desc">A document laying out exactly what gets built, the timeline, and the price. Everything agreed before any work begins.</div>
+        </div>
+        <div>
+          <span class="step-num">03</span>
+          <div class="step-title">Build &amp; Test</div>
+          <div class="step-desc">We build your dashboard around your data and workflows. You test it before it goes live. Nothing ships until it works.</div>
+        </div>
+        <div>
+          <span class="step-num">04</span>
+          <div class="step-title">Delivery &amp; Support</div>
+          <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee. Updates and new automations as you grow.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ASSESSMENT -->
+  <section class="assess-bg" aria-labelledby="assess-h">
+    <div class="assess-inner reveal">
+      <h2 class="assess-h" id="assess-h">What Would This Surface<br><em>in Your Operation?</em></h2>
+      <p class="assess-text">Answer a few questions about how you run today, and get a read on where time and revenue are most likely slipping through the cracks.</p>
+      <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener" class="btn-assess">
+        Take the Operational Opportunity Assessment
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta-wrap" id="contact" aria-labelledby="cta-h">
+    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="64" height="64" decoding="async">
+    <h2 id="cta-h">Ready to See<br><em>What's Possible?</em></h2>
+    <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-white">Book a Consultation</a>
+  </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="26" height="26" />
+      <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:thomas@somersetsystems.co">thomas@somersetsystems.co</a>
+      <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>
+    </div>
+    <div class="footer-copy">© 2026 Somerset Systems LLC</div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMenu() {
+      const open = mobileMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
+
+    // Scroll reveals — enhance already-visible content (gated behind .js)
+    const revealEls = document.querySelectorAll('.reveal, .stagger');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('in'));
+    }
+  </script>
+
+</body>
+</html>

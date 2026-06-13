@@ -1,6 +1,9 @@
 # Design-iteration tool working state (local only)
 .impeccable/
 
+# Claude Code local agent config (hooks, local settings)
+.claude/
+
 # Internal docs — not for the public repo
 _private/
 CLAUDE.md
