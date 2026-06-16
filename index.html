@@ -3,20 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Somerset Systems: Operations dashboards for field-service businesses</title>
+  <title>Somerset Systems | AI Operations & Automation</title>
   <meta name="description" content="Somerset Systems connects the software your field-service business already runs and automates the busywork around it. No new tools to learn, on a timeline you agree on upfront." />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Somerset Systems: Operations dashboards for field-service businesses" />
+  <meta property="og:title" content="Somerset Systems | AI Operations & Automation" />
   <meta property="og:description" content="We connect the software you already run, then automate the busywork around it. No new tools to learn, on a clear timeline we agree on upfront." />
   <meta property="og:url" content="https://somersetsystems.co/" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Somerset Systems: Operations dashboards for field-service businesses" />
+  <meta name="twitter:title" content="Somerset Systems | AI Operations & Automation" />
   <meta name="twitter:description" content="We connect the software you already run, then automate the busywork around it. No new tools to learn." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
+
+  <link rel="canonical" href="https://somersetsystems.co/" />
+
+  <!-- Structured data: Organization + site -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://somersetsystems.co/#organization",
+        "name": "Somerset Systems",
+        "url": "https://somersetsystems.co/",
+        "logo": "https://somersetsystems.co/web-app-manifest-512x512.png",
+        "description": "AI operations and automation consultancy for small field-service businesses. We connect the software you already run, then automate the busywork around it.",
+        "email": "thomas@somersetsystems.co",
+        "founder": [
+          { "@type": "Person", "name": "Thomas Ankenbrandt", "jobTitle": "Co-Founder", "email": "thomas@somersetsystems.co" },
+          { "@type": "Person", "name": "Victor Josifovski", "jobTitle": "Co-Founder", "email": "victor@somersetsystems.co" }
+        ],
+        "knowsAbout": ["Business process automation", "Operations dashboards", "Document workflow automation", "Field service software integration"],
+        "areaServed": "US"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://somersetsystems.co/#website",
+        "url": "https://somersetsystems.co/",
+        "name": "Somerset Systems",
+        "publisher": { "@id": "https://somersetsystems.co/#organization" }
+      }
+    ]
+  }
+  </script>
 
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
@@ -477,6 +510,8 @@
       .hero-panel, .hero-rings { display: none; }
       .wm-row-systems { letter-spacing: .08em; }
       .integ-grid { grid-template-columns: repeat(2, 1fr); }
+      .integ-card { min-width: 0; padding: 20px 14px; }
+      .integ-card img { max-width: 100%; }
       .founder-card { flex-direction: column; gap: 16px; }
     }
   </style>
@@ -584,7 +619,7 @@
         <div class="integ-card"><img src="logos/servicetitan.png" alt="ServiceTitan" width="138" height="30" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/jobber.svg" alt="Jobber" width="138" height="25" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/procore.svg" alt="Procore" width="138" height="18" loading="lazy" decoding="async" /></div>
-        <div class="integ-card"><img src="logos/clio.svg" alt="Clio" width="120" height="30" loading="lazy" decoding="async" /></div>
+        <div class="integ-card"><img src="logos/fieldedge.svg" alt="FieldEdge" width="106" height="30" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/housecallpro.svg" alt="Housecall Pro" width="138" height="22" loading="lazy" decoding="async" /></div>
         <div class="integ-card integ-more">+ your software</div>
       </div>
@@ -696,17 +731,35 @@
     // Mobile menu
     const navToggle = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
-    function toggleMenu() {
-      const open = mobileMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close menu');
+      const first = mobileMenu.querySelector('a');
+      if (first) first.focus();
     }
-    function closeMenu() {
+    function closeMenu(restoreFocus) {
+      if (!mobileMenu.classList.contains('open')) return;
       mobileMenu.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.setAttribute('aria-label', 'Open menu');
+      if (restoreFocus) navToggle.focus();
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    function toggleMenu() {
+      if (mobileMenu.classList.contains('open')) closeMenu(true);
+      else openMenu();
+    }
+    // Keep focus inside the open menu; Escape closes and returns focus to the toggle.
+    mobileMenu.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeMenu(true); return; }
+      if (e.key !== 'Tab') return;
+      const items = mobileMenu.querySelectorAll('a');
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
     // Scroll reveals: enhance already-visible content (gated behind .js)

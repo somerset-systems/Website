@@ -11,3 +11,8 @@ Tommy07.JPG
 _private/
 CLAUDE.md
 PRODUCT.md
+
+# Local audit artifacts (review output, not site files)
+A11Y_REPORT.md
+QA_REPORT.md
+qa-screenshots/

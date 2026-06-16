@@ -17,6 +17,27 @@
   <meta name="twitter:description" content="The full set of capabilities in a Somerset Systems build, on the software you already use." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
+  <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
+
+  <!-- Structured data: this page + publisher -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://somersetsystems.co/what-we-build.html#webpage",
+    "url": "https://somersetsystems.co/what-we-build.html",
+    "name": "What We Build: Somerset Systems",
+    "description": "What Somerset Systems builds: document automation, a live operations dashboard, owner briefings, profitability analysis, and automated follow-up, on the software you already use.",
+    "isPartOf": { "@id": "https://somersetsystems.co/#website" },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://somersetsystems.co/#organization",
+      "name": "Somerset Systems",
+      "url": "https://somersetsystems.co/"
+    }
+  }
+  </script>
+
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
   <link rel="shortcut icon" href="favicon.ico" />
@@ -533,17 +554,35 @@
     // Mobile menu
     const navToggle = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
-    function toggleMenu() {
-      const open = mobileMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close menu');
+      const first = mobileMenu.querySelector('a');
+      if (first) first.focus();
     }
-    function closeMenu() {
+    function closeMenu(restoreFocus) {
+      if (!mobileMenu.classList.contains('open')) return;
       mobileMenu.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.setAttribute('aria-label', 'Open menu');
+      if (restoreFocus) navToggle.focus();
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    function toggleMenu() {
+      if (mobileMenu.classList.contains('open')) closeMenu(true);
+      else openMenu();
+    }
+    // Keep focus inside the open menu; Escape closes and returns focus to the toggle.
+    mobileMenu.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeMenu(true); return; }
+      if (e.key !== 'Tab') return;
+      const items = mobileMenu.querySelectorAll('a');
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
