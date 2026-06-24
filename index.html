@@ -267,24 +267,58 @@
     }
     .hero-wordmark {
       position: relative;
-      font-size: clamp(38px, 12.5vw, 136px);
-      font-weight: 900; letter-spacing: 0; line-height: 1;
-      margin-bottom: 28px;
+      line-height: 1;
+      margin-bottom: 30px;
     }
-    .wm-row { display: block; white-space: nowrap; }
-    .wm-row-somerset { font-weight: 900; letter-spacing: -0.025em; }
-    .wm-row-systems  { font-weight: 600; letter-spacing: 0.18em; color: var(--sage-light); }
-    .wm-letter {
-      display: inline-block;
-      animation: wm-shimmer 0.85s ease-out 1 both;
+
+    /* SOMERSET: the name. Brand Montserrat, with a technical "settle into focus" entrance. */
+    .wm-row-somerset {
+      display: block; white-space: nowrap;
+      font-size: clamp(46px, 14vw, 150px);
+      font-weight: 900; letter-spacing: -0.035em; line-height: 0.9;
+      color: #F2F8F3;
+      animation: wm-settle 1.5s var(--ease) both, wm-glow 2.5s ease-in-out both;
     }
-    @keyframes wm-shimmer {
-      0%   { transform: translateY(0);    filter: brightness(1); text-shadow: none; }
-      45%  { transform: translateY(-7px); filter: brightness(1.4); text-shadow: 0 0 20px rgba(82,123,94,.5); }
-      100% { transform: translateY(0);    filter: brightness(1); text-shadow: none; }
+    @keyframes wm-settle {
+      0%   { opacity: 0; letter-spacing: 0.16em; filter: blur(5px); }
+      60%  { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; letter-spacing: -0.035em; filter: blur(0); }
     }
+    /* glow runs on its own, longer ease-in-out timeline so it fizzles out gently
+       (alpha fades while the blur stays soft) instead of cutting off at the end */
+    @keyframes wm-glow {
+      0%   { text-shadow: 0 0 0   rgba(128, 164, 139, 0); }
+      18%  { text-shadow: 0 0 40px rgba(128, 164, 139, 0.5); }
+      42%  { text-shadow: 0 0 36px rgba(128, 164, 139, 0.32); }
+      68%  { text-shadow: 0 0 32px rgba(128, 164, 139, 0.14); }
+      85%  { text-shadow: 0 0 28px rgba(128, 164, 139, 0.05); }
+      100% { text-shadow: 0 0 26px rgba(128, 164, 139, 0); }
+    }
+
+    /* SYSTEMS: the descriptor. Tracked, in brand sage, on flanking rules — the technical sublabel. */
+    .wm-row-systems {
+      display: flex; align-items: center; justify-content: center;
+      gap: clamp(12px, 1.6vw, 22px);
+      margin-top: clamp(12px, 1.5vw, 20px);
+      opacity: 0; animation: wm-fade 0.8s var(--ease) 0.9s both;
+    }
+    .wm-systems-word {
+      font-size: clamp(11px, 2.1vw, 21px);
+      font-weight: 600; letter-spacing: 0.5em; color: var(--sage);
+      padding-left: 0.5em; /* balances the trailing letter-spacing between the rules */
+      white-space: nowrap;
+    }
+    .wm-rule {
+      display: block; height: 1px; width: clamp(26px, 7vw, 78px);
+      background: linear-gradient(90deg, transparent, var(--sage));
+      opacity: 0.6;
+    }
+    .wm-rule:last-child { background: linear-gradient(90deg, var(--sage), transparent); }
+    @keyframes wm-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
     @media (prefers-reduced-motion: reduce) {
-      .wm-letter { animation: none; }
+      .wm-row-somerset { animation: none; opacity: 1; letter-spacing: -0.035em; filter: none; text-shadow: none; }
+      .wm-row-systems { animation: none; opacity: 1; }
       .btn-hero:hover, .btn-white:hover, .btn-assess:hover, .nav-cta:hover { transform: none; }
     }
     .hero-sub {
@@ -508,7 +542,8 @@
       .hero { padding: 120px 20px 80px; }
       .hero-mark { width: 64px; height: 64px; margin-bottom: 18px; }
       .hero-panel, .hero-rings { display: none; }
-      .wm-row-systems { letter-spacing: .08em; }
+      .wm-systems-word { letter-spacing: 0.36em; padding-left: 0.36em; }
+      .wm-rule { width: clamp(20px, 9vw, 40px); }
       .integ-grid { grid-template-columns: repeat(2, 1fr); }
       .integ-card { min-width: 0; padding: 20px 14px; }
       .integ-card img { max-width: 100%; }
@@ -569,10 +604,10 @@
     </div>
     <img class="hero-mark" src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="86" height="86" decoding="async" />
     <div class="hero-wordmark" aria-hidden="true">
-      <span class="wm-row wm-row-somerset"><span class="wm-letter" style="animation-delay:0s">S</span><span class="wm-letter" style="animation-delay:.07s">O</span><span class="wm-letter" style="animation-delay:.14s">M</span><span class="wm-letter" style="animation-delay:.21s">E</span><span class="wm-letter" style="animation-delay:.28s">R</span><span class="wm-letter" style="animation-delay:.35s">S</span><span class="wm-letter" style="animation-delay:.42s">E</span><span class="wm-letter" style="animation-delay:.49s">T</span></span>
-      <span class="wm-row wm-row-systems"><span class="wm-letter" style="animation-delay:.60s">S</span><span class="wm-letter" style="animation-delay:.67s">Y</span><span class="wm-letter" style="animation-delay:.74s">S</span><span class="wm-letter" style="animation-delay:.81s">T</span><span class="wm-letter" style="animation-delay:.88s">E</span><span class="wm-letter" style="animation-delay:.95s">M</span><span class="wm-letter" style="animation-delay:1.02s">S</span></span>
+      <span class="wm-row wm-row-somerset">SOMERSET</span>
+      <span class="wm-row wm-row-systems"><i class="wm-rule"></i><span class="wm-systems-word">SYSTEMS</span><i class="wm-rule"></i></span>
     </div>
-    <h1 class="hero-sub">We connect the software you already run, then automate the busywork around it.</h1>
+    <h1 class="hero-sub">Layered intelligence for the service industry.</h1>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-hero">Book a Consultation</a>
     <div class="hero-scroll" aria-hidden="true">
       <span>Scroll</span>
@@ -616,11 +651,11 @@
       <h2 class="section-h reveal" id="integ-h">Works With the Tools<br><em>You Already Use</em></h2>
       <div class="integ-grid stagger">
         <div class="integ-card is-icon"><img src="logos/quickbooks.svg" alt="QuickBooks" width="40" height="40" loading="lazy" decoding="async" /></div>
-        <div class="integ-card"><img src="logos/servicetitan.png" alt="ServiceTitan" width="138" height="30" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/jobber.svg" alt="Jobber" width="138" height="25" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/procore.svg" alt="Procore" width="138" height="18" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/fieldedge.svg" alt="FieldEdge" width="106" height="30" loading="lazy" decoding="async" /></div>
         <div class="integ-card"><img src="logos/housecallpro.svg" alt="Housecall Pro" width="138" height="22" loading="lazy" decoding="async" /></div>
+        <div class="integ-card"><img src="logos/servicetitan.png" alt="ServiceTitan" width="138" height="30" loading="lazy" decoding="async" /></div>
         <div class="integ-card integ-more">+ your software</div>
       </div>
       <p class="integ-note reveal">Don't see yours? If it has an export or an API, we can almost certainly connect it.</p>
