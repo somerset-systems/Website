@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service | Somerset Systems</title>
+  <meta name="description" content="Somerset Systems Online Cloud Terms — the terms of service governing use of the Somerset Systems platform." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://somersetsystems.co/privacy-policy.html" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green:         #456650;
+      --green-light:   #527B5E;
+      --green-deep:    #1C2E24;
+      --green-deep-2:  #2C4636;
+      --green-deep-3:  #21372B;
+      --green-deep-4:  #15231B;
+      --sage-light:    #A0C4AB;
+      --bg:            #EFF2ED;
+      --bg-white:      #FFFFFF;
+      --border:        rgba(0, 0, 0, 0.09);
+      --text:          #1A1512;
+      --soft:          #4A4540;
+      --muted:         #6E665E;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    body > nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px; height: 66px;
+      background: rgba(22, 36, 28, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo img { height: 34px; width: auto; display: block; }
+    .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
+    .nav-wm-1 { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; color: #fff; }
+    .nav-wm-2 { font-size: 8.5px; font-weight: 600; letter-spacing: 0.32em; color: var(--sage-light); margin-top: 2px; }
+    .nav-back { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.7); text-decoration: none; transition: color .2s; }
+    .nav-back:hover { color: #fff; }
+    @media (max-width: 600px) { nav { padding: 0 24px; } }
+
+    /* ── HERO BAND ────────────────────────────────────────── */
+    .doc-hero {
+      padding: 130px 24px 56px;
+      text-align: center; color: #fff;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% -8%, var(--green-deep-2) 0%, transparent 60%),
+        linear-gradient(168deg, var(--green-deep-3) 0%, var(--green-deep) 56%, var(--green-deep-4) 100%);
+    }
+    .doc-hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 14px; }
+    .doc-hero .eff { font-size: 14px; color: rgba(255,255,255,.7); font-weight: 600; }
+
+    /* ── DOCUMENT BODY ────────────────────────────────────── */
+    .doc {
+      max-width: 820px; margin: -28px auto 0;
+      background: var(--bg-white);
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: clamp(32px, 5vw, 64px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.06);
+      position: relative; z-index: 1;
+    }
+    .doc h2 {
+      font-size: clamp(18px, 2.3vw, 22px); font-weight: 800;
+      letter-spacing: -0.015em; color: var(--green-deep);
+      margin: 40px 0 12px; scroll-margin-top: 84px;
+    }
+    .doc h2:first-of-type { margin-top: 28px; }
+    .doc h3 { font-size: 16px; font-weight: 800; color: var(--text); margin: 24px 0 6px; }
+    .doc h4 { font-size: 14.5px; font-weight: 800; color: var(--text); margin: 16px 0 4px; }
+    .doc p { font-size: 15.5px; color: var(--soft); margin-bottom: 14px; text-wrap: pretty; }
+    .doc ul { margin: 0 0 16px 22px; }
+    .doc li { font-size: 15.5px; color: var(--soft); margin-bottom: 8px; }
+    .doc a { color: var(--green); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .doc a:hover { color: var(--green-light); }
+    .doc strong { color: var(--text); }
+    .doc em.dsar { font-style: normal; font-weight: 700; color: var(--green); }
+
+    .inshort {
+      background: var(--bg); border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0; padding: 12px 18px; margin: 10px 0 16px;
+      font-size: 15px; color: var(--text);
+    }
+    .inshort strong { font-style: italic; }
+
+    .contact-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px 24px; margin-top: 12px;
+    }
+    .contact-card p { margin-bottom: 4px; font-size: 15px; color: var(--text); }
+
+    /* ── TOC ──────────────────────────────────────────────── */
+    .toc { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0 8px; }
+    .toc-h { font-size: 12px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    .toc ol { margin-left: 18px; }
+    .toc li { font-size: 14px; margin-bottom: 7px; }
+    .toc a { color: var(--soft); font-weight: 600; text-decoration: none; }
+    .toc a:hover { color: var(--green); text-decoration: underline; }
+
+    /* ── TABLE (CA categories) ────────────────────────────── */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0 16px; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 9px 12px; text-align: left; vertical-align: top; color: var(--soft); }
+    th { background: var(--bg); font-weight: 800; color: var(--text); }
+    td.col-yn { text-align: center; font-weight: 700; white-space: nowrap; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      background: var(--bg); padding: 30px 60px; margin-top: 56px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo img { height: 26px; width: auto; display: block; }
+    .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: var(--text); }
+    .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    @media (max-width: 600px) {
+      footer { padding: 28px 24px; flex-direction: column; }
+      .footer-links { flex-direction: column; gap: 6px; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Somerset Systems home">
+      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="34" height="34" />
+      <span class="nav-wordmark"><span class="nav-wm-1">SOMERSET</span><span class="nav-wm-2">SYSTEMS</span></span>
+    </a>
+    <a href="index.html" class="nav-back">&larr; Back to site</a>
+  </nav>
+
+  <header class="doc-hero">
+    <h1>Online Cloud Terms</h1>
+    <p class="eff">Last updated: June 25, 2026</p>
+  </header>
+
+  <main class="doc">
+    <h2>Provider-Specific Terms</h2>
+    <p>Somerset Systems incorporates the Bonterms Standard Online Cloud Terms (Version 1.0) ("Standard Terms") into this Agreement with the following Provider-Specific Terms. Unless otherwise defined here, capitalized terms have the meanings given in the Standard Terms.</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Provider</th><td>Somerset Systems LLC</td></tr>
+      <tr><th>Provider Address</th><td>667 Stanford Drive, San Luis Obispo, CA 93405</td></tr>
+      <tr><th>Legal Notice Email</th><td>victor@somersetsystems.co</td></tr>
+      <tr><th>Cloud Service</th><td>Somerset Systems' field service management and workflow automation platform (the "Platform"), a cloud-hosted SaaS service for managing service workflows, scheduling, job tracking, customer communications, and related operations.</td></tr>
+      <tr><th>Governing Law</th><td>State of California</td></tr>
+      <tr><th>Courts</th><td>Federal and state courts located in San Francisco, California</td></tr>
+      <tr><th>Default Subscription Term</th><td>Month-to-month, unless the Order states otherwise</td></tr>
+      <tr><th>Order Process</th><td>Orders are entered into by written agreement (Order Form) signed by both parties. No online self-service order flow is used at this time.</td></tr>
+      <tr><th>Support Policy</th><td>Provider will use commercially reasonable efforts to respond to support requests submitted to victor@somersetsystems.co within 2 business days.</td></tr>
+      <tr><th>Security Measures</th><td>See Additional Term I.</td></tr>
+      <tr><th>SLA</th><td>None at this time. Standard Terms § 5.2 is not applicable.</td></tr>
+      <tr><th>Data Protection Addendum (DPA)</th><td>None at this time. Standard Terms § 3.3 is not applicable.</td></tr>
+      <tr><th>Acceptable Use Policy (AUP)</th><td>See Exhibit A — Acceptable Use Policy (attached).</td></tr>
+    </table>
+    </div>
+    <h2>Additional Terms</h2>
+    <p>A.  Pricing. Fees are set forth in the applicable Order Form signed by the parties. Provider may update pricing for renewal terms with at least 30 days' written notice prior to the end of the then-current Subscription Term.</p>
+    <p>B.  Early Adopter / Referral Addendum. If the parties execute a Referral and Early Adopter Addendum, its terms are incorporated into and form part of this Agreement, and in the event of conflict, the Addendum takes precedence over these Provider-Specific Terms for the subject matter it addresses.</p>
+    <p>C.  Entire Agreement. These Provider-Specific Terms, together with the Standard Terms below and any executed Order Form or Addendum, constitute the entire agreement between the parties regarding the Cloud Service.</p>
+    <p>D.  AI-Powered Features. The Cloud Service includes features powered by artificial intelligence, including third-party AI models (such as Anthropic's Claude API), used to generate content, recommendations, and automated communications ("AI Features"). Customer acknowledges that: (a) AI-generated outputs may contain errors or inaccuracies and are provided without warranty of accuracy, completeness, or fitness for a particular purpose; (b) Customer is responsible for reviewing and taking accountability for any AI-generated content before relying on it or distributing it to third parties; (c) Provider will not use Customer Data to train or improve AI models without Customer's prior written consent; and (d) Provider's disclaimers in Section 6.3 of the Standard Terms apply fully to AI Features. Intellectual property in AI-generated outputs is governed by the applicable third-party AI provider's terms of service.</p>
+    <p>E.  Outbound Communications. The Cloud Service enables Customer to send automated communications, including email and SMS messages, to Customer's customers and other third parties ("Outbound Communications"). Customer represents, warrants, and agrees that: (a) it has obtained all necessary consents and opt-ins required by applicable law from all Outbound Communication recipients, including as required by the Telephone Consumer Protection Act (TCPA), CAN-SPAM Act, and any other applicable federal, state, or local laws governing electronic and automated communications; (b) Customer is solely responsible for the content, timing, frequency, and lawfulness of all Outbound Communications sent through the Cloud Service; (c) Provider acts solely as a conduit and is not responsible for Customer's failure to comply with applicable communications laws or obtain required consents; and (d) Customer will indemnify, defend, and hold harmless Provider from and against any claims, damages, fines, penalties, or costs (including reasonable attorneys' fees) arising from Customer's Outbound Communications or violation of this Section E.</p>
+    <p>F.  Liability Cap Floor. Notwithstanding the definition of "General Cap" in Section 14.5 of the Standard Terms, the General Cap will be the greater of (a) USD $1,000 or (b) amounts paid or payable by Customer to Provider under this Agreement in the 12 months immediately preceding the first incident giving rise to liability.</p>
+    <p>G.  Agreement Updates. Provider may update these Provider-Specific Terms (including any Exhibits) from time to time to reflect changes in the Cloud Service, legal requirements, or business practices. Provider will provide Customer at least 30 days' advance written notice of any material changes by email to Customer's designated account contact. Customer's continued use of the Cloud Service after the effective date of any changes constitutes acceptance of the updated terms. If Customer does not agree to material changes, Customer may terminate this Agreement on written notice to Provider before the effective date of such changes, and Provider will refund any prepaid, unused fees for the terminated period.</p>
+    <p>H.  Payment Processing. Fees under this Agreement may be processed through third-party payment processors (including Stripe, Inc. or similar providers) ("Payment Processors"). Customer's use of payment processing services is subject to the applicable Payment Processor's own terms of service and privacy policy. Provider is not responsible for the acts, omissions, or errors of any Payment Processor. Provider will disclose its then-current Payment Processors to Customer upon request.</p>
+    <p>I.  Security Measures. Provider implements and maintains the following technical and organizational security measures to protect Customer Data: (a) encryption of Customer Data in transit using TLS 1.2 or higher; (b) encryption of Customer Data at rest using AES-256 or equivalent industry-standard encryption; (c) role-based access controls limiting access to Customer Data to authorized Provider personnel with a documented need to know; (d) regular automated data backups with tested restoration procedures; and (e) reasonable organizational and administrative controls to prevent unauthorized access, use, alteration, or disclosure of Customer Data. Provider will notify Customer without undue delay, and in any event within 72 hours where feasible, upon becoming aware of any confirmed unauthorized access to Customer Data.</p>
+    <p>J.  Roles of the Parties (Data Processing). To the extent the Cloud Service processes personal information contained in Customer Data on Customer’s behalf, the parties agree that Customer is the controller (or “business”) and Provider acts as a processor (or “service provider”) that processes such personal information solely to provide the Cloud Service under this Agreement and on Customer’s documented instructions, and not for any independent purpose. Provider will not sell or share such personal information, and will not retain, use, or disclose it outside the direct business relationship between the parties or for any purpose other than providing the Cloud Service, except as permitted by applicable Law. Where the parties require more detailed data protection commitments, they will enter into a Data Protection Addendum (DPA) as referenced in the Provider-Specific Terms, which will control over this Section J to the extent of any conflict.</p>
+    <h2>Bonterms Standard Online Cloud Terms (Version 1.0)</h2>
+    <p>Incorporated by reference into Somerset Systems' Online Cloud Terms above.</p>
+    <p>These Standard Online Cloud Terms are implemented by Provider by reference from its Website.</p>
+    <p>Role of Bonterms: Bonterms publishes these Standard Terms but is not a party to the Agreement created between Provider and Customer and has no responsibility to either for their use.</p>
+    <h3>1.  Entering into this Agreement.</h3>
+    <p>1.1  The Agreement.  Customer and Provider agree to the terms of these Bonterms Standard Online Cloud Terms (Version 1.0) ("Standard Terms") and enter into this Agreement effective upon the earlier to occur of Customer's first access to the Cloud Service or entry into an Order ("Effective Date"). "Agreement" means, collectively, these Standard Terms, the Provider-Specific Terms and any Amendments. Capitalized terms are defined in context or in Section 20 (Definitions).</p>
+    <p>1.2  Provider-Specific Terms.  Provider may, by stating as such when it incorporates these Standard Terms into the Agreement on its Website, (i) add introductory language ("Introductory Language"), (ii) make additions to or modifications of these Standard Terms ("Additional Terms") or (iii) add Attachments. Any Introductory Language, Additional Terms and Attachments are collectively referred to as "Provider-Specific Terms".</p>
+    <p>1.3  Order of Precedence.  In the event of a conflict between the elements of the terms and conditions making up this Agreement, the order of precedence is: (i) any Amendment, (ii) Provider-Specific Terms and (iii) these Standard Terms.</p>
+    <h3>2.  Using the Cloud Service.</h3>
+    <p>2.1  Permitted Use.  Subject to this Agreement, Customer may use the Cloud Service for its own business purposes in accordance with its Subscription ("Permitted Use"). This includes the right to copy and use the Provider Software (if any) and Documentation as part of Customer's Permitted Use. Customer will comply with the Documentation in using the Cloud Service.</p>
+    <p>2.2  Users.  Customer may permit Users to use the Cloud Service on its behalf. Customer is responsible for provisioning and managing its User accounts, for its Users' actions through the Cloud Service and for their compliance with this Agreement. Customer will ensure that Users keep their login credentials confidential and will promptly notify Provider upon learning of any compromise of User accounts or credentials.</p>
+    <p>2.3  Affiliates.  Customer's Affiliates may serve as Users under this Agreement. Alternatively, Customer's Affiliates may enter into their own Orders as mutually agreed with Provider, which creates a separate agreement between each such Affiliate and Provider incorporating this Agreement with the Affiliate treated as "Customer". Neither Customer nor any Customer Affiliate has any rights under each other's separate agreement with Provider, and breach or termination of any such separate agreement affects only that agreement.</p>
+    <h3>3.  Customer Data.</h3>
+    <p>3.1  Use of Customer Data.  Subject to this Agreement, Provider will access and use Customer Data solely to provide and maintain the Cloud Service, Support and Professional Services under this Agreement ("Use of Customer Data"). Use of Customer Data includes sharing Customer Data as Customer directs through the Cloud Service, but Provider will not otherwise disclose Customer Data to third parties except as permitted in this Agreement.</p>
+    <p>3.2  Security.  Provider will implement and maintain the Security Measures, if any, identified in the Provider-Specific Terms. If no Security Measures are identified, Provider will use appropriate technical and organizational measures designed to prevent unauthorized access, use, alteration or disclosure of Customer Data.</p>
+    <p>3.3  DPA.  The parties will adhere to the Data Protection Addendum (DPA), if any, identified in the Provider-Specific Terms.</p>
+    <p>3.4  Usage Data.  Provider may collect Usage Data and use it to operate, improve and support the Cloud Service and for other lawful business purposes, including benchmarking and reports. However, Provider will not disclose Usage Data externally unless it is (a) de-identified so that it does not identify Customer, its Users or any other person and (b) aggregated with data across other customers.</p>
+    <h3>4.  Mutual Compliance with Laws.</h3>
+    <p>Each party will comply with all Laws that apply to its performance under this Agreement.</p>
+    <h3>5.  Support and SLA.</h3>
+    <p>5.1  Support.  Provider will provide Support for the Cloud Service as described in any Support Policy identified in the Provider-Specific Terms.</p>
+    <p>5.2  SLA.  Provider will adhere to any Service Level Agreement (SLA) identified in the Provider-Specific Terms.</p>
+    <h3>6.  Warranties.</h3>
+    <p>6.1  Mutual Warranties.  Each party represents and warrants that: (a) it has the legal power and authority to enter into this Agreement, and (b) it will use industry-standard measures to avoid introducing Viruses into the Cloud Service.</p>
+    <p>6.2  Performance Warranty.</p>
+    <p>6.2.1  Scope. Provider warrants that the Cloud Service will perform materially as described in the Documentation and Provider will not materially decrease the overall functionality of the Cloud Service during the Subscription Term (the "Performance Warranty").</p>
+    <p>6.2.2  Claim Report. Customer must report a breach of warranty in reasonable detail ("Claim") within 30 days after discovering the issue in the Cloud Service ("Claim Period").</p>
+    <p>6.2.3  Remedy. Within 30 days of receiving a verified Claim during the Claim Period ("Fix Period"), Provider will use reasonable efforts to correct or provide a reasonable workaround ("Fix") for the Claim. If Provider fails to provide a Fix during the Fix Period, either party may on notice to the other terminate the Order as it relates to the nonconforming Cloud Service and Provider will refund to Customer any prepaid, unused fees for the terminated portion of the Subscription Term.</p>
+    <p>6.2.4  THE PROCEDURES SET FORTH IN THIS SECTION 6.2 ARE CUSTOMER'S EXCLUSIVE REMEDIES AND PROVIDER'S SOLE LIABILITY FOR BREACH OF THE PERFORMANCE WARRANTY.</p>
+    <p>6.3  Disclaimers.  EXCEPT AS EXPRESSLY SET OUT IN THIS AGREEMENT, EACH PARTY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NONINFRINGEMENT. PROVIDER'S WARRANTIES IN THIS SECTION 6 DO NOT APPLY TO ISSUES ARISING FROM THIRD-PARTY PLATFORMS OR MISUSE OR UNAUTHORIZED MODIFICATIONS OF THE CLOUD SERVICE. THESE DISCLAIMERS APPLY TO THE FULL EXTENT PERMITTED BY LAW.</p>
+    <h3>7.  Usage Rules.</h3>
+    <p>7.1  Compliance.  Customer (a) will comply with any Acceptable Use Policy (AUP) identified in the Provider-Specific Terms and (b) represents and warrants that it has all rights necessary to use Customer Data with the Cloud Service and grant Provider the rights to Customer Data specified in this Agreement, without violating third-party intellectual property, privacy or other rights. Between the parties, Customer is responsible for the content and accuracy of Customer Data.</p>
+    <p>7.2  High-Risk Activities and Sensitive Data.  Customer: (a) will not use the Cloud Service for High-Risk Activities, (b) will not submit Sensitive Data to the Cloud Service, and (c) acknowledges that the Cloud Service is not designed for (and Provider has no liability for) use prohibited in this Section 7.2.</p>
+    <p>7.3  Restrictions.  Customer will not and will not permit anyone else to: (a) sell, sublicense, distribute or rent the Cloud Service (in whole or part), grant non-Users access to the Cloud Service or use the Cloud Service to provide a hosted or managed service to others, (b) reverse engineer, decompile or seek to access the source code of the Cloud Service, except to the extent these restrictions are prohibited by Laws and then only upon advance notice to Provider, (c) copy, modify, create derivative works of or remove proprietary notices from the Cloud Service, (d) conduct security or vulnerability tests of the Cloud Service, interfere with its operation or circumvent its access restrictions or (e) use the Cloud Service to develop a product that competes with the Cloud Service.</p>
+    <h3>8.  Third-Party Platforms.</h3>
+    <p>To the extent offered by Provider, Customer may choose to enable integrations or exchange Customer Data with Third-Party Platforms. Customer's use of a Third-Party Platform is governed by its agreement with the relevant provider, not this Agreement, and Provider is not responsible for Third-Party Platforms or how their providers use Customer Data.</p>
+    <h3>9.  Professional Services.</h3>
+    <p>Provider will perform Professional Services as described in an Order or Statement of Work, which may identify additional terms or milestones for the Professional Services. Customer will give Provider timely access to Customer Materials reasonably needed for Professional Services, and Provider will use the Customer Materials only for purposes of providing Professional Services. Subject to any limits in an Order or Statement of Work, Customer will reimburse Provider's reasonable travel and lodging expenses incurred in providing Professional Services. Customer may use code or other deliverables that Provider furnishes as part of Professional Services only in connection with Customer's authorized use of the Cloud Service under this Agreement.</p>
+    <h3>10.  Fees.</h3>
+    <p>10.1  Payment.  Customer will pay the fees described in the Order. Unless the Order states otherwise, all amounts are due within 30 days after the invoice date (the "Payment Period"). Late payments are subject to a charge of 1.5% per month or the maximum amount allowed by Law, whichever is less. All fees and expenses are nonrefundable except as expressly set out in this Agreement.</p>
+    <p>10.2  Taxes.  Customer is responsible for any sales, use, GST, value-added, withholding or similar taxes or levies that apply to its Orders, whether domestic or foreign ("Taxes"), other than Provider's income tax. Fees and expenses are exclusive of Taxes.</p>
+    <p>10.3  Payment Disputes.  If Customer disputes an invoice in good faith, it will notify Provider within the Payment Period and the parties will seek to resolve the dispute over a 15-day discussion period. Customer is not required to pay disputed amounts during the discussion period, but will timely pay all undisputed amounts. After the discussion period, either party may pursue any available remedies.</p>
+    <h3>11.  Suspension.</h3>
+    <p>Provider may suspend Customer's access to the Cloud Service and related services due to a Suspension Event, but where practicable will give Customer prior notice so that Customer may seek to resolve the issue and avoid suspension. Provider is not required to give prior notice in exigent circumstances or for a suspension made to avoid material harm or violation of Law. Once the Suspension Event is resolved, Provider will promptly restore Customer's access to the Cloud Service in accordance with this Agreement. "Suspension Event" means (a) Customer's account is 30 days or more overdue, (b) Customer is in breach of Section 7 (Usage Rules) or (c) Customer's use of the Cloud Service risks material harm to the Cloud Service or others.</p>
+    <h3>12.  Term and Termination.</h3>
+    <p>12.1  Subscription Terms.  Each Subscription Term will last for an initial month-to-month period unless the Order states otherwise.</p>
+    <p>12.2  Term of Agreement.  This Agreement starts on the Effective Date and continues until the end of all Subscription Terms, unless sooner terminated in accordance with its terms. If no Subscription is in effect, either party may terminate this Agreement for any or no reason with notice to the other party.</p>
+    <p>12.3  Termination.  Either party may terminate this Agreement (including all Subscriptions) if the other party (a) fails to cure a material breach of this Agreement within 30 days after notice, (b) ceases operation without a successor or (c) seeks protection under a bankruptcy, receivership, trust deed, creditors' arrangement, composition or comparable proceeding, or if such a proceeding is instituted against that party and not dismissed within 60 days.</p>
+    <p>12.4  Data Export and Deletion.</p>
+    <p>12.4.1  During a Subscription Term, Customer may export Customer Data from the Cloud Service (or Provider will otherwise make the Customer Data available to Customer) as described in the Documentation.</p>
+    <p>12.4.2  After termination or expiration of this Agreement, within 60 days of request, Provider will delete Customer Data and each party will delete any Confidential Information of the other in its possession or control.</p>
+    <p>12.4.3  Nonetheless, the recipient may retain Customer Data or Confidential Information in accordance with its standard backup or record retention policies or as required by Law, subject to Section 3.2 (Security), Section 16 (Confidentiality) and any DPA.</p>
+    <p>12.5  Effect of Termination.</p>
+    <p>12.5.1  Customer's right to use the Cloud Service, Support and Professional Services will cease upon any termination or expiration of this Agreement, subject to this Section 12.</p>
+    <p>12.5.2  The following Sections will survive termination or expiration of this Agreement: 3.4 (Usage Data), 6.3 (Disclaimers), 7 (Usage Rules), 10.1 (Payment) (for amounts then due), 10.2 (Taxes), 12.4 (Data Export and Deletion), 12.5 (Effect of Termination), 13 (Intellectual Property), 14 (Limitations of Liability), 15 (Indemnification), 16 (Confidentiality), 19 (General Terms) and 20 (Definitions).</p>
+    <p>12.5.3  Except where an exclusive remedy is provided, exercising a remedy under this Agreement, including termination, does not limit other remedies a party may have.</p>
+    <h3>13.  Intellectual Property.</h3>
+    <p>13.1  Reserved Rights.  Neither party grants the other any rights or licenses not expressly set out in this Agreement. Except for Provider's express rights in this Agreement, as between the parties, Customer retains all intellectual property and other rights in Customer Data and Customer Materials provided to Provider. Except for Customer's express rights in this Agreement, as between the parties, Provider and its licensors retain all intellectual property and other rights in the Cloud Service, Professional Services deliverables and related Provider technology.</p>
+    <p>13.2  Feedback.  If Customer gives Provider feedback regarding improvement or operation of the Cloud Service, Support or Professional Services, Provider may use the feedback without restriction or obligation. All feedback is provided "AS IS" and Provider will not publicly identify Customer as the source of feedback without Customer's permission.</p>
+    <h3>14.  Limitations of Liability.</h3>
+    <p>14.1  General Cap.  EACH PARTY'S ENTIRE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT WILL NOT EXCEED THE GENERAL CAP.</p>
+    <p>14.2  Consequential Damages Waiver.  NEITHER PARTY WILL HAVE ANY LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT FOR INDIRECT, SPECIAL, INCIDENTAL, RELIANCE OR CONSEQUENTIAL DAMAGES OR DAMAGES FOR LOSS OF USE, LOST PROFITS OR INTERRUPTION OF BUSINESS, EVEN IF INFORMED OF THEIR POSSIBILITY IN ADVANCE.</p>
+    <p>14.3  Exceptions and Enhanced Cap.  SECTIONS 14.1 (GENERAL CAP) AND 14.2 (CONSEQUENTIAL DAMAGES WAIVER) WILL NOT APPLY TO ENHANCED CLAIMS OR UNCAPPED CLAIMS. FOR ALL ENHANCED CLAIMS, EACH PARTY'S ENTIRE LIABILITY WILL NOT EXCEED THE ENHANCED CAP.</p>
+    <p>14.4  Nature of Claims.  The waivers and limitations in this Section 14 apply regardless of the form of action, whether in contract, tort (including negligence), strict liability or otherwise and will survive and apply even if any limited remedy in this Agreement fails of its essential purpose.</p>
+    <p>14.5  Liability Definitions.</p>
+    <ul>
+      <li>"Enhanced Cap"  means three times (3x) the General Cap.</li>
+      <li>"Enhanced Claims"  means Provider's breach of Section 3.2 (Security) or either party's breach of Section 3.3 (DPA).</li>
+      <li>"General Cap"  means amounts paid or payable by Customer to Provider under this Agreement in the 12 months immediately preceding the first incident giving rise to liability.</li>
+      <li>"Uncapped Claims"  means (a) the indemnifying party's obligations under Section 15 (Indemnification), (b) either party's infringement or misappropriation of the other party's intellectual property rights, (c) any breach of Section 16 (Confidentiality), excluding breaches related to Customer Data and (d) liabilities that cannot be limited by Law.</li>
+    </ul>
+    <h3>15.  Indemnification.</h3>
+    <p>15.1  Indemnification by Provider.  Provider, at its own cost, will defend Customer from and against any Provider-Covered Claims and will indemnify and hold harmless Customer from and against any damages or costs awarded against Customer (including reasonable attorneys' fees) or agreed in settlement by Provider resulting from the Provider-Covered Claims.</p>
+    <p>15.2  Indemnification by Customer.  Customer, at its own cost, will defend Provider from and against any Customer-Covered Claims and will indemnify and hold harmless Provider from and against any damages or costs awarded against Provider (including reasonable attorneys' fees) or agreed in settlement by Customer resulting from the Customer-Covered Claims.</p>
+    <p>15.3  Indemnification Definitions.</p>
+    <ul>
+      <li>"Customer-Covered Claim"  means a third-party claim arising from Customer's breach or alleged breach of Section 7.1 (Compliance) or 7.2 (High-Risk Activities and Sensitive Data).</li>
+      <li>"Provider-Covered Claim"  means a third-party claim that the Cloud Service, when used by Customer as authorized in this Agreement, infringes or misappropriates a third party's intellectual property rights.</li>
+    </ul>
+    <p>15.4  Procedures.  The indemnifying party's obligations in this Section 15 are subject to receiving from the indemnified party: (a) prompt notice of the claim (but delayed notice will only reduce the indemnifying party's obligations to the extent it is prejudiced by the delay), (b) the exclusive right to control the claim's investigation, defense and settlement and (c) reasonable cooperation at the indemnifying party's expense. The indemnifying party may not settle a claim without the indemnified party's prior approval if settlement would require the indemnified party to admit fault or take or refrain from taking any action (except regarding use of the Cloud Service when Provider is the indemnifying party). The indemnified party may participate in a claim with its own counsel at its own expense.</p>
+    <p>15.5  Mitigation.  In response to an infringement or misappropriation claim, if required by settlement or injunction or as Provider determines necessary to avoid material liability, Provider may: (a) procure rights for Customer's continued use of the Cloud Service, (b) replace or modify the allegedly infringing portion of the Cloud Service to avoid infringement, without reducing the Cloud Service's overall functionality or (c) terminate the affected Order and refund to Customer any prepaid, unused fees for the terminated portion of the Subscription Term.</p>
+    <p>15.6  Exceptions.  Provider's obligations in this Section 15 do not apply to claims resulting from (a) modification or unauthorized use of the Cloud Service, (b) use of the Cloud Service in combination with items not provided by Provider, including Third-Party Platforms or (c) Provider Software other than the most recent release, if Provider made available (at no additional charge) a newer release that would avoid infringement.</p>
+    <p>15.7  Exclusive Remedy.  This Section 15 sets out the indemnified party's exclusive remedy and the indemnifying party's sole liability regarding third-party claims of intellectual property infringement or misappropriation covered by this Section 15.</p>
+    <h3>16.  Confidentiality.</h3>
+    <p>16.1  Use and Protection.  As recipient, each party will (a) use Confidential Information only to fulfill its obligations and exercise its rights under this Agreement, (b) not disclose Confidential Information to third parties without the discloser's prior approval, except as permitted in this Agreement and (c) protect Confidential Information using at least the same precautions recipient uses for its own similar information and no less than a reasonable standard of care.</p>
+    <p>16.2  Permitted Disclosures.</p>
+    <p>16.2.1  Personnel. The recipient may disclose Confidential Information to its employees, agents, contractors and other representatives having a legitimate need to know (including, for Provider, the subcontractors referenced in Section 19.9), provided it remains responsible for their compliance with this Section 16 and they are bound to confidentiality obligations no less protective than this Section 16.</p>
+    <p>16.2.2  Required by Law. The recipient may disclose Confidential Information (including Customer Data) to the extent required by Law. If permitted by Law, the recipient will give the discloser reasonable advance notice of the required disclosure and reasonably cooperate, at the discloser's expense, to obtain confidential treatment for the Confidential Information.</p>
+    <p>16.3  Exclusions.  These confidentiality obligations do not apply to information that the recipient can document (a) is or becomes public knowledge through no fault of the recipient, (b) it rightfully knew or possessed, without confidentiality restrictions, prior to receipt from the discloser, (c) it rightfully received from a third party without confidentiality restrictions or (d) it independently developed without using or referencing Confidential Information.</p>
+    <p>16.4  Remedies.  Breach of this Section 16 may cause substantial harm for which monetary damages are an insufficient remedy. Upon a breach of this Section 16, the discloser is entitled to seek appropriate equitable relief, including an injunction, in addition to other remedies.</p>
+    <h3>17.  Publicity.</h3>
+    <p>Neither party may publicly announce this Agreement without the other party's prior approval or except as required by Laws.</p>
+    <h3>18.  Trials and Betas.</h3>
+    <p>Use of Trials and Betas is permitted only for Customer's internal evaluation during the period designated by Provider on the Order (or if not designated, 30 days). Either party may terminate Customer's use of Trials and Betas at any time for any reason. Trials and Betas may be inoperable, incomplete or include features never released. NOTWITHSTANDING ANYTHING ELSE IN THIS AGREEMENT, PROVIDER OFFERS NO WARRANTY, INDEMNITY, SLA OR SUPPORT FOR TRIALS AND BETAS AND ITS LIABILITY FOR TRIALS AND BETAS WILL NOT EXCEED US$1,000.</p>
+    <h3>19.  General Terms.</h3>
+    <p>19.1  Assignment.  Neither party may assign this Agreement without the prior consent of the other party, except that either party may assign this Agreement, with notice to the other party, in connection with the assigning party's merger, reorganization, acquisition or other transfer of all or substantially all of its assets or voting securities. Any non-permitted assignment is void. This Agreement will bind and inure to the benefit of each party's permitted successors and assigns.</p>
+    <p>19.2  Governing Law and Courts.</p>
+    <p>19.2.1  The Governing Law governs this Agreement and any action arising out of or relating to this Agreement, without reference to conflict of law rules. The parties will adjudicate any such action in the Courts and each party consents to the exclusive jurisdiction and venue of the Courts for these purposes.</p>
+    <p>19.2.2  The Governing Law is the laws of the State of California and the Courts are the federal and state courts located in San Francisco, California.</p>
+    <p>19.3  Notices.</p>
+    <p>19.3.1  Except as set out in this Agreement, notices, requests and approvals under this Agreement must be in writing to the addresses specified by Provider and Customer and will be deemed given: (1) upon receipt if by personal delivery, (2) upon receipt if by certified or registered U.S. mail (return receipt requested), (3) one day after dispatch if by a commercial overnight delivery service or (4) upon delivery if by email.</p>
+    <p>19.3.2  Provider's notice address is victor@somersetsystems.co. Customer's notice address will be specified in the Order Form. Either party may update its address with notice to the other.</p>
+    <p>19.4  Entire Agreement.</p>
+    <p>19.4.1  This Agreement is the parties' entire agreement regarding its subject matter and supersedes any prior or contemporaneous agreements regarding its subject matter. In this Agreement, headings are for convenience only and "including" and similar terms are to be construed without limitation. Excluding Orders, terms in business forms, purchase orders or quotes used by either party will not amend or modify this Agreement; any such documents are for administrative purposes only. This Agreement may be executed in counterparts (including electronic copies and PDFs), each of which is deemed an original and which together form one and the same agreement. An Order may not modify any other part of this Agreement unless the Order specifically identifies the provisions that it supersedes.</p>
+    <p>19.4.2  Bonterms, the publisher of these Standard Terms, is not a party to this Agreement and will have no liability or responsibility to either Provider or Customer for use of these Standard Terms.</p>
+    <p>19.5  Amendments.  Any amendments to this Agreement must be in writing and signed by each party's authorized representatives (an "Amendment").</p>
+    <p>19.6  Operational Changes.  With notice to Customer, Provider may modify the AUP, Security Measures, SLA or Support Policy to reflect new features or changing practices, but the modifications may not be retroactive or materially decrease Provider's overall obligations during a Subscription Term.</p>
+    <p>19.7  Waivers and Severability.  Waivers must be signed by the waiving party's authorized representative and cannot be implied from conduct. If any provision of this Agreement is held invalid, illegal or unenforceable, it will be limited to the minimum extent necessary so the rest of this Agreement remains in effect.</p>
+    <p>19.8  Force Majeure.  Neither party is liable for a delay or failure to perform this Agreement due to a Force Majeure. If a Force Majeure materially adversely affects the Cloud Service for 15 or more consecutive days, either party may terminate the affected Order(s) upon notice to the other and Provider will refund to Customer any prepaid, unused fees for the terminated portion of the Subscription Term. However, this Section does not limit Customer's obligations to pay fees owed.</p>
+    <p>19.9  Subcontractors.  Provider may use subcontractors and permit them to exercise its rights and fulfill its obligations, but Provider remains responsible for each subcontractor's compliance with this Agreement and for Provider's overall performance under this Agreement.</p>
+    <p>19.10  Independent Contractors.  The parties are independent contractors, not agents, partners or joint venturers.</p>
+    <p>19.11  No Third-Party Beneficiaries.  There are no third-party beneficiaries to this Agreement.</p>
+    <p>19.12  Open Source.  Provider Software distributed to Customer (if any) may include third-party open source software ("Open Source") as listed in the Documentation or by Provider upon request. Customer acknowledges that its license to use any Open Source will be the Open Source license applicable to such code and not the license to Provider Software set forth in Section 2.1 (Permitted Use) above to the extent required by such Open Source license.</p>
+    <p>19.13  Export.  Each party (a) will comply with all export and import Laws in performing this Agreement and (b) represents and warrants that it is not listed on any U.S. government list of prohibited or restricted parties or located in (or a national of) a country subject to a U.S. government embargo or designated by the U.S. government as a "terrorist supporting" country. Customer will not submit to the Cloud Service any data controlled under the U.S. International Traffic in Arms Regulations.</p>
+    <p>19.14  Government Rights.  To the extent applicable, the Cloud Service is "commercial computer software" or a "commercial item" for purposes of FAR 12.212 and DFARS 227.7202. Use, reproduction, release, modification, disclosure or transfer of the Cloud Service is governed solely by the terms of this Agreement, and all other use is prohibited.</p>
+    <h3>20.  Definitions.</h3>
+    <ul>
+      <li>"Acceptable Use Policy"  or "AUP" is defined in Section 7.1 (Compliance).</li>
+      <li>"Affiliate"  means an entity controlled, controlling or under common control with a party, where control means at least 50% ownership or power to direct an entity's management.</li>
+      <li>"Agreement"  is defined in Section 1.1 (The Agreement).</li>
+      <li>"Amendment"  is defined in Section 19.5 (Amendments).</li>
+      <li>"Attachments"  means any AUP, Security Measures, SLA, Support Policy or other policies specified in the Provider-Specific Terms.</li>
+      <li>"Cloud Service"  means Provider's proprietary software as a service (SaaS) or cloud service as identified in the applicable Order. The Cloud Service includes the Provider Software and Documentation but not Professional Services deliverables or Third-Party Platforms.</li>
+      <li>"Confidential Information"  means information disclosed by or on behalf of one party (as discloser) to the other party (as recipient) under this Agreement, in any form, which (a) the discloser identifies to recipient as "confidential" or "proprietary" or (b) should be reasonably understood as confidential or proprietary due to its nature and the circumstances of its disclosure. Provider's Confidential Information includes technical or performance information about the Cloud Service, and Customer's Confidential Information includes Customer Data.</li>
+      <li>"Customer Data"  means any data, content or materials that Customer (including its Users) submits to its Cloud Service accounts, including from Third-Party Platforms.</li>
+      <li>"Documentation"  means Provider's standard usage documentation for the Cloud Service.</li>
+      <li>"Force Majeure"  means an unforeseen event beyond a party's reasonable control, such as a strike, blockade, war, pandemic, act of terrorism, riot, third-party Internet or utility failure, refusal of government license or natural disaster, where the affected party takes reasonable and customary measures to avoid or mitigate such event's effects.</li>
+      <li>"High-Risk Activities"  means activities where use or failure of the Cloud Service could lead to death, personal injury or environmental damage, including life support systems, emergency services, nuclear facilities, autonomous vehicles or air traffic control.</li>
+      <li>"Laws"  means all laws, regulations, rules, court orders or other binding requirements of a government authority that apply to a party.</li>
+      <li>"Order"  means an order by Customer for a Subscription that is entered into by the parties through a written Order Form signed by both parties or other written agreement referencing this Agreement.</li>
+      <li>"Professional Services"  means training, migration or other professional services that Provider furnishes to Customer related to the Cloud Service.</li>
+      <li>"Provider Software"  means any proprietary apps or software that Provider distributes to Customer as part of the Cloud Service.</li>
+      <li>"Security Measures"  is defined in Section 3.2 (Security).</li>
+      <li>"Sensitive Data"  means (a) patient, medical or other protected health information regulated by HIPAA, (b) credit, debit, bank account or other financial account numbers, (c) social security numbers, driver's license numbers or other government ID numbers and (d) special categories of data enumerated in European Union Regulation 2016/679, Article 9(1) or any successor legislation.</li>
+      <li>"Subscription"  means the right for Customer to access the Cloud Service and any related Support as described in the applicable Order.</li>
+      <li>"Subscription Term"  means the term for a Subscription as identified in the Order.</li>
+      <li>"Support"  means support for the Cloud Service as described in Section 5.1 (Support).</li>
+      <li>"Suspension Event"  is defined in Section 11 (Suspension).</li>
+      <li>"Third-Party Platform"  means any product, add-on or platform not provided by Provider that Customer uses with the Cloud Service.</li>
+      <li>"Trials and Betas"  mean access to the Cloud Service on a free or trial basis or to particular features designated by Provider as "beta" or "early access".</li>
+      <li>"Usage Data"  means Provider's technical logs, data and learnings about Customer's use of the Cloud Service, but excluding Customer Data.</li>
+      <li>"User"  means anyone that Customer allows to use its accounts for the Cloud Service, who may include (a) employees, advisors and contractors of Customer and its Affiliates and (b) others if permitted in this Agreement, the Documentation or an Order.</li>
+      <li>"Virus"  means viruses, malicious code or similar harmful materials.</li>
+      <li>"Website"  means the Internet site, domain, application or other online mechanism through which Provider makes available Subscriptions to its Cloud Service.</li>
+    </ul>
+    <h2>Exhibit A &mdash; Acceptable Use Policy</h2>
+    <p>This Acceptable Use Policy ("AUP") governs Customer’s and its Users’ use of the Cloud Service provided by Somerset Systems ("Provider"). This AUP is incorporated into and forms part of the Somerset Systems Online Cloud Terms.</p>
+    <h3>Prohibited Uses</h3>
+    <p>Customer will not, and will not permit any User to:</p>
+    <ul>
+      <li>(a) use the Cloud Service for any unlawful purpose or in violation of any applicable federal, state, or local law or regulation;</li>
+      <li>(b) send Outbound Communications that are deceptive, harassing, or unsolicited, or that violate the TCPA, CAN-SPAM Act, or any other applicable communications law;</li>
+      <li>(c) upload, transmit, or store any content that infringes, misappropriates, or violates any third party’s intellectual property, privacy, or other rights;</li>
+      <li>(d) upload or transmit any material containing software viruses, malware, ransomware, or any other harmful or disruptive code;</li>
+      <li>(e) attempt to gain unauthorized access to any part of the Cloud Service, other customer accounts, or Provider’s systems, networks, or data;</li>
+      <li>(f) use the Cloud Service in any manner that imposes an unreasonable or disproportionate load on Provider’s infrastructure or that interferes with the integrity or performance of the Cloud Service for other users;</li>
+      <li>(g) reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Cloud Service;</li>
+      <li>(h) resell, sublicense, or otherwise commercialize access to the Cloud Service to any third party without Provider’s prior written consent;</li>
+      <li>(i) collect, scrape, or harvest personal data of any individual through the Cloud Service without a lawful basis and appropriate consent; or</li>
+      <li>(j) use the Cloud Service to develop, train, or improve any competing product or service.</li>
+    </ul>
+    <h3>Reporting</h3>
+    <p>Customer should report any suspected violations of this AUP to <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>.</p>
+    <h3>Consequences</h3>
+    <p>Violation of this AUP constitutes a Suspension Event under Section 11 of the Standard Terms and grounds for termination under Section 12.3 of the Standard Terms.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:28px;">&copy; 2024 Bonterms, Inc. Free to use under CC BY ND 4.0 &nbsp;|&nbsp; bonterms.com. Bonterms publishes this Standard Agreement, is not a party to it, does not provide legal advice, and has no liability relating to its use.</p>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="26" height="26" />
+      <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:thomas@somersetsystems.co">thomas@somersetsystems.co</a>
+      <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Somerset Systems LLC</div>
+  </footer>
+
+</body>
+</html>
