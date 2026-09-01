@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="What Somerset Systems builds: the work hiding in your own customer base, true margin by job and tech, and paperwork that drafts and follows up on its own." />
+  <meta name="description" content="Custom software for small field-service shops, built around the systems you already run: schedules from your QuickBooks notes, routes on the crew's phones, real margin by job." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="Three things a Somerset build gives you: the work hiding in your customer base, your real numbers after labor and materials, and paperwork that runs itself." />
+  <meta property="og:description" content="What a Somerset build actually does, plus a case study: the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="What We Build: Somerset Systems" />
-  <meta name="twitter:description" content="The work hiding in your customer base, your real numbers, and paperwork that runs itself." />
+  <meta name="twitter:description" content="Schedules from the notes in your QuickBooks, routes on the crew's phones, real margin by job." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
@@ -27,7 +27,7 @@
     "@id": "https://somersetsystems.co/what-we-build.html#webpage",
     "url": "https://somersetsystems.co/what-we-build.html",
     "name": "What We Build: Somerset Systems",
-    "description": "What Somerset Systems builds: the work hiding in your own customer base, true margin by job and tech, and paperwork that drafts and follows up on its own.",
+    "description": "Custom software for small field-service shops, built around the systems you already run: schedules from your QuickBooks notes, routes on the crew's phones, real margin by job.",
     "isPartOf": { "@id": "https://somersetsystems.co/#website" },
     "publisher": {
       "@type": "Organization",
@@ -234,6 +234,7 @@
     .section-h em { font-style: italic; color: var(--green); }
 
     /* ── FEATURES ──────────────────────────────────────────── */
+    .features-bg .section-h { margin-bottom: 48px; }
     .features-bg {
       background: var(--bg);
       border-top: 1px solid var(--border);
@@ -288,13 +289,9 @@
     .pillar-title {
       font-size: clamp(20px, 2.1vw, 23px); font-weight: 900;
       letter-spacing: -0.03em; line-height: 1.14;
-      min-height: 2.3em; margin-bottom: 12px; text-wrap: balance;
-    }
-    .pillar-lede {
-      font-size: 15px; font-weight: 700; color: var(--green);
-      line-height: 1.5; margin-bottom: 20px;
+      min-height: 2.3em; margin-bottom: 20px;
       padding-bottom: 18px; border-bottom: 1px solid var(--border);
-      text-wrap: pretty;
+      text-wrap: balance;
     }
     .pillar-list {
       list-style: none; display: flex; flex-direction: column;
@@ -336,6 +333,49 @@
     }
     .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
     .step-desc  { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
+
+    /* ── CASE STUDY ─────────────────────────────────────────── */
+    .case-bg {
+      position: relative; overflow: hidden; color: #fff;
+      background:
+        radial-gradient(ellipse 90% 70% at 12% 0%, var(--green-deep-2) 0%, transparent 62%),
+        var(--green-deep);
+    }
+    .case-deco { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .case-inner {
+      position: relative; z-index: 1;
+      max-width: 1140px; margin: 0 auto;
+      padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px);
+      display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px);
+      align-items: start;
+    }
+    .case-eyebrow {
+      display: block; font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
+      text-transform: uppercase; color: var(--sage-light); margin-bottom: 18px;
+    }
+    .case-h {
+      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900;
+      letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance;
+    }
+    .case-h em { font-style: italic; color: var(--sage-light); }
+    .case-text {
+      font-size: 16px; color: rgba(255, 255, 255, 0.82);
+      line-height: 1.7; margin-bottom: 18px; text-wrap: pretty;
+    }
+    .case-text:last-of-type { margin-bottom: 26px; }
+    .case-facts { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .case-facts li {
+      position: relative; padding-left: 26px;
+      font-size: 14.5px; font-weight: 700; line-height: 1.5; text-wrap: pretty;
+    }
+    .case-facts li::before {
+      content: ''; position: absolute; left: 0; top: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--sage-light); box-shadow: 0 0 0 4px rgba(160, 196, 171, 0.18);
+    }
+    @media (max-width: 880px) {
+      .case-inner { grid-template-columns: 1fr; gap: 26px; }
+    }
 
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-wrap {
@@ -445,46 +485,64 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       Back to home
     </a>
-    <h1 class="wwb-title">Start Focused,<br><em>Built to Grow</em></h1>
-    <p class="wwb-lede">We start focused, with the one automation that moves the needle most for your business, then add the next piece once it has earned its place. Here's what we can build today, and where each one earns its keep.</p>
+    <h1 class="wwb-title">The Software Your Shop<br><em>Was Priced Out Of</em></h1>
+    <p class="wwb-lede">Custom tools, built around the systems you already run. Here is what that looks like.</p>
   </header>
 
 
   <!-- FEATURES -->
   <section class="features-bg" id="capabilities" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="visually-hidden" id="features-h">What's in the product today</h2>
+      <h2 class="section-h reveal" id="features-h">What a Somerset Build<br><em>Actually Does</em></h2>
       <div class="pillar-grid stagger">
         <div class="pillar">
           <span class="pillar-num">01</span>
-          <h3 class="pillar-title">Work the market finds for you</h3>
-          <p class="pillar-lede">The work hiding in your own customer base.</p>
+          <h3 class="pillar-title">Getting the week scheduled</h3>
           <ul class="pillar-list">
-            <li>Rule changes, recalls, and manufacturer bulletins in your trade, matched to the exact customers and equipment affected</li>
-            <li>Every signal carries a dollar range and the number of accounts it touches, not a newsletter you have to read</li>
-            <li>Rebates, incentives, and renewal deadlines flagged before they expire</li>
+            <li>Recurring service built from the notes already sitting in your QuickBooks</li>
+            <li>Routes planned around real traffic, with a cap on drive time</li>
+            <li>Nothing reaches the crew until you have looked at it and approved it</li>
           </ul>
         </div>
         <div class="pillar">
           <span class="pillar-num">02</span>
-          <h3 class="pillar-title">Know your real numbers</h3>
-          <p class="pillar-lede">Where the profit actually is, no guessing.</p>
+          <h3 class="pillar-title">Getting the crew through the day</h3>
           <ul class="pillar-list">
-            <li>Margin by job type, tech, and customer segment. Real profit after labor and materials, not revenue billed</li>
-            <li>Thin-margin and underwater jobs flagged, each with the reason it lost money</li>
-            <li>Ask a plain-English question, get a figure that reconciles across every report</li>
+            <li>A phone screen instead of a clipboard, with the day's stops in order</li>
+            <li>Time logged to the minute, plus photos, parts requests, and mileage</li>
+            <li>A close-out check the tech answers before a job can be marked done</li>
           </ul>
         </div>
         <div class="pillar">
           <span class="pillar-num">03</span>
-          <h3 class="pillar-title">Paperwork that runs itself</h3>
-          <p class="pillar-lede">The documents and follow-up, handled before you ask.</p>
+          <h3 class="pillar-title">Getting paid, and knowing your numbers</h3>
           <ul class="pillar-list">
-            <li>Proposals, contracts, and invoices drafted from your own data, ready for a one-click review and send</li>
-            <li>Outstanding invoices chased on a schedule, from gentle nudge to final notice, so money stops aging past due</li>
-            <li>Renewals, maintenance reminders, and quote follow-ups that fire on their own, so nothing slips because someone forgot</li>
+            <li>Proposals and invoices drafted from your own records, ready to review</li>
+            <li>Margin by job, tech, and customer, after labor and materials</li>
+            <li>Every screen prints to a PDF matching the paper it replaced</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CASE STUDY -->
+  <section class="case-bg" aria-labelledby="case-h">
+    <div class="case-deco" aria-hidden="true"><svg class="wwb-rings br" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg></div>
+    <div class="case-inner reveal">
+      <div>
+        <span class="case-eyebrow">One build, as an example</span>
+        <h2 class="case-h" id="case-h">The paper wall calendar<br><em>that schedules itself now</em></h2>
+      </div>
+      <div>
+        <p class="case-text">Every build starts the same way: a call about how you run today, then software shaped around that instead of over it. Nobody changes how they work to suit the tool.</p>
+        <p class="case-text">For a family-owned koi-pond and water-feature contractor in the South Bay, the whole operation lived on a hand-copied wall calendar and printed route sheets. Their app reads the service notes already sitting in their QuickBooks, turns them into a real recurring schedule, and puts each day's stops on the crew's phones. Same records, same routine, minus the copying by hand.</p>
+        <ul class="case-facts">
+          <li>In production since August 2026</li>
+          <li>Intuit-approved QuickBooks app, read-only</li>
+          <li>No new system for the crew to learn</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -497,23 +555,23 @@
       <div class="steps-grid stagger">
         <div>
           <span class="step-num">01</span>
-          <h3 class="step-title">Free Strategy Call &amp; Personalized Walkthrough</h3>
-          <div class="step-desc">A free, no-obligation call where we learn your operation: what software you use, where time is lost, what you can't see clearly. Then we walk you through a demo built around your services, your pain points, and how your business actually runs.</div>
+          <h3 class="step-title">Strategy Call &amp; Walkthrough</h3>
+          <div class="step-desc">A free call to learn how you run today, then a walkthrough built around your services rather than a generic demo.</div>
         </div>
         <div>
           <span class="step-num">02</span>
           <h3 class="step-title">Written Scope &amp; Proposal</h3>
-          <div class="step-desc">A document laying out exactly what gets built, the timeline, and the price. Everything agreed before any work begins.</div>
+          <div class="step-desc">Exactly what gets built, the timeline, and the price, agreed before any work starts.</div>
         </div>
         <div>
           <span class="step-num">03</span>
           <h3 class="step-title">Build &amp; Test</h3>
-          <div class="step-desc">We build your dashboard around your data and workflows. You test it before it goes live. Nothing ships until it works.</div>
+          <div class="step-desc">We build around your existing data and workflow. You test it before it goes live.</div>
         </div>
         <div>
           <span class="step-num">04</span>
           <h3 class="step-title">Delivery &amp; Support</h3>
-          <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee. Updates and new automations as you grow.</div>
+          <div class="step-desc">We train your team, then maintain it for a flat monthly fee. New automations as you grow.</div>
         </div>
       </div>
     </div>
