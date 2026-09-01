@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="Custom software for small field-service shops, built around the systems you already run: schedules from your QuickBooks notes, routes on the crew's phones, real margin by job." />
+  <meta name="description" content="Custom software engineered for field-service operations: scheduling and routing, billing and collections, customer communication, analytics and research, or a full build of your own." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="What a Somerset build actually does, plus a case study: the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
+  <meta property="og:description" content="Four places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="What We Build: Somerset Systems" />
-  <meta name="twitter:description" content="Schedules from the notes in your QuickBooks, routes on the crew's phones, real margin by job." />
+  <meta name="twitter:description" content="Scheduling and routing, billing, customer communication, analytics and research, or a full custom build." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
@@ -27,7 +27,7 @@
     "@id": "https://somersetsystems.co/what-we-build.html#webpage",
     "url": "https://somersetsystems.co/what-we-build.html",
     "name": "What We Build: Somerset Systems",
-    "description": "Custom software for small field-service shops, built around the systems you already run: schedules from your QuickBooks notes, routes on the crew's phones, real margin by job.",
+    "description": "Custom software engineered for field-service operations: scheduling and routing, billing and collections, customer communication, analytics and research, or a full build of your own.",
     "isPartOf": { "@id": "https://somersetsystems.co/#website" },
     "publisher": {
       "@type": "Organization",
@@ -53,6 +53,7 @@
     :root {
       --green:         #456650;
       --green-light:   #527B5E;
+      --green-dim:     rgba(69, 102, 80, 0.08);
       --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
       --green-deep:    #1C2E24;
@@ -256,59 +257,78 @@
     .f-desc { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
     .f-item:first-child .f-name { color: var(--green); }
 
-    /* ── VALUE PILLARS (features) ──────────────────────────── */
+    /* ── BUILD PICKER ────────────────────────────────────────── */
     .visually-hidden {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
-    .pillar-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; align-items: stretch;
+    .builds {
+      display: grid;
+      grid-template-columns: minmax(240px, 340px) 1fr;
+      grid-template-rows: repeat(5, min-content) 1fr;
+      column-gap: clamp(24px, 3vw, 48px); row-gap: 8px;
     }
-    .pillar {
-      position: relative; display: flex; flex-direction: column;
-      background: var(--bg-white); border: 1px solid var(--border);
-      border-radius: 16px; padding: clamp(28px, 2.6vw, 38px);
-      overflow: hidden;
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+    .build-tab {
+      grid-column: 1;
+      display: flex; align-items: baseline; gap: 14px; width: 100%;
+      font: inherit; text-align: left; cursor: pointer;
+      background: transparent; border: 1px solid transparent; border-radius: 12px;
+      padding: 16px 18px; color: var(--soft);
+      transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
     }
-    .pillar::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--green) 0%, var(--sage) 100%);
+    .build-tab:hover { background: var(--bg-white); border-color: var(--border); color: var(--text); }
+    .build-tab[aria-expanded="true"] {
+      background: var(--bg-white); border-color: var(--green-border); color: var(--text);
+      box-shadow: 0 8px 24px rgba(28, 46, 36, 0.09);
     }
-    .pillar:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 44px rgba(28, 46, 36, 0.14);
-      border-color: var(--green-border);
+    .build-tab-num {
+      flex: 0 0 auto; font-size: 12px; font-weight: 800; letter-spacing: 2px;
+      color: var(--sage); transition: color .2s;
     }
-    @media (prefers-reduced-motion: reduce) { .pillar:hover { transform: none; } }
-    .pillar-num {
-      font-size: 12px; font-weight: 800; letter-spacing: 2px;
-      color: var(--sage); margin-bottom: 16px;
+    .build-tab[aria-expanded="true"] .build-tab-num { color: var(--green); }
+    .build-tab-name { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; }
+
+    .build-panel {
+      grid-column: 2; grid-row: 1 / -1;
+      background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px;
+      padding: clamp(26px, 2.6vw, 38px);
     }
-    .pillar-title {
-      font-size: clamp(20px, 2.1vw, 23px); font-weight: 900;
-      letter-spacing: -0.03em; line-height: 1.14;
-      min-height: 2.3em; margin-bottom: 20px;
-      padding-bottom: 18px; border-bottom: 1px solid var(--border);
-      text-wrap: balance;
+    .build-panel-tag {
+      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.4px;
+      text-transform: uppercase; color: var(--green);
+      background: var(--green-dim); border: 1px solid var(--green-border);
+      border-radius: 999px; padding: 5px 12px; margin-bottom: 16px;
     }
-    .pillar-list {
-      list-style: none; display: flex; flex-direction: column;
-      flex: 1 1 auto; justify-content: space-between; gap: 18px;
+    .build-panel-h {
+      font-size: clamp(20px, 2.1vw, 25px); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 20px;
+      padding-bottom: 18px; border-bottom: 1px solid var(--border); text-wrap: balance;
     }
-    .pillar-list li {
+    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .build-panel-list li {
       position: relative; padding-left: 26px;
-      font-size: 14.5px; color: var(--soft); line-height: 1.6; text-wrap: pretty;
+      font-size: 14.5px; color: var(--soft); line-height: 1.65; text-wrap: pretty;
     }
-    .pillar-list li::before {
+    .build-panel-list li::before {
       content: ''; position: absolute; left: 0; top: 7px;
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--green); box-shadow: 0 0 0 4px var(--green-border);
     }
+
+    /* No JS: every panel stays open and readable. */
+    .js .build-panel { display: none; }
+    .js .build-panel.is-open { display: block; animation: panel-in .28s var(--ease) both; }
+    @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (min-width: 881px) {
+      .js .build-panel { display: block; visibility: hidden; }
+      .js .build-panel.is-open { visibility: visible; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .js .build-panel.is-open { animation: none; }
+    }
     @media (max-width: 880px) {
-      .pillar-grid { grid-template-columns: 1fr; }
-      .pillar-title { min-height: 0; }
+      .builds { display: block; }
+      .build-panel { margin: 8px 0 14px; border-radius: 12px; }
     }
 
     /* ── PROCESS ───────────────────────────────────────────── */
@@ -485,41 +505,85 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       Back to home
     </a>
-    <h1 class="wwb-title">The Software Your Shop<br><em>Was Priced Out Of</em></h1>
-    <p class="wwb-lede">Custom tools, built around the systems you already run. Here is what that looks like.</p>
+    <h1 class="wwb-title">Custom Software,<br><em>Engineered for Your Operation</em></h1>
+    <p class="wwb-lede">Built around the systems you already run, from a single workflow to the whole operation.</p>
   </header>
 
 
   <!-- FEATURES -->
   <section class="features-bg" id="capabilities" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="features-h">What a Somerset Build<br><em>Actually Does</em></h2>
-      <div class="pillar-grid stagger">
-        <div class="pillar">
-          <span class="pillar-num">01</span>
-          <h3 class="pillar-title">Getting the week scheduled</h3>
-          <ul class="pillar-list">
-            <li>Recurring service built from the notes already sitting in your QuickBooks</li>
+      <h2 class="section-h reveal" id="features-h">Pick the One That<br><em>Sounds Like Your Week</em></h2>
+      <div class="builds reveal">
+        <button type="button" class="build-tab" id="build-tab-scheduling" aria-expanded="true" aria-controls="build-panel-scheduling">
+          <span class="build-tab-num" aria-hidden="true">01</span>
+          <span class="build-tab-name">Scheduling, Dispatch &amp; Routing</span>
+        </button>
+        <div class="build-panel is-open" id="build-panel-scheduling" role="region" aria-labelledby="build-tab-scheduling">
+          <span class="build-panel-tag">Running in production today</span>
+          <h3 class="build-panel-h">The week plans itself, and the crew gets it on their phone.</h3>
+          <ul class="build-panel-list">
+            <li>Recurring service built from the notes already sitting in your records</li>
             <li>Routes planned around real traffic, with a cap on drive time</li>
+            <li>A phone screen instead of a clipboard, with the day's stops in order</li>
+            <li>Time logged to the minute, plus photos, parts requests, and mileage</li>
             <li>Nothing reaches the crew until you have looked at it and approved it</li>
           </ul>
         </div>
-        <div class="pillar">
-          <span class="pillar-num">02</span>
-          <h3 class="pillar-title">Getting the crew through the day</h3>
-          <ul class="pillar-list">
-            <li>A phone screen instead of a clipboard, with the day's stops in order</li>
-            <li>Time logged to the minute, plus photos, parts requests, and mileage</li>
-            <li>A close-out check the tech answers before a job can be marked done</li>
+        <button type="button" class="build-tab" id="build-tab-billing" aria-expanded="false" aria-controls="build-panel-billing">
+          <span class="build-tab-num" aria-hidden="true">02</span>
+          <span class="build-tab-name">Billing, Invoicing &amp; Collections</span>
+        </button>
+        <div class="build-panel" id="build-panel-billing" role="region" aria-labelledby="build-tab-billing">
+          <h3 class="build-panel-h">Paperwork drafted from your own data, and money that stops aging.</h3>
+          <ul class="build-panel-list">
+            <li>Proposals, contracts, and invoices drafted from your own records, ready to review</li>
+            <li>Every document prints to a PDF matching the paper it replaced</li>
+            <li>Outstanding invoices chased on a schedule, from first nudge to final notice</li>
+            <li>Job costs reconciled against what you actually billed</li>
+            <li>Nothing goes out until someone has signed off on it</li>
           </ul>
         </div>
-        <div class="pillar">
-          <span class="pillar-num">03</span>
-          <h3 class="pillar-title">Getting paid, and knowing your numbers</h3>
-          <ul class="pillar-list">
-            <li>Proposals and invoices drafted from your own records, ready to review</li>
-            <li>Margin by job, tech, and customer, after labor and materials</li>
-            <li>Every screen prints to a PDF matching the paper it replaced</li>
+        <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
+          <span class="build-tab-num" aria-hidden="true">03</span>
+          <span class="build-tab-name">Customer Communication</span>
+        </button>
+        <div class="build-panel" id="build-panel-customer" role="region" aria-labelledby="build-tab-customer">
+          <h3 class="build-panel-h">The office side of every customer, handled before anyone has to remember.</h3>
+          <ul class="build-panel-list">
+            <li>Renewals, maintenance reminders, and quote follow-ups that fire on their own</li>
+            <li>The customer's full history on screen the moment they call</li>
+            <li>Replies drafted from your own records, ready to edit and send</li>
+            <li>Inbound requests sorted and routed to whoever should own them</li>
+            <li>Review requests that go out when the job closes, not three weeks later</li>
+          </ul>
+        </div>
+        <button type="button" class="build-tab" id="build-tab-analytics" aria-expanded="false" aria-controls="build-panel-analytics">
+          <span class="build-tab-num" aria-hidden="true">04</span>
+          <span class="build-tab-name">Analytics, Reporting &amp; Research</span>
+        </button>
+        <div class="build-panel" id="build-panel-analytics" role="region" aria-labelledby="build-tab-analytics">
+          <h3 class="build-panel-h">Your real numbers, plus the work you didn't know was there.</h3>
+          <ul class="build-panel-list">
+            <li>Margin by job, tech, and customer, after labor and materials, not revenue billed</li>
+            <li>Reports and owner briefings written for you, on whatever schedule suits you</li>
+            <li>Ask a question in plain words &mdash; <em>which jobs lost money last quarter?</em> &mdash; and get the number back instead of a report to build</li>
+            <li>Rebates, rule changes, and manufacturer bulletins matched to the customers they affect</li>
+            <li>Pricing and competitive research on the markets you are bidding into</li>
+          </ul>
+        </div>
+        <button type="button" class="build-tab" id="build-tab-custom" aria-expanded="false" aria-controls="build-panel-custom">
+          <span class="build-tab-num" aria-hidden="true">05</span>
+          <span class="build-tab-name">Custom Software</span>
+        </button>
+        <div class="build-panel" id="build-panel-custom" role="region" aria-labelledby="build-tab-custom">
+          <h3 class="build-panel-h">A full build around a problem nobody sells software for.</h3>
+          <ul class="build-panel-list">
+            <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
+            <li>Scoped in writing and priced before any work begins</li>
+            <li>Built on the systems you already run, so nothing has to be torn out</li>
+            <li>Sized to the job, from a single workflow to the system your whole operation runs on</li>
+            <li>Maintained and extended after delivery, the same as everything else</li>
           </ul>
         </div>
       </div>
@@ -638,6 +702,33 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
+
+    // Build picker: click/tap selects, hover previews on desktop pointers
+    const buildTabs = Array.from(document.querySelectorAll('.build-tab'));
+    if (buildTabs.length) {
+      const desktopHover = window.matchMedia('(hover: hover) and (min-width: 881px)');
+      let hoverTimer;
+      const selectBuild = (id) => {
+        buildTabs.forEach(tab => {
+          const target = tab.getAttribute('aria-controls');
+          const on = target === id;
+          tab.setAttribute('aria-expanded', on ? 'true' : 'false');
+          const panel = document.getElementById(target);
+          if (panel) panel.classList.toggle('is-open', on);
+        });
+      };
+      buildTabs.forEach(tab => {
+        const id = tab.getAttribute('aria-controls');
+        tab.addEventListener('click', () => selectBuild(id));
+        tab.addEventListener('focus', () => selectBuild(id));
+        tab.addEventListener('mouseenter', () => {
+          if (!desktopHover.matches) return;
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(() => selectBuild(id), 120);
+        });
+        tab.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+      });
+    }
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
