@@ -280,7 +280,7 @@
       animation: wm-settle 1.5s var(--ease) both, wm-glow 2.5s ease-in-out both;
     }
     @keyframes wm-settle {
-      0%   { opacity: 0; letter-spacing: 0.16em; filter: blur(5px); }
+      0%   { opacity: 0.01; letter-spacing: 0.16em; filter: blur(5px); }
       60%  { opacity: 1; filter: blur(0); }
       100% { opacity: 1; letter-spacing: -0.035em; filter: blur(0); }
     }
@@ -319,7 +319,7 @@
     @media (prefers-reduced-motion: reduce) {
       .wm-row-somerset { animation: none; opacity: 1; letter-spacing: -0.035em; filter: none; text-shadow: none; }
       .wm-row-systems { animation: none; opacity: 1; }
-      .btn-hero:hover, .btn-white:hover, .btn-assess:hover, .nav-cta:hover { transform: none; }
+      .btn-hero:hover, .btn-white:hover, .nav-cta:hover { transform: none; }
     }
     .hero-sub {
       font-size: clamp(18px, 2.1vw, 24px); color: rgba(255, 255, 255, 0.86);
@@ -450,6 +450,8 @@
       color: var(--green); margin-bottom: 12px; display: block;
     }
     .founder-bio { font-size: 15px; color: var(--soft); line-height: 1.7; }
+    .founder-bio p { margin: 0 0 12px; }
+    .founder-bio p:last-child { margin-bottom: 0; }
 
     /* ── FAQ ───────────────────────────────────────────────── */
     .faq-bg { background: var(--bg); border-top: 1px solid var(--border); }
@@ -673,7 +675,7 @@
           <div>
             <h3 class="founder-name">Thomas Ankenbrandt</h3>
             <span class="founder-role">Co-Founder</span>
-            <div class="founder-bio">Thomas studies electrical engineering at Cal Poly SLO and has spent the past year building AI automation systems, with experience across finance, data, and marketing workflows. At Somerset, he leads the technical side, designing and building the dashboards and automations and connecting software that was never meant to talk to each other. Off the clock, you'll usually find him with a guitar in hand or on the basketball court.</div>
+            <div class="founder-bio"><p>I'm an electrical engineer from Cal Poly SLO, but most of what I know has come from building solutions for real teams. In the past few years, I've developed custom software for nonprofits and AI-driven workflow automations across Salesforce, NetSuite, Databricks, and Workato.</p><p>That work convinced me of something: custom software that used to take an engineering team months is now buildable in weeks. Which means the contractors who were always priced out of it can finally have it. This led us to found Somerset Systems.</p><p>Outside of work, I enjoy playing guitar, basketball, and traveling. We'd love to work with you, so feel free to reach out!</p></div>
           </div>
         </div>
         <div class="founder-card">
@@ -712,7 +714,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" inert><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. If you want a sense of what this could save you first, take the <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener">Operational Opportunity Assessment</a>.</p></div></div>
+          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" inert><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>

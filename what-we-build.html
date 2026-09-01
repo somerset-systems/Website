@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="What Somerset Systems builds: document automation, a live operations dashboard, owner briefings, profitability analysis, and automated follow-up, on the software you already use. We start with the one automation that moves the needle most." />
+  <meta name="description" content="What Somerset Systems builds: the work hiding in your own customer base, true margin by job and tech, and paperwork that drafts and follows up on its own." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="The full set of capabilities in a Somerset Systems build: automation, live operations, reporting, and the work that finds money you're leaving on the table." />
+  <meta property="og:description" content="Three things a Somerset build gives you: the work hiding in your customer base, your real numbers after labor and materials, and paperwork that runs itself." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="What We Build: Somerset Systems" />
-  <meta name="twitter:description" content="The full set of capabilities in a Somerset Systems build, on the software you already use." />
+  <meta name="twitter:description" content="The work hiding in your customer base, your real numbers, and paperwork that runs itself." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
@@ -27,7 +27,7 @@
     "@id": "https://somersetsystems.co/what-we-build.html#webpage",
     "url": "https://somersetsystems.co/what-we-build.html",
     "name": "What We Build: Somerset Systems",
-    "description": "What Somerset Systems builds: document automation, a live operations dashboard, owner briefings, profitability analysis, and automated follow-up, on the software you already use.",
+    "description": "What Somerset Systems builds: the work hiding in your own customer base, true margin by job and tech, and paperwork that drafts and follows up on its own.",
     "isPartOf": { "@id": "https://somersetsystems.co/#website" },
     "publisher": {
       "@type": "Organization",
@@ -78,7 +78,7 @@
 
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
-    .cta-wrap a:focus-visible, .wwb-header a:focus-visible, .assess-bg a:focus-visible { outline-color: #fff; }
+    .cta-wrap a:focus-visible, .wwb-header a:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     .skip-link {
@@ -188,7 +188,7 @@
     }
     .nav-cta:hover { background: #fff; transform: translateY(-1px); }
     @media (prefers-reduced-motion: reduce) {
-      .nav-cta:hover, .btn-white:hover, .btn-assess:hover, .btn-back:hover { transform: none; }
+      .nav-cta:hover, .btn-white:hover, .btn-back:hover { transform: none; }
     }
 
     /* ── PAGE HEADER (compact deep-green band) ─────────────── */
@@ -336,36 +336,6 @@
     }
     .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
     .step-desc  { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
-
-    /* ── ASSESSMENT ────────────────────────────────────────── */
-    .assess-bg {
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, var(--green-deep-2) 0%, transparent 65%),
-        var(--green-deep);
-      color: #fff; text-align: center;
-      padding: clamp(64px, 8vw, 92px) clamp(28px, 5vw, 60px);
-    }
-    .assess-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-    .assess-h {
-      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; letter-spacing: -0.035em;
-      line-height: 1.08; margin-bottom: 16px; text-wrap: balance;
-    }
-    .assess-h em { font-style: italic; color: var(--sage-light); }
-    .assess-text {
-      font-size: 16px; color: rgba(255, 255, 255, 0.82); line-height: 1.65;
-      margin-bottom: 32px; max-width: 500px; text-wrap: pretty;
-    }
-    .btn-assess {
-      background: var(--sage-light); color: var(--green-deep);
-      padding: 15px 32px; border-radius: 8px;
-      font-size: 15px; font-weight: 800; text-decoration: none;
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      max-width: 100%; line-height: 1.3; text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      transition: background .2s, transform .15s;
-    }
-    .btn-assess svg { width: 16px; height: 16px; stroke: currentColor; flex-shrink: 0; }
-    .btn-assess:hover { background: #fff; transform: translateY(-1px); }
 
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-wrap {
@@ -546,19 +516,6 @@
           <div class="step-desc">We walk your team through the system, then maintain it for a flat monthly fee. Updates and new automations as you grow.</div>
         </div>
       </div>
-    </div>
-  </section>
-
-
-  <!-- ASSESSMENT -->
-  <section class="assess-bg" aria-labelledby="assess-h">
-    <div class="assess-inner reveal">
-      <h2 class="assess-h" id="assess-h">What Would This Surface<br><em>in Your Operation?</em></h2>
-      <p class="assess-text">Answer a few questions about how you run today, and get a read on where time and revenue are most likely slipping through the cracks.</p>
-      <a href="https://assessment.somersetsystems.co" target="_blank" rel="noopener" class="btn-assess">
-        Take the Operational Opportunity Assessment
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
     </div>
   </section>
 
