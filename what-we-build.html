@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="Custom software engineered for field-service operations: scheduling and routing, billing and collections, customer communication, analytics and research, or a full build of your own." />
+  <meta name="description" content="Custom software engineered for field-service operations: scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="Four places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
+  <meta property="og:description" content="Five places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="What We Build: Somerset Systems" />
-  <meta name="twitter:description" content="Scheduling and routing, billing, customer communication, analytics and research, or a full custom build." />
+  <meta name="twitter:description" content="Scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
@@ -27,7 +27,7 @@
     "@id": "https://somersetsystems.co/what-we-build.html#webpage",
     "url": "https://somersetsystems.co/what-we-build.html",
     "name": "What We Build: Somerset Systems",
-    "description": "Custom software engineered for field-service operations: scheduling and routing, billing and collections, customer communication, analytics and research, or a full build of your own.",
+    "description": "Custom software engineered for field-service operations: scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build.",
     "isPartOf": { "@id": "https://somersetsystems.co/#website" },
     "publisher": {
       "@type": "Organization",
@@ -265,7 +265,7 @@
     .builds {
       display: grid;
       grid-template-columns: minmax(240px, 340px) 1fr;
-      grid-template-rows: repeat(5, min-content) 1fr;
+      grid-template-rows: repeat(6, min-content) 1fr;
       column-gap: clamp(24px, 3vw, 48px); row-gap: 8px;
     }
     .build-tab {
@@ -544,8 +544,22 @@
             <li>Nothing goes out until someone has signed off on it</li>
           </ul>
         </div>
-        <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
+        <button type="button" class="build-tab" id="build-tab-compliance" aria-expanded="false" aria-controls="build-panel-compliance">
           <span class="build-tab-num" aria-hidden="true">03</span>
+          <span class="build-tab-name">Documents &amp; Compliance</span>
+        </button>
+        <div class="build-panel" id="build-panel-compliance" role="region" aria-labelledby="build-tab-compliance">
+          <h3 class="build-panel-h">The paperwork a bigger job demands, drafted and tracked instead of chased.</h3>
+          <ul class="build-panel-list">
+            <li>Submittals, permits, and warranty claims drafted from the job record</li>
+            <li>Certified payroll and prevailing-wage reports built from hours already logged</li>
+            <li>Every document versioned and dated, printable to a form an inspector recognizes</li>
+            <li>Expiring licenses, insurance certificates, and permits flagged before they lapse</li>
+            <li>A paper trail you can hand a GC without assembling it first</li>
+          </ul>
+        </div>
+        <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
+          <span class="build-tab-num" aria-hidden="true">04</span>
           <span class="build-tab-name">Customer Communication</span>
         </button>
         <div class="build-panel" id="build-panel-customer" role="region" aria-labelledby="build-tab-customer">
@@ -559,7 +573,7 @@
           </ul>
         </div>
         <button type="button" class="build-tab" id="build-tab-analytics" aria-expanded="false" aria-controls="build-panel-analytics">
-          <span class="build-tab-num" aria-hidden="true">04</span>
+          <span class="build-tab-num" aria-hidden="true">05</span>
           <span class="build-tab-name">Analytics, Reporting &amp; Research</span>
         </button>
         <div class="build-panel" id="build-panel-analytics" role="region" aria-labelledby="build-tab-analytics">
@@ -573,7 +587,7 @@
           </ul>
         </div>
         <button type="button" class="build-tab" id="build-tab-custom" aria-expanded="false" aria-controls="build-panel-custom">
-          <span class="build-tab-num" aria-hidden="true">05</span>
+          <span class="build-tab-num" aria-hidden="true">06</span>
           <span class="build-tab-name">Custom Software</span>
         </button>
         <div class="build-panel" id="build-panel-custom" role="region" aria-labelledby="build-tab-custom">
