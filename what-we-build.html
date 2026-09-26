@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Build: Somerset Systems</title>
-  <meta name="description" content="Custom software engineered for field-service operations: scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build." />
+  <meta name="description" content="Custom software engineered for field-service operations: scheduling, billing, document processing and reports, customer communication and growth, analytics, or a full custom build." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="Five places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
+  <meta property="og:description" content="Six places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="What We Build: Somerset Systems" />
-  <meta name="twitter:description" content="Scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build." />
+  <meta name="twitter:description" content="Scheduling, billing, document processing and reports, customer communication and growth, analytics, or a full custom build." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
   <link rel="canonical" href="https://somersetsystems.co/what-we-build.html" />
@@ -27,7 +27,7 @@
     "@id": "https://somersetsystems.co/what-we-build.html#webpage",
     "url": "https://somersetsystems.co/what-we-build.html",
     "name": "What We Build: Somerset Systems",
-    "description": "Custom software engineered for field-service operations: scheduling, billing, compliance paperwork, customer communication, analytics, or a full custom build.",
+    "description": "Custom software engineered for field-service operations: scheduling, billing, document processing and reports, customer communication and growth, analytics, or a full custom build.",
     "isPartOf": { "@id": "https://somersetsystems.co/#website" },
     "publisher": {
       "@type": "Organization",
@@ -45,18 +45,26 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,900&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- Montserrat = brand face (wordmark, headings). Public Sans = plain, sturdy body text. -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    // Same motion gate as index.html: .js for reveals, .motion for the GSAP layer.
+    document.documentElement.classList.add('js');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('motion');
+      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 3000);
+    }
+  </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --green:         #456650;
+      --green:         #456650;   /* brand primary: also the drenched header/CTA surface */
       --green-light:   #527B5E;
       --green-dim:     rgba(69, 102, 80, 0.08);
       --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
-      --green-deep:    #1C2E24;
+      --green-deep:    #1C2E24;   /* legacy (skip link) */
       --green-deep-2:  #2C4636;
       --green-deep-3:  #21372B;
       --green-deep-4:  #15231B;
@@ -70,6 +78,21 @@
       --soft:          #4A4540;
       --muted:         #6E665E;
 
+      /* Green drench (shared with index.html) */
+      --deep:              #2E4A38;
+      --deep-card:         #36543F;
+      --line-on-green:     rgba(255, 255, 255, 0.14);
+      --line-on-green-2:   rgba(255, 255, 255, 0.26);
+      --on-green:          #FFFFFF;
+      --on-green-soft:     #E3EFE6;
+      --on-green-muted:    #D3E2D8;
+      --on-green-accent:   #CFE6D6;   /* emphasis text on green: 4.9:1 on --green (sage-light is only 3.4:1) */
+
+      --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+      --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -0.45'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+
       --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
       --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
       --sp-20: 80px; --sp-24: 96px;
@@ -78,15 +101,17 @@
     }
 
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
     :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
-    .cta-wrap a:focus-visible, .wwb-header a:focus-visible { outline-color: #fff; }
+    .on-green :focus-visible, body > nav :focus-visible, .mobile-menu :focus-visible, footer :focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     .skip-link {
       position: fixed; top: 10px; left: 10px; z-index: 300;
       background: var(--green-deep); color: #fff;
       padding: 11px 20px; border-radius: 8px;
-      font-size: 14px; font-weight: 700; text-decoration: none;
+      font-size: 14px; font-weight: 600; text-decoration: none;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
       transform: translateY(-160%); transition: transform .22s var(--ease);
     }
@@ -97,10 +122,19 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-family: var(--font-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: var(--font-display); }
+    h1 em, h2 em, h3 em { font-style: normal; }
+
+    .on-green { background: var(--green); color: var(--on-green); position: relative; isolation: isolate; }
+    .on-green.is-deep { background: var(--deep); }
+    .on-green::after {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image: var(--grain); opacity: .06;
     }
 
     /* ── SCROLL REVEAL ─────────────────────────────────────── */
@@ -125,6 +159,31 @@
         opacity: 1 !important; transform: none !important; transition: none !important;
       }
     }
+    .motion .header-rings .ring { stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .motion .hdr-anim { visibility: hidden; }
+
+    /* ── BUTTONS ───────────────────────────────────────────── */
+    .btn {
+      position: relative; isolation: isolate; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 26px; border-radius: 10px;
+      font: 600 15px/1 var(--font-body); text-decoration: none; white-space: nowrap;
+      transition: color .35s var(--ease), border-color .35s var(--ease);
+    }
+    .btn::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: var(--btn-fill); transform: scaleY(0); transform-origin: bottom;
+      transition: transform .45s var(--ease);
+    }
+    .btn:hover::before { transform: scaleY(1); }
+    .btn svg { width: 16px; height: 16px; stroke: currentColor; flex: none; transition: transform .3s var(--ease); }
+    .btn:hover svg { transform: translateX(3px); }
+    .btn-light { background: #fff; color: var(--deep); --btn-fill: var(--sage-light); }
+    .btn-sm { padding: 10px 18px; font-size: 13.5px; border-radius: 8px; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn::before { transition: none; }
+      .btn:hover svg { transform: none; }
+    }
 
     /* ── NAV ───────────────────────────────────────────────── */
     body > nav {
@@ -132,22 +191,30 @@
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 60px; height: 66px;
-      background: rgba(22, 36, 28, 0.82);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(46, 74, 56, 0.82);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid var(--line-on-green);
     }
     .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .nav-logo img { height: 34px; width: auto; display: block; }
-    .nav-logo .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-logo .nav-wordmark { display: flex; flex-direction: column; line-height: 1; font-family: var(--font-display); }
     .nav-logo .nav-wm-1 { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; color: #fff; }
-    .nav-logo .nav-wm-2 { font-size: 8.5px; font-weight: 600; letter-spacing: 0.32em; color: var(--sage-light); margin-top: 2px; }
-    .nav-links { display: flex; gap: 30px; align-items: center; justify-content: center; }
+    .nav-logo .nav-wm-2 { font-size: 8.5px; font-weight: 600; letter-spacing: 0.32em; color: var(--on-green-accent); margin-top: 2px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; justify-content: center; }
     .nav-links a {
-      font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.68);
+      position: relative; padding: 6px 0;
+      font-size: 14px; font-weight: 500; color: var(--on-green-soft);
       text-decoration: none; transition: color .2s; white-space: nowrap;
     }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+      background: currentColor; transform: scaleX(0); transform-origin: left;
+      transition: transform .35s var(--ease);
+    }
     .nav-links a:hover { color: #fff; }
-    .nav-links a.active { color: var(--sage-light); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: #fff; }
     .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
     .nav-toggle {
       display: none; flex-direction: column; justify-content: center; gap: 5px;
@@ -165,99 +232,78 @@
     .mobile-menu {
       display: none; position: fixed; top: 66px; left: 0; right: 0; z-index: 190;
       flex-direction: column; padding: 8px 24px 18px;
-      background: rgba(22, 36, 28, 0.97); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(46, 74, 56, 0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line-on-green);
       opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden;
       transition: opacity .25s ease, transform .25s var(--ease), visibility .25s;
     }
     .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
     .mobile-menu a {
-      font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.82);
-      text-decoration: none; padding: 13px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      font-size: 16px; font-weight: 500; color: var(--on-green-soft);
+      text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--line-on-green);
     }
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu-cta {
-      margin-top: 12px; text-align: center; color: var(--green-deep) !important;
-      background: var(--sage-light); border-radius: 8px; padding: 14px 0 !important; font-weight: 800 !important;
+      margin-top: 12px; text-align: center; color: var(--deep) !important;
+      background: #fff; border-radius: 8px; padding: 14px 0 !important; font-weight: 600 !important;
     }
-    @media (prefers-reduced-motion: reduce) { .mobile-menu { transition: opacity .2s ease; transform: none; } }
-    .nav-cta {
-      background: var(--sage-light); color: var(--green-deep);
-      padding: 9px 20px; border-radius: 7px;
-      font-size: 13px; font-weight: 800; text-decoration: none;
-      transition: background .2s, transform .15s;
-    }
-    .nav-cta:hover { background: #fff; transform: translateY(-1px); }
     @media (prefers-reduced-motion: reduce) {
-      .nav-cta:hover, .btn-white:hover, .btn-back:hover { transform: none; }
+      .mobile-menu { transition: opacity .2s ease; transform: none; }
+      .nav-links a::after { transition: none; }
     }
 
-    /* ── PAGE HEADER (compact deep-green band) ─────────────── */
+    /* ── PAGE HEADER (compact brand-green band) ────────────── */
     .wwb-header {
-      position: relative; overflow: hidden; color: #fff;
-      padding: 150px 40px 84px; text-align: center;
+      overflow: hidden; text-align: center;
+      padding: 150px 40px 96px;
+    }
+    .wwb-header-bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+    .wwb-header-bg::before {
+      content: ""; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 90% 60% at 50% -10%, var(--green-deep-2) 0%, transparent 62%),
-        linear-gradient(168deg, var(--green-deep-3) 0%, var(--green-deep) 58%, var(--green-deep-4) 100%);
+        radial-gradient(60% 70% at 50% 0%, rgba(160, 196, 171, 0.4), transparent 70%),
+        radial-gradient(80% 50% at 50% 110%, rgba(46, 74, 56, 0.7), transparent 75%);
     }
-    .wwb-header-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .wwb-rings { position: absolute; width: 560px; height: 560px; opacity: .5; }
-    .wwb-rings circle { fill: none; stroke: rgba(255, 255, 255, 0.10); stroke-width: 2; }
-    .wwb-rings.tl { top: -260px; left: -200px; }
-    .wwb-rings.br { bottom: -280px; right: -190px; }
-    .wwb-header > * { position: relative; z-index: 1; }
-    .wwb-eyebrow {
+    /* the same ring field as the landing hero, anchored low so it rises behind the title */
+    .header-rings {
+      position: absolute; left: 50%; top: 100%;
+      width: 1500px; height: 1500px; margin: -750px 0 0 -750px;
+      -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent 92%);
+              mask-image: radial-gradient(closest-side, #000 30%, transparent 92%);
+    }
+    .header-rings .ring { fill: none; stroke: rgba(255, 255, 255, 0.13); stroke-width: 1.2; }
+    .header-rings .ring.accent { stroke: rgba(255, 255, 255, 0.32); }
+    .wwb-back {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
-      color: var(--sage-light); text-decoration: none; margin-bottom: 22px; transition: color .2s;
+      font-size: 14px; font-weight: 500; color: var(--on-green-soft);
+      text-decoration: none; margin-bottom: 26px; transition: color .2s;
     }
-    .wwb-eyebrow svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .2s var(--ease); }
-    .wwb-eyebrow:hover { color: #fff; }
-    .wwb-eyebrow:hover svg { transform: translateX(-3px); }
+    .wwb-back svg { width: 15px; height: 15px; stroke: currentColor; transition: transform .25s var(--ease); }
+    .wwb-back:hover { color: #fff; }
+    .wwb-back:hover svg { transform: translateX(-3px); }
     .wwb-title {
-      font-size: clamp(34px, 5vw, 62px);
-      font-weight: 900; letter-spacing: -0.035em; line-height: 1.04;
-      margin-bottom: 22px; text-wrap: balance;
+      font-size: clamp(36px, 5.2vw, 68px);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1.04;
+      margin: 0 auto 22px; max-width: 16ch; text-wrap: balance;
     }
-    .wwb-title em { font-style: italic; color: var(--sage-light); }
+    .wwb-title em { font-style: normal; color: var(--on-green-accent); }
     .wwb-lede {
-      font-size: clamp(16px, 1.7vw, 19px); color: rgba(255, 255, 255, 0.82);
-      max-width: 640px; margin: 0 auto; line-height: 1.65; text-wrap: pretty;
+      font-size: clamp(17px, 1.7vw, 20px); color: var(--on-green-soft);
+      max-width: 600px; margin: 0 auto; line-height: 1.65; text-wrap: balance;
     }
 
     /* ── SHARED SECTION ────────────────────────────────────── */
-    .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px); }
+    .section-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(72px, 9vw, 112px) clamp(24px, 5vw, 60px); }
     .section-h {
-      font-size: clamp(28px, 3.4vw, 44px);
-      font-weight: 900; letter-spacing: -0.035em; line-height: 1.06;
-      margin-bottom: 18px; text-wrap: balance;
+      font-size: clamp(30px, 3.8vw, 50px);
+      font-weight: 700; letter-spacing: -0.035em; line-height: 1.06;
+      margin-bottom: 44px; text-wrap: balance;
     }
-    .section-h em { font-style: italic; color: var(--green); }
-
-    /* ── FEATURES ──────────────────────────────────────────── */
-    .features-bg .section-h { margin-bottom: 48px; }
-    .features-bg {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .category-block { margin-bottom: 64px; }
-    .category-block:last-child { margin-bottom: 0; }
-    .category-title {
-      font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
-      color: var(--text); margin-bottom: 26px; text-wrap: balance;
-    }
-    .features-list {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      column-gap: 44px; border-top: 1px solid var(--border);
-    }
-    .features-list.two-col { grid-template-columns: repeat(2, 1fr); column-gap: 64px; }
-    .f-item { padding: 26px 0; border-bottom: 1px solid var(--border); }
-    .f-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; line-height: 1.35; }
-    .f-desc { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
-    .f-item:first-child .f-name { color: var(--green); }
+    .section-h em { font-style: normal; color: var(--green); }
+    .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
 
     /* ── BUILD PICKER ────────────────────────────────────────── */
+    .features-bg { background: var(--bg); }
     .visually-hidden {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -274,45 +320,50 @@
       font: inherit; text-align: left; cursor: pointer;
       background: transparent; border: 1px solid transparent; border-radius: 12px;
       padding: 16px 18px; color: var(--soft);
-      transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
+      transition: background .2s, border-color .2s, color .2s;
     }
     .build-tab:hover { background: var(--bg-white); border-color: var(--border); color: var(--text); }
     .build-tab[aria-expanded="true"] {
-      background: var(--bg-white); border-color: var(--green-border); color: var(--text);
-      box-shadow: 0 8px 24px rgba(28, 46, 36, 0.09);
+      background: var(--green); border-color: var(--green); color: #fff;
     }
     .build-tab-num {
-      flex: 0 0 auto; font-size: 12px; font-weight: 800; letter-spacing: 2px;
-      color: var(--sage); transition: color .2s;
+      flex: 0 0 auto; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums;
+      color: var(--green); transition: color .2s;
     }
-    .build-tab[aria-expanded="true"] .build-tab-num { color: var(--green); }
-    .build-tab-name { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; }
+    .build-tab[aria-expanded="true"] .build-tab-num { color: var(--on-green-accent); }
+    .build-tab-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.35; }
 
     .build-panel {
       grid-column: 2; grid-row: 1 / -1;
-      background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px;
-      padding: clamp(26px, 2.6vw, 38px);
+      background: var(--bg-white); border: 1px solid var(--border); border-radius: 18px;
+      padding: clamp(26px, 2.8vw, 40px);
     }
-    .build-panel-tag {
-      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.4px;
-      text-transform: uppercase; color: var(--green);
-      background: var(--green-dim); border: 1px solid var(--green-border);
-      border-radius: 999px; padding: 5px 12px; margin-bottom: 16px;
+    /* Status line closing each panel: plain text, not a badge. 01 is the shipped build
+       (green, links to its case study); 02–06 are scoped per operation (quiet). */
+    .build-panel-status {
+      margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border);
+      font-size: 15px; font-weight: 600; color: var(--green);
     }
+    .build-panel-status a {
+      color: inherit; font-weight: 500; margin-left: 6px;
+      text-decoration: underline; text-decoration-color: var(--green-border);
+      text-underline-offset: 3px; transition: text-decoration-color .2s;
+    }
+    .build-panel-status a:hover { text-decoration-color: currentColor; }
+    .build-panel-status.is-scoped { color: var(--muted); font-weight: 500; }
     .build-panel-h {
-      font-size: clamp(20px, 2.1vw, 25px); font-weight: 900;
-      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 20px;
-      padding-bottom: 18px; border-bottom: 1px solid var(--border); text-wrap: balance;
+      font-size: clamp(21px, 2.1vw, 26px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.18; margin-bottom: 22px;
+      padding-bottom: 20px; border-bottom: 1px solid var(--border); text-wrap: balance;
     }
-    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .build-panel-list li {
-      position: relative; padding-left: 26px;
-      font-size: 14.5px; color: var(--soft); line-height: 1.65; text-wrap: pretty;
+      position: relative; padding-left: 22px;
+      font-size: 16px; color: var(--soft); line-height: 1.6; text-wrap: pretty;
     }
     .build-panel-list li::before {
-      content: ''; position: absolute; left: 0; top: 7px;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--green); box-shadow: 0 0 0 4px var(--green-border);
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 8px; height: 2px; border-radius: 2px; background: var(--green);
     }
 
     /* No JS: every panel stays open and readable. */
@@ -328,112 +379,108 @@
     }
     @media (max-width: 880px) {
       .builds { display: block; }
-      .build-panel { margin: 8px 0 14px; border-radius: 12px; }
+      .build-panel { margin: 8px 0 14px; border-radius: 14px; }
     }
-
-    /* ── PROCESS ───────────────────────────────────────────── */
-    .process-bg {
-      background: var(--bg-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .process-bg .section-h { margin-bottom: 48px; }
-    .steps-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; position: relative;
-    }
-    .steps-grid::before {
-      content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 1px; background: var(--border-strong);
-    }
-    .step-num {
-      position: relative; z-index: 1;
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--green); color: #fff;
-      font-size: 11px; font-weight: 800; line-height: 1; margin-bottom: 16px;
-    }
-    .step-title { font-size: 15px; font-weight: 800; margin-bottom: 9px; text-wrap: balance; }
-    .step-desc  { font-size: 14px; color: var(--soft); line-height: 1.7; text-wrap: pretty; }
 
     /* ── CASE STUDY ─────────────────────────────────────────── */
-    .case-bg {
-      position: relative; overflow: hidden; color: #fff;
-      background:
-        radial-gradient(ellipse 90% 70% at 12% 0%, var(--green-deep-2) 0%, transparent 62%),
-        var(--green-deep);
-    }
-    .case-deco { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
     .case-inner {
-      position: relative; z-index: 1;
       max-width: 1140px; margin: 0 auto;
-      padding: clamp(64px, 8vw, 96px) clamp(28px, 5vw, 60px);
+      padding: clamp(80px, 9vw, 120px) clamp(24px, 5vw, 60px);
       display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px);
       align-items: start;
     }
     .case-eyebrow {
-      display: block; font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
-      text-transform: uppercase; color: var(--sage-light); margin-bottom: 18px;
+      display: block; font-size: 15px; font-weight: 600;
+      color: var(--on-green-accent); margin-bottom: 16px;
     }
     .case-h {
-      font-size: clamp(26px, 3.2vw, 40px); font-weight: 900;
+      font-size: clamp(28px, 3.4vw, 44px); font-weight: 700;
       letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance;
     }
-    .case-h em { font-style: italic; color: var(--sage-light); }
+    .case-h em { font-style: normal; color: var(--on-green-accent); }
+    /* the headline rides along beside the long list instead of leaving a hole */
+    @media (min-width: 881px) { .case-inner > div:first-child { position: sticky; top: 110px; } }
     .case-text {
-      font-size: 16px; color: rgba(255, 255, 255, 0.82);
+      font-size: 17px; color: var(--on-green-soft);
       line-height: 1.7; margin-bottom: 18px; text-wrap: pretty;
     }
-    .case-text:last-of-type { margin-bottom: 26px; }
-    .case-facts { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .case-text:last-of-type { margin-bottom: 24px; }
+    .case-step { font-weight: 600; color: #fff; }
+    .case-facts { list-style: none; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line-on-green); }
     .case-facts li {
-      position: relative; padding-left: 26px;
-      font-size: 14.5px; font-weight: 700; line-height: 1.5; text-wrap: pretty;
+      position: relative; padding: 14px 0 14px 24px;
+      border-bottom: 1px solid var(--line-on-green);
+      font-size: 16px; font-weight: 600; line-height: 1.55; color: var(--on-green-soft); text-wrap: pretty;
     }
+    /* The long "what it does now" list carries sentences, not 3-word chips:
+       drop to regular weight so nine rows do not read as a wall of bold. */
+    .case-facts.is-detail li { font-weight: 400; }
     .case-facts li::before {
-      content: ''; position: absolute; left: 0; top: 6px;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--sage-light); box-shadow: 0 0 0 4px rgba(160, 196, 171, 0.18);
+      content: ''; position: absolute; left: 0; top: 24px;
+      width: 9px; height: 2px; border-radius: 2px; background: var(--sage-light);
     }
+    .case-facts em { color: #fff; }
     @media (max-width: 880px) {
       .case-inner { grid-template-columns: 1fr; gap: 26px; }
     }
 
+    /* ── PROCESS (a timeline that draws itself) ─────────────── */
+    .process-bg { background: var(--bg-white); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; position: relative;
+    }
+    .steps-line {
+      position: absolute; top: 19px; left: 20px; right: 20px; height: 2px;
+      background: var(--border-strong); overflow: hidden;
+    }
+    .steps-line i {
+      position: absolute; inset: 0; background: var(--green);
+      transform: scaleX(1); transform-origin: left;
+    }
+    .motion .steps-line i { transform: scaleX(0); }
+    .step-num {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--green); color: #fff; box-shadow: 0 0 0 6px var(--bg-white);
+      font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 20px;
+    }
+    .step-title { font-size: 18px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 10px; text-wrap: balance; }
+    .step-desc  { font-size: 16px; color: var(--soft); line-height: 1.65; text-wrap: pretty; }
+
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-wrap {
-      text-align: center;
-      padding: clamp(80px, 10vw, 108px) clamp(28px, 5vw, 60px);
-      background: var(--green);
+      text-align: center; overflow: hidden;
+      padding: clamp(96px, 12vw, 148px) clamp(24px, 5vw, 60px);
     }
-    .cta-logo { height: 64px; width: auto; margin-bottom: 30px; opacity: .92; }
+    .cta-glow {
+      position: absolute; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(55% 60% at 50% 110%, rgba(160, 196, 171, 0.38), transparent 70%),
+        radial-gradient(70% 50% at 50% -10%, rgba(46, 74, 56, 0.6), transparent 75%);
+    }
+    .cta-logo { height: 60px; width: auto; margin-bottom: 30px; opacity: .95; }
     .cta-wrap h2 {
-      font-size: clamp(34px, 4.5vw, 60px);
-      font-weight: 900; letter-spacing: -0.035em; line-height: 1.05;
-      margin-bottom: 16px; color: #fff; text-wrap: balance;
+      font-size: clamp(34px, 4.6vw, 62px);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1.04;
+      margin-bottom: 18px; color: var(--on-green); text-wrap: balance;
     }
-    .cta-wrap h2 em { font-style: italic; color: rgba(255,255,255,.72); }
-    .cta-wrap p { font-size: 17px; color: rgba(255,255,255,.85); margin-bottom: 44px; }
-    .btn-white {
-      background: #fff; color: var(--green);
-      padding: 15px 40px; border-radius: 8px;
-      font-size: 15px; font-weight: 800; text-decoration: none;
-      display: inline-block; transition: opacity .2s, transform .15s;
-    }
-    .btn-white:hover { opacity: .92; transform: translateY(-1px); }
+    .cta-wrap p { font-size: 18px; color: var(--on-green-soft); margin: 0 auto 40px; max-width: 520px; text-wrap: balance; }
 
     /* ── FOOTER ────────────────────────────────────────────── */
     footer {
-      background: var(--bg); padding: 30px 60px;
-      border-top: 1px solid var(--border);
+      background: var(--deep); padding: 30px 60px;
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 14px;
     }
-    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-display); }
     .footer-logo img { height: 26px; width: auto; display: block; }
-    .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: var(--text); }
-    .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); }
+    .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: #fff; }
+    .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--on-green-accent); }
     .footer-links { display: flex; gap: 22px; }
-    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 13px; color: var(--on-green-muted); }
 
     /* ── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width: 960px) {
@@ -445,16 +492,12 @@
       footer { padding: 28px 24px; flex-direction: column; }
       .footer-links { gap: 6px; flex-direction: column; align-items: center; }
       .footer-links a { padding: 12px 8px; }
-      .features-list { grid-template-columns: repeat(2, 1fr); }
-      .features-list.two-col { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
-      .steps-grid::before { display: none; }
+      .steps-line { display: none; }
     }
     @media (max-width: 560px) {
-      .wwb-header { padding: 130px 20px 70px; }
-      .wwb-rings { display: none; }
-      .features-list { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
+      .wwb-header { padding: 124px 20px 72px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
     }
   </style>
 </head>
@@ -465,7 +508,7 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo" aria-label="Somerset Systems home">
-      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="34" height="34" />
+      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="34" height="34" />
       <span class="nav-wordmark"><span class="nav-wm-1">SOMERSET</span><span class="nav-wm-2">SYSTEMS</span></span>
     </a>
     <div class="nav-links">
@@ -475,7 +518,7 @@
       <a href="index.html#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="nav-cta">Book a Consultation</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Consultation</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -496,102 +539,122 @@
   <main id="main" tabindex="-1">
 
   <!-- PAGE HEADER -->
-  <header class="wwb-header">
+  <header class="wwb-header on-green">
     <div class="wwb-header-bg" aria-hidden="true">
-      <svg class="wwb-rings tl" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg>
-      <svg class="wwb-rings br" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg>
+      <svg class="header-rings" viewBox="-750 -750 1500 1500">
+        <circle class="ring" pathLength="1" r="138"/>
+        <circle class="ring" pathLength="1" r="186"/>
+        <circle class="ring" pathLength="1" r="228"/>
+        <circle class="ring" pathLength="1" r="282"/>
+        <circle class="ring" pathLength="1" r="330"/>
+        <circle class="ring accent" pathLength="1" r="392"/>
+        <circle class="ring" pathLength="1" r="446"/>
+        <circle class="ring" pathLength="1" r="514"/>
+        <circle class="ring" pathLength="1" r="572"/>
+        <circle class="ring accent" pathLength="1" r="648"/>
+        <circle class="ring" pathLength="1" r="716"/>
+      </svg>
     </div>
-    <a href="index.html" class="wwb-eyebrow">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    <a href="index.html" class="wwb-back hdr-anim">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       Back to home
     </a>
-    <h1 class="wwb-title">Custom Software,<br><em>Engineered for Your Operation</em></h1>
-    <p class="wwb-lede">Built around the systems you already run, from a single workflow to the whole operation.</p>
+    <h1 class="wwb-title hdr-anim">Custom software, <em>engineered for your operation</em></h1>
+    <p class="wwb-lede hdr-anim">Built around the systems you already run, from a single workflow to the whole operation.</p>
   </header>
 
 
   <!-- FEATURES -->
   <section class="features-bg" id="capabilities" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="features-h">Pick the One That<br><em>Sounds Like Your Week</em></h2>
+      <h2 class="section-h reveal" id="features-h">Pick the one that <em>sounds like your week</em></h2>
       <div class="builds reveal">
         <button type="button" class="build-tab" id="build-tab-scheduling" aria-expanded="true" aria-controls="build-panel-scheduling">
           <span class="build-tab-num" aria-hidden="true">01</span>
           <span class="build-tab-name">Scheduling, Dispatch &amp; Routing</span>
         </button>
         <div class="build-panel is-open" id="build-panel-scheduling" role="region" aria-labelledby="build-tab-scheduling">
-          <span class="build-panel-tag">Running in production today</span>
-          <h3 class="build-panel-h">The week plans itself, and the crew gets it on their phone.</h3>
+          <h3 class="build-panel-h">Automated scheduling, route optimization, and a mobile crew app</h3>
           <ul class="build-panel-list">
             <li>Recurring service built from the notes already sitting in your records</li>
             <li>Routes planned around real traffic, with a cap on drive time</li>
-            <li>A phone screen instead of a clipboard, with the day's stops in order</li>
-            <li>Time logged to the minute, plus photos, parts requests, and mileage</li>
+            <li>A phone screen instead of a clipboard, with the day's stops in order, working with or without signal</li>
+            <li>Time logged to the minute, with photos attached to the job record</li>
+            <li>Parts, materials, and chemicals requested from the field and tracked against the job</li>
+            <li>Payroll hours and mileage built from the stamps the crew already recorded</li>
             <li>Nothing reaches the crew until you have looked at it and approved it</li>
           </ul>
+          <p class="build-panel-status">Running in production today.<a href="#case-study">See the build</a></p>
         </div>
         <button type="button" class="build-tab" id="build-tab-billing" aria-expanded="false" aria-controls="build-panel-billing">
           <span class="build-tab-num" aria-hidden="true">02</span>
           <span class="build-tab-name">Billing, Invoicing &amp; Collections</span>
         </button>
         <div class="build-panel" id="build-panel-billing" role="region" aria-labelledby="build-tab-billing">
-          <h3 class="build-panel-h">Paperwork drafted from your own data, and money that stops aging.</h3>
+          <h3 class="build-panel-h">Automated invoicing, proposals, and collections follow-up</h3>
           <ul class="build-panel-list">
-            <li>Proposals, contracts, and invoices drafted from your own records, ready to review</li>
+            <li>Proposals, contracts, and invoices drafted from your own records, so the paperwork starts written instead of blank</li>
             <li>Every document prints to a PDF matching the paper it replaced</li>
             <li>Outstanding invoices chased on a schedule, from first nudge to final notice</li>
             <li>Job costs reconciled against what you actually billed</li>
             <li>Nothing goes out until someone has signed off on it</li>
           </ul>
+          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
         </div>
-        <button type="button" class="build-tab" id="build-tab-compliance" aria-expanded="false" aria-controls="build-panel-compliance">
+        <button type="button" class="build-tab" id="build-tab-documents" aria-expanded="false" aria-controls="build-panel-documents">
           <span class="build-tab-num" aria-hidden="true">03</span>
-          <span class="build-tab-name">Documents &amp; Compliance</span>
+          <span class="build-tab-name">Document Processing &amp; Reports</span>
         </button>
-        <div class="build-panel" id="build-panel-compliance" role="region" aria-labelledby="build-tab-compliance">
-          <h3 class="build-panel-h">The paperwork a bigger job demands, drafted and tracked instead of chased.</h3>
+        <div class="build-panel" id="build-panel-documents" role="region" aria-labelledby="build-tab-documents">
+          <h3 class="build-panel-h">Document uploads, automatic sorting, and reports in your format</h3>
           <ul class="build-panel-list">
-            <li>Submittals, permits, and warranty claims drafted from the job record</li>
-            <li>Certified payroll and prevailing-wage reports built from hours already logged</li>
-            <li>Every document versioned and dated, printable to a form an inspector recognizes</li>
-            <li>Expiring licenses, insurance certificates, and permits flagged before they lapse</li>
-            <li>A paper trail you can hand a GC without assembling it first</li>
+            <li>One place to upload everything: PDFs, scans, photos of paper forms, emailed attachments</li>
+            <li>Each document read, labeled, and filed to the right job, customer, or vendor</li>
+            <li>The details that matter (dates, totals, part numbers, signatures) pulled out, so nobody retypes them</li>
+            <li>Search every file in plain words instead of digging through folders</li>
+            <li>Reports written in your company's terms and layout, not a generic template</li>
+            <li>Anything the system is unsure of is flagged for a person to check</li>
           </ul>
+          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
           <span class="build-tab-num" aria-hidden="true">04</span>
-          <span class="build-tab-name">Customer Communication</span>
+          <span class="build-tab-name">Customer Communication &amp; Growth</span>
         </button>
         <div class="build-panel" id="build-panel-customer" role="region" aria-labelledby="build-tab-customer">
-          <h3 class="build-panel-h">The office side of every customer, handled before anyone has to remember.</h3>
+          <h3 class="build-panel-h">Customer history, automated follow-ups, reviews, and lead tracking</h3>
           <ul class="build-panel-list">
-            <li>Renewals, maintenance reminders, and quote follow-ups that fire on their own</li>
             <li>The customer's full history on screen the moment they call</li>
             <li>Replies drafted from your own records, ready to edit and send</li>
-            <li>Inbound requests sorted and routed to whoever should own them</li>
-            <li>Review requests that go out when the job closes, not three weeks later</li>
+            <li>Renewals, maintenance reminders, and quote follow-ups queued for you, so nobody has to remember</li>
+            <li>Review requests ready the day the job closes, not three weeks later</li>
+            <li>Campaigns built against the customers who have gone quiet</li>
+            <li>Referrals tracked back to the customer who sent them</li>
+            <li>New leads landing in the same system as the work, not a separate inbox</li>
           </ul>
+          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-analytics" aria-expanded="false" aria-controls="build-panel-analytics">
           <span class="build-tab-num" aria-hidden="true">05</span>
           <span class="build-tab-name">Analytics, Reporting &amp; Research</span>
         </button>
         <div class="build-panel" id="build-panel-analytics" role="region" aria-labelledby="build-tab-analytics">
-          <h3 class="build-panel-h">Your real numbers, plus the work you didn't know was there.</h3>
+          <h3 class="build-panel-h">Job profitability reports, automated briefings, and market research</h3>
           <ul class="build-panel-list">
             <li>Margin by job, tech, and customer, after labor and materials, not revenue billed</li>
             <li>Reports and owner briefings written for you, on whatever schedule suits you</li>
-            <li>Ask a question in plain words &mdash; <em>which jobs lost money last quarter?</em> &mdash; and get the number back instead of a report to build</li>
+            <li>Ask a question in plain words (<em>which jobs lost money last quarter?</em>) and get the number back instead of a report to build</li>
             <li>Rebates, rule changes, and manufacturer bulletins matched to the customers they affect</li>
             <li>Pricing and competitive research on the markets you are bidding into</li>
           </ul>
+          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-custom" aria-expanded="false" aria-controls="build-panel-custom">
           <span class="build-tab-num" aria-hidden="true">06</span>
           <span class="build-tab-name">Custom Software</span>
         </button>
         <div class="build-panel" id="build-panel-custom" role="region" aria-labelledby="build-tab-custom">
-          <h3 class="build-panel-h">A full build around a problem nobody sells software for.</h3>
+          <h3 class="build-panel-h">Custom software built around your specific workflow</h3>
           <ul class="build-panel-list">
             <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
             <li>Scoped in writing and priced before any work begins</li>
@@ -599,6 +662,7 @@
             <li>Sized to the job, from a single workflow to the system your whole operation runs on</li>
             <li>Maintained and extended after delivery, the same as everything else</li>
           </ul>
+          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
         </div>
       </div>
     </div>
@@ -606,20 +670,27 @@
 
 
   <!-- CASE STUDY -->
-  <section class="case-bg" aria-labelledby="case-h">
-    <div class="case-deco" aria-hidden="true"><svg class="wwb-rings br" viewBox="0 0 560 560"><circle cx="280" cy="280" r="72"/><circle cx="280" cy="280" r="124"/><circle cx="280" cy="280" r="180"/><circle cx="280" cy="280" r="238"/></svg></div>
+  <section class="case-bg on-green is-deep" id="case-study" aria-labelledby="case-h">
     <div class="case-inner reveal">
       <div>
         <span class="case-eyebrow">One build, as an example</span>
-        <h2 class="case-h" id="case-h">The paper wall calendar<br><em>that schedules itself now</em></h2>
+        <h2 class="case-h" id="case-h">The wall calendar, the route sheet <em>and the clipboard, in one app</em></h2>
       </div>
       <div>
-        <p class="case-text">Every build starts the same way: a call about how you run today, then software shaped around that instead of over it. Nobody changes how they work to suit the tool.</p>
-        <p class="case-text">For a family-owned koi-pond and water-feature contractor in the South Bay, the whole operation lived on a hand-copied wall calendar and printed route sheets. Their app reads the service notes already sitting in their QuickBooks, turns them into a real recurring schedule, and puts each day's stops on the crew's phones. Same records, same routine, minus the copying by hand.</p>
-        <ul class="case-facts">
-          <li>In production since August 2026</li>
-          <li>Intuit-approved QuickBooks app, read-only</li>
-          <li>No new system for the crew to learn</li>
+        <p class="case-text">A family-owned koi-pond and water-feature contractor in the South Bay, running 250-odd accounts.</p>
+        <p class="case-text"><strong class="case-step">What they had.</strong> A hand-copied wall calendar, printed route sheets, and every client's real schedule buried in free-form notes inside QuickBooks.</p>
+        <p class="case-text"><strong class="case-step">What we did.</strong> Sat down with them, learned the system they already ran on, and built around it. QuickBooks stays the books. Nobody changed how they work.</p>
+        <p class="case-text"><strong class="case-step">What it does now.</strong></p>
+        <ul class="case-facts is-detail">
+          <li>AI reads their QuickBooks notes. <em>&ldquo;Every other Tuesday, before noon. Gate code 1234. Dog on premises.&rdquo;</em> becomes a real recurring schedule, automatically.</li>
+          <li>Builds the day's route around geography and morning traffic, then waits for the owner to approve it. Nothing reaches a truck unapproved.</li>
+          <li>Sends the run to the crew's phones, with the access notes and warnings each technician needs and none of the office detail they don't.</li>
+          <li>Shows how loaded each day is before it goes out, instead of after the crew is stuck in it.</li>
+          <li>Logs the whole day with no signal. Arrival and departure to the minute, products used, odometer at the end. It syncs when the truck is back in range.</li>
+          <li>Settles disputes with a timestamp. &ldquo;We were there 9:14 to 10:02&rdquo; is a record now, not a memory.</li>
+          <li>Tracks mileage daily instead of reconstructing it at month end.</li>
+          <li>Still prints identical to the paper log it replaced.</li>
+          <li>Intuit-approved QuickBooks app, read only.</li>
         </ul>
       </div>
     </div>
@@ -629,27 +700,28 @@
   <!-- PROCESS -->
   <section class="process-bg" id="process" aria-labelledby="process-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="process-h">A Clear Timeline Upfront,<br><em>Then We Move Fast</em></h2>
-      <div class="steps-grid stagger">
-        <div>
+      <h2 class="section-h reveal" id="process-h">A clear timeline upfront, <em>then we move fast</em></h2>
+      <div class="steps-grid">
+        <div class="steps-line" aria-hidden="true"><i></i></div>
+        <div class="step">
           <span class="step-num">01</span>
           <h3 class="step-title">Strategy Call &amp; Walkthrough</h3>
           <div class="step-desc">A free call to learn how you run today, then a walkthrough built around your services rather than a generic demo.</div>
         </div>
-        <div>
+        <div class="step">
           <span class="step-num">02</span>
           <h3 class="step-title">Written Scope &amp; Proposal</h3>
           <div class="step-desc">Exactly what gets built, the timeline, and the price, agreed before any work starts.</div>
         </div>
-        <div>
+        <div class="step">
           <span class="step-num">03</span>
           <h3 class="step-title">Build &amp; Test</h3>
           <div class="step-desc">We build around your existing data and workflow. You test it before it goes live.</div>
         </div>
-        <div>
+        <div class="step">
           <span class="step-num">04</span>
           <h3 class="step-title">Delivery &amp; Support</h3>
-          <div class="step-desc">We train your team, then maintain it for a flat monthly fee. New automations as you grow.</div>
+          <div class="step-desc">We train your team, then keep it running and extend it as you grow.</div>
         </div>
       </div>
     </div>
@@ -657,11 +729,15 @@
 
 
   <!-- CTA -->
-  <section class="cta-wrap" id="contact" aria-labelledby="cta-h">
-    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="64" height="64" decoding="async">
-    <h2 id="cta-h">Ready to See<br><em>What's Possible?</em></h2>
+  <section class="cta-wrap on-green" id="contact" aria-labelledby="cta-h">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="60" height="60" decoding="async">
+    <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn-white">Book a Consultation</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
+      Book a Consultation
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </section>
 
   </main>
@@ -670,7 +746,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="Somerset-Systems-9.png" alt="" aria-hidden="true" width="26" height="26" />
+      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="26" height="26" />
       <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
     </div>
     <div class="footer-links">
@@ -682,6 +758,9 @@
     <div class="footer-copy">© 2026 Somerset Systems LLC</div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
     // Mobile menu
     const navToggle = document.getElementById('navToggle');
@@ -730,6 +809,8 @@
           const panel = document.getElementById(target);
           if (panel) panel.classList.toggle('is-open', on);
         });
+        // on mobile the accordion changes page height
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
       };
       buildTabs.forEach(tab => {
         const id = tab.getAttribute('aria-controls');
@@ -759,6 +840,45 @@
     } else {
       revealEls.forEach(el => el.classList.add('in'));
     }
+
+    // ── Motion layer: GSAP + ScrollTrigger + Lenis ─────────────
+    (function () {
+      const root = document.documentElement;
+      if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
+        root.classList.remove('motion');
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (window.Lenis) {
+        const lenis = new Lenis({ lerp: 0.11 });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(t => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      // Header intro: copy readable within ~1.1s; the rings keep rising behind it
+      gsap.set('.hdr-anim', { autoAlpha: 1 });
+      gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .fromTo('.header-rings .ring', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, stagger: 0.055, ease: 'power2.inOut' }, 0)
+        .from('.hdr-anim', { autoAlpha: 0, y: 16, duration: 0.75, stagger: 0.085 }, 0.12);
+
+      // Process: the line draws across as you scroll, each step lights up as it reaches it
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 961px)', () => {
+        const steps = gsap.utils.toArray('.step');
+        gsap.set(steps, { opacity: 0.35 });
+        gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
+          .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0)
+          .to(steps, { opacity: 1, ease: 'none', duration: 0.1, stagger: 0.3 }, 0);
+      });
+      mm.add('(max-width: 960px)', () => {
+        gsap.from('.step', { opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: '.steps-grid', start: 'top 85%', once: true } });
+      });
+
+      if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    })();
   </script>
 
 </body>
