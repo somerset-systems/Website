@@ -382,46 +382,44 @@
       .build-panel { margin: 8px 0 14px; border-radius: 14px; }
     }
 
-    /* ── CASE STUDY ─────────────────────────────────────────── */
-    .case-inner {
-      max-width: 1140px; margin: 0 auto;
-      padding: clamp(80px, 9vw, 120px) clamp(24px, 5vw, 60px);
-      display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px);
-      align-items: start;
-    }
-    .case-eyebrow {
-      display: block; font-size: 15px; font-weight: 600;
-      color: var(--on-green-accent); margin-bottom: 16px;
-    }
+    /* ── CASE STUDY (before / after) ─────────────────────────── */
+    .case-wrap { max-width: 1040px; margin: 0 auto; padding: clamp(80px, 9vw, 120px) clamp(24px, 5vw, 60px); }
+    .case-head { max-width: 760px; margin-bottom: clamp(40px, 5vw, 56px); }
+    .case-eyebrow { display: block; font-size: 15px; font-weight: 600; color: var(--on-green-accent); margin-bottom: 16px; }
     .case-h {
-      font-size: clamp(28px, 3.4vw, 44px); font-weight: 700;
-      letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance;
+      font-size: clamp(30px, 3.8vw, 50px); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.06; margin-bottom: 20px; text-wrap: balance;
     }
     .case-h em { font-style: normal; color: var(--on-green-accent); }
-    /* the headline rides along beside the long list instead of leaving a hole */
-    @media (min-width: 881px) { .case-inner > div:first-child { position: sticky; top: 110px; } }
-    .case-text {
-      font-size: 17px; color: var(--on-green-soft);
-      line-height: 1.7; margin-bottom: 18px; text-wrap: pretty;
+    .case-lede { font-size: 18px; color: var(--on-green-soft); line-height: 1.65; text-wrap: pretty; }
+
+    .ba-head, .ba-row { display: grid; grid-template-columns: 1fr 48px 1.25fr; align-items: center; column-gap: 20px; }
+    .ba-head { padding-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
+    .ba-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
+    .ba { list-style: none; border-top: 1px solid var(--line-on-green-2); }
+    .ba-row { padding: 20px 0; border-bottom: 1px solid var(--line-on-green); }
+    .ba-before { font-size: 16.5px; color: var(--on-green-muted); line-height: 1.5; }
+    .ba-after { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.5; text-wrap: pretty; }
+    .ba-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); justify-self: center; }
+    .ba-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* read aloud, shown on phones */
+    .case-foot {
+      list-style: none; margin-top: 32px;
+      display: flex; flex-wrap: wrap; gap: 10px 28px;
+      font-size: 15px; color: var(--on-green-soft);
     }
-    .case-text:last-of-type { margin-bottom: 24px; }
-    .case-step { font-weight: 600; color: #fff; }
-    .case-facts { list-style: none; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line-on-green); }
-    .case-facts li {
-      position: relative; padding: 14px 0 14px 24px;
-      border-bottom: 1px solid var(--line-on-green);
-      font-size: 16px; font-weight: 600; line-height: 1.55; color: var(--on-green-soft); text-wrap: pretty;
+    .case-foot li { position: relative; padding-left: 22px; }
+    .case-foot li::before {
+      content: ""; position: absolute; left: 0; top: 6px; width: 11px; height: 6px;
+      border-left: 2px solid var(--on-green-accent); border-bottom: 2px solid var(--on-green-accent);
+      transform: rotate(-45deg);
     }
-    /* The long "what it does now" list carries sentences, not 3-word chips:
-       drop to regular weight so nine rows do not read as a wall of bold. */
-    .case-facts.is-detail li { font-weight: 400; }
-    .case-facts li::before {
-      content: ''; position: absolute; left: 0; top: 24px;
-      width: 9px; height: 2px; border-radius: 2px; background: var(--sage-light);
-    }
-    .case-facts em { color: #fff; }
-    @media (max-width: 880px) {
-      .case-inner { grid-template-columns: 1fr; gap: 26px; }
+    @media (max-width: 720px) {
+      .ba-head { display: none; }
+      .ba-row { grid-template-columns: 1fr; row-gap: 8px; padding: 18px 0; }
+      .ba-arrow { display: none; }
+      .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+      .ba-before .ba-tag { color: var(--on-green-muted); }
+      .ba-after .ba-tag { color: var(--on-green-accent); }
     }
 
     /* ── PROCESS (a timeline that draws itself) ─────────────── */
@@ -671,28 +669,44 @@
 
   <!-- CASE STUDY -->
   <section class="case-bg on-green is-deep" id="case-study" aria-labelledby="case-h">
-    <div class="case-inner reveal">
-      <div>
+    <div class="case-wrap">
+      <div class="case-head reveal">
         <span class="case-eyebrow">One build, as an example</span>
-        <h2 class="case-h" id="case-h">The wall calendar, the route sheet <em>and the clipboard, in one app</em></h2>
+        <h2 class="case-h" id="case-h">From a wall calendar to <em>scheduling that runs itself</em></h2>
+        <p class="case-lede">Routes optimized and synced with QuickBooks, built around how they already work. The client: a family-owned koi-pond and water-feature contractor in the South Bay, running 250-odd accounts.</p>
       </div>
-      <div>
-        <p class="case-text">A family-owned koi-pond and water-feature contractor in the South Bay, running 250-odd accounts.</p>
-        <p class="case-text"><strong class="case-step">What they had.</strong> A hand-copied wall calendar, printed route sheets, and every client's real schedule buried in free-form notes inside QuickBooks.</p>
-        <p class="case-text"><strong class="case-step">What we did.</strong> Sat down with them, learned the system they already ran on, and built around it. QuickBooks stays the books. Nobody changed how they work.</p>
-        <p class="case-text"><strong class="case-step">What it does now.</strong></p>
-        <ul class="case-facts is-detail">
-          <li>AI reads their QuickBooks notes. <em>&ldquo;Every other Tuesday, before noon. Gate code 1234. Dog on premises.&rdquo;</em> becomes a real recurring schedule, automatically.</li>
-          <li>Builds the day's route around geography and morning traffic, then waits for the owner to approve it. Nothing reaches a truck unapproved.</li>
-          <li>Sends the run to the crew's phones, with the access notes and warnings each technician needs and none of the office detail they don't.</li>
-          <li>Shows how loaded each day is before it goes out, instead of after the crew is stuck in it.</li>
-          <li>Logs the whole day with no signal. Arrival and departure to the minute, products used, odometer at the end. It syncs when the truck is back in range.</li>
-          <li>Settles disputes with a timestamp. &ldquo;We were there 9:14 to 10:02&rdquo; is a record now, not a memory.</li>
-          <li>Tracks mileage daily instead of reconstructing it at month end.</li>
-          <li>Still prints identical to the paper log it replaced.</li>
-          <li>Intuit-approved QuickBooks app, read only.</li>
-        </ul>
-      </div>
+      <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
+      <ol class="ba stagger" role="list">
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>A hand-copied wall calendar</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
+        </li>
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>Printed route sheets</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</p>
+        </li>
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>Every schedule buried in free-form notes</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>Kept in sync with QuickBooks, which stays the books</p>
+        </li>
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>The crew working off a clipboard</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
+        </li>
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>Arguments over when the crew showed up</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</p>
+        </li>
+        <li class="ba-row">
+          <p class="ba-before"><span class="ba-tag">Before</span>Mileage rebuilt at the end of the month</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-tag">Now</span>Mileage tracked every day</p>
+        </li>
+      </ol>
+      <ul class="case-foot reveal" role="list">
+        <li>Nothing reaches a truck until the owner approves the route</li>
+        <li>Still prints identical to the paper log it replaced</li>
+        <li>Intuit-approved QuickBooks app, read only</li>
+      </ul>
     </div>
   </section>
 
