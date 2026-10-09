@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom Builds: Somerset Systems</title>
-  <meta name="description" content="Video walkthroughs of custom software Somerset Systems builds for field-service companies: scheduling and routing in production today, and a proposal builder in development." />
+  <meta name="description" content="Video walkthroughs of custom software Somerset Systems builds for field-service companies: scheduling and routing in production today, and a proposal builder and month-end invoicing in development." />
   <!-- Reached from outreach emails, not the nav, so the analytics only count people we wrote to. -->
   <meta name="robots" content="noindex" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Custom Builds: Somerset Systems" />
-  <meta property="og:description" content="Video walkthroughs of software we build around how one company works: one running in production, one in development." />
+  <meta property="og:description" content="Video walkthroughs of software we build around how one company works: one running in production, two in development." />
   <meta property="og:url" content="https://somersetsystems.co/work.html" />
   <meta property="og:image" content="https://somersetsystems.co/video/route-desk-poster.jpg" />
   <meta property="og:site_name" content="Somerset Systems" />
@@ -323,7 +323,7 @@
   <header class="work-header on-green">
     <div class="work-header-bg" aria-hidden="true"></div>
     <h1 class="work-title">Examples of <em>custom builds</em></h1>
-    <p class="work-lede">Two builds, each shaped around how one company already works. One runs in production today; the other is in development. The videos use sample customers, so no client's data is on screen.</p>
+    <p class="work-lede">Three builds, each shaped around how one company already works. One runs in production today; the other two are in development. The videos use sample customers, so no client's data is on screen.</p>
   </header>
 
   <section class="builds-wrap" aria-label="Builds">
@@ -382,12 +382,38 @@
       </div>
     </article>
 
+    <article class="build" aria-labelledby="b-invoicing">
+      <video class="build-video" data-video="invoicing" controls playsinline preload="metadata"
+             poster="video/invoicing-poster.jpg" width="1440" height="900">
+        <source src="video/invoicing.mp4" type="video/mp4" />
+        Your browser can't play this video. <a href="video/invoicing.mp4">Download it instead.</a>
+      </video>
+      <div class="build-body">
+        <div>
+          <h2 class="build-name" id="b-invoicing">Month-end invoices from the crew log</h2>
+          <p class="build-meta">1 min 38 sec, with music and captions</p>
+          <p class="build-status is-dev">In development. Shown with a sample company and sample customers.</p>
+        </div>
+        <div>
+          <p class="build-desc">At month end, someone in the office reads every crew log, looks up each customer's rate and types the invoices by hand. Extra work and parts get missed. This build drafts the month's invoices from what the crew already logged.</p>
+          <h3 class="build-sub">What it does</h3>
+          <ul class="build-does">
+            <li>Drafts one invoice per customer each month from the visits the crew logged, at the rate in the customer's QuickBooks note.</li>
+            <li>Holds back anything unusual for a look: a visit that ran long, extra work with no price yet, a part bought for that customer.</li>
+            <li>Shows where every number came from, down to the visit, the note and the receipt photo.</li>
+            <li>Flags visits that were planned but never logged, so missed work turns up before billing, not after.</li>
+            <li>Prints the whole month in one sheet, and is being built to save approved invoices into QuickBooks as drafts. Nothing is emailed or charged until the office sends it.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <section class="cta-wrap on-green" aria-labelledby="cta-h">
     <div class="cta-glow" aria-hidden="true"></div>
     <h2 id="cta-h">Want one built <em>around how you work?</em></h2>
-    <p>A 15-minute call about where your week goes, from scheduling to proposals. If it's a fit, we build you a demo before you pay anything.</p>
+    <p>A 15-minute call about where your week goes, from scheduling to proposals to billing. If it's a fit, we build you a demo before you pay anything.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light" data-track="book_call" data-where="cta">
       Book a 15-minute call
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
