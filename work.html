@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Work: Somerset Systems</title>
-  <meta name="description" content="Short videos of software Somerset Systems has built and runs in production for field-service companies." />
+  <title>Custom Builds: Somerset Systems</title>
+  <meta name="description" content="Video walkthroughs of custom software Somerset Systems builds for field-service companies: scheduling and routing in production today, and a proposal builder in development." />
   <!-- Reached from outreach emails, not the nav, so the analytics only count people we wrote to. -->
   <meta name="robots" content="noindex" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Our Work: Somerset Systems" />
-  <meta property="og:description" content="Short videos of software we've built for field-service companies, running in production today." />
+  <meta property="og:title" content="Custom Builds: Somerset Systems" />
+  <meta property="og:description" content="Video walkthroughs of software we build around how one company works: one running in production, one in development." />
   <meta property="og:url" content="https://somersetsystems.co/work.html" />
   <meta property="og:image" content="https://somersetsystems.co/video/route-desk-poster.jpg" />
   <meta property="og:site_name" content="Somerset Systems" />
@@ -212,11 +212,17 @@
       letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance;
     }
     .build-meta { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
+    /* Status sits under the name, so it is read before the story. Shipped is green; in development is muted. */
+    .build-status { margin-top: 14px; font-size: 15px; font-weight: 600; color: var(--green); text-wrap: pretty; }
+    .build-status.is-dev { color: var(--muted); font-weight: 500; }
     .build-desc { font-size: 17px; color: var(--soft); line-height: 1.65; text-wrap: pretty; }
-    .build-status {
-      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
-      font-size: 15px; font-weight: 600; color: var(--green);
+    .build-sub { margin-top: 26px; font: 600 15px/1.3 var(--font-body); color: var(--text); }
+    .build-does { list-style: none; margin-top: 10px; }
+    .build-does li {
+      padding: 11px 0; border-top: 1px solid var(--border);
+      font-size: 16px; line-height: 1.55; color: var(--soft); text-wrap: pretty;
     }
+    .build-does li:last-child { border-bottom: 1px solid var(--border); }
 
     /* ── CTA ───────────────────────────────────────────────── */
     .cta-wrap {
@@ -316,13 +322,14 @@
 
   <header class="work-header on-green">
     <div class="work-header-bg" aria-hidden="true"></div>
-    <h1 class="work-title">Software we've built, <em>running in the field</em></h1>
-    <p class="work-lede">Short walkthroughs of real builds. Each video uses sample customers, so no client's data is on screen.</p>
+    <h1 class="work-title">Examples of <em>custom builds</em></h1>
+    <p class="work-lede">Two builds, each shaped around how one company already works. One runs in production today; the other is in development. The videos use sample customers, so no client's data is on screen.</p>
   </header>
 
   <section class="builds-wrap" aria-label="Builds">
 
-    <!-- To add a build: copy this <article>, give the <video> its own data-video id. Tracking picks it up. -->
+    <!-- To add a build: copy an <article>, give the <video> its own data-video id. Tracking picks it up.
+         Status: .build-status for shipped work, .build-status.is-dev for anything not yet in a client's hands. -->
     <article class="build" aria-labelledby="b-route">
       <video class="build-video" data-video="route-desk" controls playsinline preload="metadata"
              poster="video/route-desk-poster.jpg" width="1440" height="900">
@@ -333,10 +340,44 @@
         <div>
           <h2 class="build-name" id="b-route">Scheduling, dispatch and routing</h2>
           <p class="build-meta">1 min 46 sec, with sound and captions</p>
+          <p class="build-status">Running in production since August 2026.</p>
         </div>
         <div>
-          <p class="build-desc">A pond and fountain service company planned every visit by hand on a paper wall calendar, then copied each day onto the crew's log. Now the month fills itself from the notes they already keep in QuickBooks, the owner reviews each route before it goes out, and every tech gets the day's stops on their phone.</p>
-          <p class="build-status">Running in production today.</p>
+          <p class="build-desc">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the schedule builds itself from the notes they already keep in QuickBooks.</p>
+          <h3 class="build-sub">What it does</h3>
+          <ul class="build-does">
+            <li>Reads the customer notes already in QuickBooks, like "2nd Tuesday of the month, before 10am," and fills in the calendar. When a note is unclear, it asks instead of guessing.</li>
+            <li>Orders each truck's day around traffic and customer time windows. The owner reviews every route before it goes out.</li>
+            <li>Puts the day's stops on each tech's phone. They log arrival and departure to the minute, with photos, part requests and notes from the stop.</li>
+            <li>Hands the office a finished crew log, printed in the same layout as the paper sheet it replaced.</li>
+            <li>Connects to QuickBooks read-only, through an Intuit-approved app. Nothing is written back.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="build" aria-labelledby="b-proposal">
+      <video class="build-video" data-video="proposal" controls playsinline preload="metadata"
+             poster="video/proposal-poster.jpg" width="1440" height="900">
+        <source src="video/proposal.mp4" type="video/mp4" />
+        Your browser can't play this video. <a href="video/proposal.mp4">Download it instead.</a>
+      </video>
+      <div class="build-body">
+        <div>
+          <h2 class="build-name" id="b-proposal">Proposals from the site walkthrough</h2>
+          <p class="build-meta">2 min 8 sec, with sound and captions</p>
+          <p class="build-status is-dev">In development. Shown with a sample company and illustrative prices.</p>
+        </div>
+        <div>
+          <p class="build-desc">A pool remodel bid starts with a site visit and ends with someone at the office turning notes and photos into a priced proposal. This build drafts that proposal from the walkthrough itself.</p>
+          <h3 class="build-sub">What it does</h3>
+          <ul class="build-does">
+            <li>Walks the tech through the company's own checklist on their phone. They talk or type as they go, and add photos and files like an inspection report.</li>
+            <li>Asks a follow-up question when something can't be priced yet, before the tech leaves, so nobody has to go back out.</li>
+            <li>Drafts good, better and best options in the company's own proposal format, priced from its QuickBooks price book and past jobs.</li>
+            <li>Shows where every number came from and flags anything it isn't sure of. The owner edits and approves before anything reaches the homeowner.</li>
+            <li>Shown here for pools. It can be built for any contractor who bids from a site visit.</li>
+          </ul>
         </div>
       </div>
     </article>
@@ -345,10 +386,10 @@
 
   <section class="cta-wrap on-green" aria-labelledby="cta-h">
     <div class="cta-glow" aria-hidden="true"></div>
-    <h2 id="cta-h">Want one built <em>around your week?</em></h2>
-    <p>A 15-minute call about how your schedule runs today. If it's a fit, we build you a demo before you pay anything.</p>
+    <h2 id="cta-h">Want one built <em>around how you work?</em></h2>
+    <p>A 15-minute call about where your week goes, from scheduling to proposals. If it's a fit, we build you a demo before you pay anything.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light" data-track="book_call" data-where="cta">
-      Book a call
+      Book a 15-minute call
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </section>
