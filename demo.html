@@ -212,6 +212,20 @@
       font-size: clamp(24px, 2.6vw, 32px); font-weight: 700;
       letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance;
     }
+    .build-more {
+      margin-top: clamp(40px, 6vw, 64px); padding-top: clamp(28px, 4vw, 40px); border-top: 1px solid var(--border-strong);
+      display: flex; align-items: center; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap;
+    }
+    .build-more p {
+      font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25;
+      font-size: clamp(20px, 2.3vw, 26px); color: var(--text); max-width: 26ch; text-wrap: balance;
+    }
+    .build-more a {
+      display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 10px;
+      border: 1.5px solid var(--green); color: var(--green); font-weight: 600; font-size: 16px; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .build-more a:hover { background: var(--green); color: #fff; }
     .build-meta { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
     /* Status sits under the name, so it is read before the story. Shipped is green; in development is muted. */
     .build-status { margin-top: 14px; font-size: 15px; font-weight: 600; color: var(--green); text-wrap: pretty; }
@@ -324,8 +338,8 @@
   <header class="work-header on-green">
     <div class="work-header-bg" aria-hidden="true"></div>
     <div class="work-header-in">
-      <h1 class="work-title">Scheduling that <em>builds itself</em></h1>
-      <p class="work-lede">The route desk we built for a pond and fountain service company. 1 min 46 sec, with sound.</p>
+      <h1 class="work-title">Scheduling that builds itself</h1>
+      <p class="work-lede">The route desk dashboard we built for a pond and fountain service company.</p>
     </div>
   </header>
 
@@ -353,6 +367,10 @@
             <li>Prints the crew log in the same layout as the paper sheet it replaced.</li>
           </ul>
         </div>
+      </div>
+      <div class="build-more">
+        <p>Ask for a demo of any other product you're curious about.</p>
+        <a href="what-we-build.html">See everything we build <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </article>
 
