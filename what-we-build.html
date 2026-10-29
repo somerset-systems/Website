@@ -341,7 +341,7 @@
     /* Status line closing each panel: plain text, not a badge. 01 is the shipped build
        (green, links to its case study); 02–06 are scoped per operation (quiet). */
     .build-panel-status {
-      margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border);
+      margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border);
       font-size: 15px; font-weight: 600; color: var(--green);
     }
     .build-panel-status a {
@@ -351,12 +351,13 @@
     }
     .build-panel-status a:hover { text-decoration-color: currentColor; }
     .build-panel-status.is-scoped { color: var(--muted); font-weight: 500; }
+    .build-panel-status.is-scoped a { margin-left: 0; }
     .build-panel-h {
       font-size: clamp(21px, 2.1vw, 26px); font-weight: 700;
       letter-spacing: -0.03em; line-height: 1.18; margin-bottom: 22px;
       padding-bottom: 20px; border-bottom: 1px solid var(--border); text-wrap: balance;
     }
-    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
     .build-panel-list li {
       position: relative; padding-left: 22px;
       font-size: 16px; color: var(--soft); line-height: 1.6; text-wrap: pretty;
@@ -368,10 +369,10 @@
 
     /* No JS: every panel stays open and readable. */
     .js .build-panel { display: none; }
-    .js .build-panel.is-open { display: block; animation: panel-in .28s var(--ease) both; }
+    .js .build-panel.is-open { display: flex; flex-direction: column; animation: panel-in .28s var(--ease) both; }
     @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     @media (min-width: 881px) {
-      .js .build-panel { display: block; visibility: hidden; }
+      .js .build-panel { display: flex; flex-direction: column; visibility: hidden; }
       .js .build-panel.is-open { visibility: visible; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -566,7 +567,7 @@
   <!-- FEATURES -->
   <section class="features-bg" id="capabilities" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="features-h">Pick the one that <em>sounds like your week</em></h2>
+      <h2 class="section-h reveal" id="features-h">Pick the one that sounds like your week</h2>
       <div class="builds reveal">
         <button type="button" class="build-tab" id="build-tab-scheduling" aria-expanded="true" aria-controls="build-panel-scheduling">
           <span class="build-tab-num" aria-hidden="true">01</span>
@@ -583,22 +584,23 @@
             <li>Payroll hours and mileage built from the stamps the crew already recorded</li>
             <li>Nothing reaches the crew until you have looked at it and approved it</li>
           </ul>
-          <p class="build-panel-status">Running in production today.<a href="#case-study">See the build</a></p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#case-study">See an example</a> below.</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-billing" aria-expanded="false" aria-controls="build-panel-billing">
           <span class="build-tab-num" aria-hidden="true">02</span>
           <span class="build-tab-name">Billing, Invoicing &amp; Collections</span>
         </button>
         <div class="build-panel" id="build-panel-billing" role="region" aria-labelledby="build-tab-billing">
-          <h3 class="build-panel-h">Automated invoicing, proposals, and collections follow-up</h3>
+          <h3 class="build-panel-h">Month-end invoices, proposals, and collections follow-up</h3>
           <ul class="build-panel-list">
-            <li>Proposals, contracts, and invoices drafted from your own records, so the paperwork starts written instead of blank</li>
-            <li>Every document prints to a PDF matching the paper it replaced</li>
+            <li>One invoice per customer drafted from the visits your crew logged, at each customer's own rate</li>
+            <li>Anything unusual held back for a look: a visit that ran long, extra work with no price yet, a part bought for that customer</li>
+            <li>Every number traced to its source: the visit, the note, the receipt photo. Visits planned but never logged are flagged before billing, so missed work turns up early</li>
+            <li>Proposals drafted from the site walkthrough, in good, better, and best options in your own format, priced from your price book and past jobs</li>
             <li>Outstanding invoices chased on a schedule, from first nudge to final notice</li>
-            <li>Job costs reconciled against what you actually billed</li>
-            <li>Nothing goes out until someone has signed off on it</li>
+            <li>Nothing is sent or charged until someone in your office signs off on it</li>
           </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-documents" aria-expanded="false" aria-controls="build-panel-documents">
           <span class="build-tab-num" aria-hidden="true">03</span>
@@ -614,7 +616,7 @@
             <li>Reports written in your company's terms and layout, not a generic template</li>
             <li>Anything the system is unsure of is flagged for a person to check</li>
           </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
           <span class="build-tab-num" aria-hidden="true">04</span>
@@ -631,7 +633,7 @@
             <li>Referrals tracked back to the customer who sent them</li>
             <li>New leads landing in the same system as the work, not a separate inbox</li>
           </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-analytics" aria-expanded="false" aria-controls="build-panel-analytics">
           <span class="build-tab-num" aria-hidden="true">05</span>
@@ -646,7 +648,7 @@
             <li>Rebates, rule changes, and manufacturer bulletins matched to the customers they affect</li>
             <li>Pricing and competitive research on the markets you are bidding into</li>
           </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
         </div>
         <button type="button" class="build-tab" id="build-tab-custom" aria-expanded="false" aria-controls="build-panel-custom">
           <span class="build-tab-num" aria-hidden="true">06</span>
@@ -656,12 +658,13 @@
           <h3 class="build-panel-h">Custom software built around your specific workflow</h3>
           <ul class="build-panel-list">
             <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
+            <li>Recent examples: a proposal builder that works from the site walkthrough, and month-end invoices drafted from the crew log</li>
             <li>Scoped in writing and priced before any work begins</li>
             <li>Built on the systems you already run, so nothing has to be torn out</li>
             <li>Sized to the job, from a single workflow to the system your whole operation runs on</li>
             <li>Maintained and extended after delivery, the same as everything else</li>
           </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per operation</p>
+          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
         </div>
       </div>
     </div>
@@ -673,7 +676,7 @@
     <div class="case-wrap">
       <div class="case-head reveal">
         <span class="case-eyebrow">One build, as an example</span>
-        <h2 class="case-h" id="case-h">From a wall calendar to <em>scheduling that runs itself</em></h2>
+        <h2 class="case-h" id="case-h">From a wall calendar to scheduling that runs itself</h2>
         <p class="case-lede">Routes optimized and synced with QuickBooks, built around how they already work. The client: a family-owned koi-pond and water-feature contractor in the South Bay, running 250-odd accounts.</p>
       </div>
       <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
@@ -715,7 +718,7 @@
   <!-- PROCESS -->
   <section class="process-bg" id="process" aria-labelledby="process-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="process-h">A clear timeline upfront, <em>then we move fast</em></h2>
+      <h2 class="section-h reveal" id="process-h">A clear timeline upfront, then we move fast</h2>
       <div class="steps-grid">
         <div class="steps-line" aria-hidden="true"><i></i></div>
         <div class="step">
