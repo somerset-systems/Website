@@ -300,38 +300,17 @@
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
-    .build-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .build-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
     .build-card {
       background: var(--bg-white); border: 1px solid var(--border); border-radius: 18px;
-      padding: 28px 26px 22px;
+      padding: 28px 26px 22px; display: flex; flex-direction: column;
     }
     .build-ico { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--green-border); margin-bottom: 20px; }
     .build-ico svg { width: 22px; height: 22px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .build-card-h { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
     .build-out { font-size: 16.5px; color: var(--soft); line-height: 1.6; text-wrap: pretty; margin-bottom: 18px; }
-    .build-more { border-top: 1px solid var(--border); }
-    .build-more summary {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px;
-      font-size: 15px; font-weight: 600; color: var(--green); cursor: pointer; list-style: none;
-    }
-    .build-more summary::-webkit-details-marker { display: none; }
-    .build-more summary::after {
-      content: ""; width: 9px; height: 9px; flex: none; margin-right: 4px;
-      border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-      transform: rotate(45deg) translateY(-2px); transition: transform .3s var(--ease);
-    }
-    .build-more[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
-    .build-more summary:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 6px; }
-    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 6px 0 14px; }
-    .build-panel-list li {
-      position: relative; padding-left: 20px;
-      font-size: 15.5px; color: var(--soft); line-height: 1.55; text-wrap: pretty;
-    }
-    .build-panel-list li::before {
-      content: ''; position: absolute; left: 0; top: 10px;
-      width: 8px; height: 2px; border-radius: 2px; background: var(--green);
-    }
-    .build-ex { display: inline-block; margin-bottom: 8px; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
+    .build-incl { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--green); }
+    .build-ex { display: inline-block; margin-top: 12px; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
     .build-ex:hover { text-decoration-color: currentColor; }
     .builds-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: clamp(32px, 4vw, 48px); padding-top: 28px; border-top: 1px solid var(--border-strong); }
     .builds-foot p { max-width: 52ch; font-size: 17px; color: var(--soft); line-height: 1.6; }
@@ -552,99 +531,38 @@
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span>
           <h3 class="build-card-h">Scheduling &amp; routes</h3>
           <p class="build-out">Recurring jobs scheduled from the notes you already keep, routes planned around traffic, and the day's stops on each crew phone.</p>
-          <details class="build-more">
-            <summary>Includes routes, recurring jobs, crew phone</summary>
-            <ul class="build-panel-list">
-            <li>Recurring service built from the notes already sitting in your records</li>
-            <li>Routes planned around real traffic, with a cap on drive time</li>
-            <li>A phone screen instead of a clipboard, with the day's stops in order, working with or without signal</li>
-            <li>Time logged to the minute, with photos attached to the job record</li>
-            <li>Parts, materials, and chemicals requested from the field and tracked against the job</li>
-            <li>Payroll hours and mileage built from the stamps the crew already recorded</li>
-            <li>Nothing reaches the crew until you have looked at it and approved it</li>
-          </ul>
-            <a class="build-ex" href="#case-study">See an example below</a>
-          </details>
+          <p class="build-incl">Includes routes, recurring jobs, crew phone</p>
+          <a class="build-ex" href="#case-study">See an example below</a>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
           <h3 class="build-card-h">Billing &amp; collections</h3>
           <p class="build-out">Month-end invoices drafted from the visits your crew logged, and a follow-up schedule for whatever is still unpaid.</p>
-          <details class="build-more">
-            <summary>Includes invoices, proposals, collections</summary>
-            <ul class="build-panel-list">
-            <li>One invoice per customer drafted from the visits your crew logged, at each customer's own rate</li>
-            <li>Anything unusual held back for a look: a visit that ran long, extra work with no price yet, a part bought for that customer</li>
-            <li>Every number traced to its source: the visit, the note, the receipt photo. Visits planned but never logged are flagged before billing, so missed work turns up early</li>
-            <li>Proposals drafted from the site walkthrough, in good, better, and best options in your own format, priced from your price book and past jobs</li>
-            <li>Outstanding invoices chased on a schedule, from first nudge to final notice</li>
-            <li>Nothing is sent or charged until someone in your office signs off on it</li>
-          </ul>
-          </details>
+          <p class="build-incl">Includes invoices, proposals, collections</p>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span>
           <h3 class="build-card-h">Paperwork &amp; reports</h3>
           <p class="build-out">Upload anything. Each document is read, filed to the right job, and the details pulled out so nobody retypes them.</p>
-          <details class="build-more">
-            <summary>Includes uploads, filing, reports</summary>
-            <ul class="build-panel-list">
-            <li>One place to upload everything: PDFs, scans, photos of paper forms, emailed attachments</li>
-            <li>Each document read, labeled, and filed to the right job, customer, or vendor</li>
-            <li>The details that matter (dates, totals, part numbers, signatures) pulled out, so nobody retypes them</li>
-            <li>Search every file in plain words instead of digging through folders</li>
-            <li>Reports written in your company's terms and layout, not a generic template</li>
-            <li>Anything the system is unsure of is flagged for a person to check</li>
-          </ul>
-          </details>
+          <p class="build-incl">Includes uploads, filing, reports</p>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg></span>
           <h3 class="build-card-h">Customers &amp; follow-up</h3>
           <p class="build-out">The full history on screen when they call, plus renewals, reminders, and review requests queued for you.</p>
-          <details class="build-more">
-            <summary>Includes history, reminders, reviews, leads</summary>
-            <ul class="build-panel-list">
-            <li>The customer's full history on screen the moment they call</li>
-            <li>Replies drafted from your own records, ready to edit and send</li>
-            <li>Renewals, maintenance reminders, and quote follow-ups queued for you, so nobody has to remember</li>
-            <li>Review requests ready the day the job closes, not three weeks later</li>
-            <li>Campaigns built against the customers who have gone quiet</li>
-            <li>Referrals tracked back to the customer who sent them</li>
-            <li>New leads landing in the same system as the work, not a separate inbox</li>
-          </ul>
-          </details>
+          <p class="build-incl">Includes history, reminders, reviews, leads</p>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span>
           <h3 class="build-card-h">Profit &amp; research</h3>
           <p class="build-out">See what each job really earned, ask questions in plain words, and get the numbers back.</p>
-          <details class="build-more">
-            <summary>Includes margins, briefings, research</summary>
-            <ul class="build-panel-list">
-            <li>Margin by job, tech, and customer, after labor and materials, not revenue billed</li>
-            <li>Reports and owner briefings written for you, on whatever schedule suits you</li>
-            <li>Ask a question in plain words (<em>which jobs lost money last quarter?</em>) and get the number back instead of a report to build</li>
-            <li>Rebates, rule changes, and manufacturer bulletins matched to the customers they affect</li>
-            <li>Pricing and competitive research on the markets you are bidding into</li>
-          </ul>
-          </details>
+          <p class="build-incl">Includes margins, briefings, research</p>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
           <h3 class="build-card-h">Anything else</h3>
           <p class="build-out">Most of what we build isn't on this list. It starts as a description of your problem.</p>
-          <details class="build-more">
-            <summary>Includes scoping, pricing, support</summary>
-            <ul class="build-panel-list">
-            <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
-            <li>Recent examples: a proposal builder that works from the site walkthrough, and month-end invoices drafted from the crew log</li>
-            <li>Scoped in writing and priced before any work begins</li>
-            <li>Built on the systems you already run, so nothing has to be torn out</li>
-            <li>Sized to the job, from a single workflow to the system your whole operation runs on</li>
-            <li>Maintained and extended after delivery, the same as everything else</li>
-          </ul>
-          </details>
+          <p class="build-incl">Includes scoping, pricing, support</p>
         </li>
       </ul>
       <div class="builds-foot reveal">
