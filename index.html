@@ -442,6 +442,57 @@
       .proof-after .proof-tag { color: var(--green); }
     }
 
+    .proof-note { margin-top: 20px; display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--soft); line-height: 1.55; }
+    .proof-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--green); }
+
+    /* ── TRADES (real work, labeled by trade) ──────────────── */
+    .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
+    .trades-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(24px, 5vw, 60px); }
+    .trades-h { max-width: 22ch; margin-bottom: clamp(28px, 4vw, 44px); }
+    .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
+    .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .trade::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28, 46, 36, 0.82) 0%, rgba(28, 46, 36, 0) 48%);
+    }
+    .trade-label { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
+    @media (max-width: 880px) {
+      .trades-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 5vw, 60px); gap: 10px; margin: 0 calc(-1 * clamp(24px, 5vw, 60px)); padding: 0 clamp(24px, 5vw, 60px); scrollbar-width: none; }
+      .trades-row::-webkit-scrollbar { display: none; }
+      .trade { flex: 0 0 62%; max-width: 280px; scroll-snap-align: start; }
+    }
+
+    /* ── HOVER (pointer devices only, off for reduced motion) ── */
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .bento-card, .js .stagger > .bento-card {
+        transition: opacity .7s var(--ease), transform .7s var(--ease), translate .35s var(--ease), border-color .35s var(--ease), background-color .35s var(--ease);
+      }
+      .bento-card:hover { translate: 0 -5px; border-color: rgba(255, 255, 255, 0.34); background-color: #3c5d46; }
+      .bento-art { transition: transform .9s var(--ease); }
+      .bento-card:hover .bento-art { transform: rotate(14deg) scale(1.05); }
+
+      .proof-row { transition: background-color .3s var(--ease), padding .3s var(--ease); }
+      .js .stagger > .proof-row { transition: opacity .7s var(--ease), transform .7s var(--ease), background-color .3s var(--ease), padding .3s var(--ease); }
+      .proof-row:hover { background-color: var(--green-dim); padding-left: 14px; padding-right: 14px; }
+      .proof-arrow { transition: transform .3s var(--ease); }
+      .proof-row:hover .proof-arrow { transform: translateX(5px); }
+      .proof-row:hover .proof-after { color: var(--green); }
+
+      .integ-card, .js .stagger > .integ-card {
+        transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease);
+      }
+      .integ-card:hover { translate: 0 -4px; border-color: var(--green); }
+
+      .trade img { transition: transform 1s var(--ease); }
+      .trade:hover img { transform: scale(1.07); }
+      .trade-label { transition: translate .4s var(--ease); }
+      .trade:hover .trade-label { translate: 0 -6px; }
+
+      .founder-card { transition: translate .3s var(--ease), border-color .3s var(--ease); }
+      .founder-card:hover { translate: 0 -3px; border-color: var(--green-border); }
+    }
+
     .integ-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .integ-grid {
       list-style: none;
@@ -619,7 +670,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Consultation</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -632,7 +683,7 @@
     <a href="#integrations" onclick="closeMenu()">Integrations</a>
     <a href="#team" onclick="closeMenu()">Team</a>
     <a href="#faq" onclick="closeMenu()">FAQ</a>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Consultation</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo</a>
   </div>
 
 
@@ -662,10 +713,10 @@
     <div class="hero-inner">
       <img class="hero-mark hero-anim" src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
       <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the service industry.</span></h1>
-      <p class="hero-sub hero-anim">We connect the software you already run, then automate the busywork around it.</p>
+      <p class="hero-sub hero-anim">Custom software and automation for home-service and field-service businesses. We connect the tools you already run and automate the busywork around them.</p>
       <div class="hero-actions hero-anim">
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
-          Book a Consultation
+          Book a Demo
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
@@ -675,6 +726,21 @@
       <strong>Live today:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
       <span>See the build <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
+  </section>
+
+
+  <!-- TRADES -->
+  <section class="trades-bg" id="trades" aria-labelledby="trades-h">
+    <div class="trades-wrap">
+      <h2 class="section-h trades-h reveal" id="trades-h">Built for the trades that keep homes running</h2>
+      <ul class="trades-row stagger" role="list">
+        <li class="trade"><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">HVAC</span></li>
+        <li class="trade"><img src="images/trade-electrical.jpg" alt="An electrician in a hard hat and gloves working inside an open electrical cabinet" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Electrical</span></li>
+        <li class="trade"><img src="images/trade-plumbing.jpg" alt="A plumber's hands tightening a pipe fitting" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Plumbing</span></li>
+        <li class="trade"><img src="images/trade-lawn-care.jpg" alt="A push mower cutting a lawn in low sun" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Lawn care</span></li>
+        <li class="trade"><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Landscaping</span></li>
+      </ul>
+    </div>
   </section>
 
 
@@ -753,6 +819,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
+      <div>
       <ol class="proof-rows stagger" role="list">
         <li class="proof-row">
           <p class="proof-before"><span class="proof-tag">Before</span>A hand-copied wall calendar</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
@@ -767,6 +834,11 @@
           <p class="proof-after"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
         </li>
       </ol>
+      <p class="proof-note reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span>The owner approves every route before it goes out, and QuickBooks stays the books.</span>
+      </p>
+      </div>
     </div>
   </section>
 
@@ -858,7 +930,7 @@
     <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
-      Book a Consultation
+      Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </section>
