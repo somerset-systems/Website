@@ -341,6 +341,21 @@
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
+    /* one line of proof pinned to the foot of the hero, so the fold carries a real result */
+    .hero-proof {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 12px;
+      padding: 20px 24px; text-align: center;
+      border-top: 1px solid var(--line-on-green);
+      font-size: 15px; line-height: 1.45; color: var(--on-green-soft); text-decoration: none;
+      transition: background .3s var(--ease);
+    }
+    .hero-proof strong { font-weight: 600; color: #fff; }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--on-green-accent); }
+    .hero-proof svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .3s var(--ease); }
+    .hero-proof:hover { background: rgba(255, 255, 255, 0.06); }
+    .hero-proof:hover svg { transform: translateX(3px); }
+
     /* pre-hide what the intro timeline reveals (only when the motion layer runs) */
     .motion .hero-anim { visibility: hidden; }
 
@@ -400,6 +415,33 @@
     .value-link:hover svg { transform: translateX(4px); }
 
     /* ── INTEGRATIONS (static logo grid) ───────────────────── */
+    /* ── PROOF (one real build, three Before/Now rows) ─────── */
+    .proof-bg { background: var(--bg-white); border-bottom: 1px solid var(--border); }
+    .proof-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+    .proof-h { margin-bottom: 20px; }
+    .proof-lede { font-size: 17.5px; color: var(--soft); line-height: 1.65; max-width: 44ch; margin-bottom: 28px; text-wrap: pretty; }
+    .proof-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 600; font-size: 16px; color: var(--green); text-decoration: none;
+    }
+    .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
+    .proof-link:hover { color: var(--green-light); }
+    .proof-link:hover svg { transform: translateX(3px); }
+    .proof-rows { list-style: none; border-top: 1px solid var(--border-strong); }
+    .proof-row { display: grid; grid-template-columns: 1fr 28px 1.3fr; column-gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .proof-before { font-size: 16px; color: var(--muted); line-height: 1.5; }
+    .proof-after { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.5; text-wrap: pretty; }
+    .proof-arrow { width: 22px; height: 22px; stroke: var(--green); justify-self: center; }
+    .proof-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    @media (max-width: 880px) {
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-row { grid-template-columns: 1fr; row-gap: 6px; padding: 18px 0; }
+      .proof-arrow { display: none; }
+      .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+      .proof-before .proof-tag { color: var(--muted); }
+      .proof-after .proof-tag { color: var(--green); }
+    }
+
     .integ-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .integ-grid {
       list-style: none;
@@ -547,7 +589,8 @@
       .b-b .bento-art { width: 150px; }
     }
     @media (max-width: 560px) {
-      .hero { padding: 116px 20px 90px; }
+      .hero { padding: 116px 20px 150px; }
+      .hero-proof { padding: 16px 20px; font-size: 14px; }
       .hero-mark { width: 72px; height: 72px; margin-bottom: 24px; }
       .cta-logo { height: 68px; }
       .hero-actions { flex-direction: column; width: 100%; max-width: 320px; }
@@ -628,6 +671,10 @@
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
       </div>
     </div>
+    <a class="hero-proof hero-anim" href="what-we-build.html#case-study">
+      <strong>Live today:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
+      <span>See the build <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
   </section>
 
 
@@ -691,6 +738,35 @@
         See everything we build
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+    </div>
+  </section>
+
+
+  <!-- PROOF -->
+  <section class="proof-bg" id="proof" aria-labelledby="proof-h">
+    <div class="section-wrap proof-grid">
+      <div class="reveal">
+        <h2 class="section-h proof-h" id="proof-h">From a wall calendar to scheduling that <em>runs itself</em></h2>
+        <p class="proof-lede">One build, as an example: a family-owned water-feature contractor with 250-odd accounts, built around how they already work.</p>
+        <a href="what-we-build.html#case-study" class="proof-link">
+          See the full build
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <ol class="proof-rows stagger" role="list">
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-tag">Before</span>A hand-copied wall calendar</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
+        </li>
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-tag">Before</span>Printed route sheets</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</p>
+        </li>
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-tag">Before</span>The crew working off a clipboard</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -940,7 +1016,8 @@
         .from('.hero-mark', { autoAlpha: 0, scale: 0.8, rotation: -40, duration: 1 }, 0.05)
         .from('.hero-h .ch', { autoAlpha: 0, yPercent: 55, duration: 0.75, stagger: 0.012 }, 0.2)
         .from('.hero-sub', { autoAlpha: 0, y: 15, duration: 0.75 }, 0.85)
-        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0);
+        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0)
+        .from('.hero-proof', { autoAlpha: 0, duration: 0.8 }, 1.35);
 
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {
