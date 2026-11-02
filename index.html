@@ -369,81 +369,34 @@
     .section-h em { font-style: normal; color: var(--green); }
     .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
 
-    /* ── VALUE BAND (pillars, each with its own take on the rings) ── */
-    .value-wrap {
-      max-width: 1140px; margin: 0 auto;
-      padding: clamp(80px, 10vw, 128px) clamp(24px, 5vw, 60px);
-    }
-    .value-h { max-width: 18ch; margin-bottom: clamp(40px, 5vw, 56px); }
-    .bento {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 14px; margin-bottom: clamp(40px, 5vw, 52px);
-    }
-    .bento-card {
-      display: grid; align-items: center; gap: 24px;
-      padding: 30px;
-      background: var(--deep-card);
-      border: 1px solid var(--line-on-green); border-radius: 18px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    }
-    .b-a, .b-c { grid-column: span 2; grid-template-columns: 1fr 190px; }
-    .b-b { grid-row: span 2; align-content: space-between; }
-    .b-b .bento-art { order: -1; justify-self: center; width: 230px; }
-    .bento-card h3 {
-      font-size: clamp(19px, 1.7vw, 22px); font-weight: 700; letter-spacing: -0.02em;
-      color: var(--on-green); margin-bottom: 10px;
-    }
-    .bento-card p { font-size: 16.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 38ch; text-wrap: pretty; }
-    .bento-art { width: 190px; height: auto; display: block; overflow: visible; }
-    .bento-art * { fill: none; stroke: rgba(255, 255, 255, 0.42); stroke-width: 1.5; }
-    .bento-art .accent { stroke: var(--sage-light); stroke-width: 2; }
-    .bento-art .guide { stroke: rgba(255, 255, 255, 0.2); stroke-width: 1; stroke-dasharray: 3 5; }
-    .bento-art .dashed { stroke-dasharray: 2 6; }
-    .bento-art .dot { fill: var(--sage-light); stroke: none; }
-    .bento-art .seg { stroke-width: 9; stroke-linecap: butt; }
-    .bento-art .seg.on { stroke: var(--sage-light); }
-    .bento-art .seg.off { stroke: rgba(255, 255, 255, 0.14); }
-
-    .value-link {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-size: 16px; font-weight: 600; color: #fff; text-decoration: none;
-      border-bottom: 1px solid var(--line-on-green-2); padding-bottom: 4px;
-      transition: border-color .2s;
-    }
-    .value-link svg { width: 17px; height: 17px; stroke: currentColor; transition: transform .25s var(--ease); }
-    .value-link:hover { border-color: #fff; }
-    .value-link:hover svg { transform: translateX(4px); }
-
-    /* ── INTEGRATIONS (static logo grid) ───────────────────── */
     /* ── PROOF (one real build, three Before/Now rows) ─────── */
-    .proof-bg { background: var(--bg-white); border-bottom: 1px solid var(--border); }
     .proof-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
     .proof-h { margin-bottom: 20px; }
-    .proof-lede { font-size: 17.5px; color: var(--soft); line-height: 1.65; max-width: 44ch; margin-bottom: 28px; text-wrap: pretty; }
+    .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; margin-bottom: 28px; text-wrap: pretty; }
     .proof-link {
       display: inline-flex; align-items: center; gap: 8px;
-      font-weight: 600; font-size: 16px; color: var(--green); text-decoration: none;
+      font-weight: 600; font-size: 16px; color: var(--on-green-accent); text-decoration: none;
     }
     .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
-    .proof-link:hover { color: var(--green-light); }
+    .proof-link:hover { color: #fff; }
     .proof-link:hover svg { transform: translateX(3px); }
-    .proof-rows { list-style: none; border-top: 1px solid var(--border-strong); }
-    .proof-row { display: grid; grid-template-columns: 1fr 28px 1.3fr; column-gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
-    .proof-before { font-size: 16px; color: var(--muted); line-height: 1.5; }
-    .proof-after { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.5; text-wrap: pretty; }
-    .proof-arrow { width: 22px; height: 22px; stroke: var(--green); justify-self: center; }
+    .proof-rows { list-style: none; border-top: 1px solid var(--line-on-green-2); }
+    .proof-row { display: grid; grid-template-columns: 1fr 28px 1.3fr; column-gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line-on-green); }
+    .proof-before { font-size: 16px; color: var(--on-green-muted); line-height: 1.5; }
+    .proof-after { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.5; text-wrap: pretty; }
+    .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); justify-self: center; }
     .proof-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     @media (max-width: 880px) {
       .proof-grid { grid-template-columns: 1fr; }
       .proof-row { grid-template-columns: 1fr; row-gap: 6px; padding: 18px 0; }
       .proof-arrow { display: none; }
       .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-      .proof-before .proof-tag { color: var(--muted); }
-      .proof-after .proof-tag { color: var(--green); }
+      .proof-before .proof-tag { color: var(--on-green-muted); }
+      .proof-after .proof-tag { color: var(--on-green-accent); }
     }
 
-    .proof-note { margin-top: 20px; display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--soft); line-height: 1.55; }
-    .proof-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--green); }
+    .proof-note { margin-top: 20px; display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--on-green-soft); line-height: 1.55; }
+    .proof-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
 
     /* ── TRADES (real work, labeled by trade) ──────────────── */
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
@@ -465,19 +418,12 @@
 
     /* ── HOVER (pointer devices only, off for reduced motion) ── */
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      .bento-card, .js .stagger > .bento-card {
-        transition: opacity .7s var(--ease), transform .7s var(--ease), translate .35s var(--ease), border-color .35s var(--ease), background-color .35s var(--ease);
-      }
-      .bento-card:hover { translate: 0 -5px; border-color: rgba(255, 255, 255, 0.34); background-color: #3c5d46; }
-      .bento-art { transition: transform .9s var(--ease); }
-      .bento-card:hover .bento-art { transform: rotate(14deg) scale(1.05); }
-
       .proof-row { transition: background-color .3s var(--ease), padding .3s var(--ease); }
       .js .stagger > .proof-row { transition: opacity .7s var(--ease), transform .7s var(--ease), background-color .3s var(--ease), padding .3s var(--ease); }
-      .proof-row:hover { background-color: var(--green-dim); padding-left: 14px; padding-right: 14px; }
+      .proof-row:hover { background-color: rgba(255, 255, 255, 0.07); padding-left: 14px; padding-right: 14px; }
       .proof-arrow { transition: transform .3s var(--ease); }
       .proof-row:hover .proof-arrow { transform: translateX(5px); }
-      .proof-row:hover .proof-after { color: var(--green); }
+      .proof-row:hover .proof-after { color: var(--on-green-accent); }
 
       .integ-card, .js .stagger > .integ-card {
         transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease);
@@ -493,6 +439,7 @@
       .founder-card:hover { translate: 0 -3px; border-color: var(--green-border); }
     }
 
+    /* ── INTEGRATIONS (static logo grid) ───────────────────── */
     .integ-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .integ-grid {
       list-style: none;
@@ -633,12 +580,6 @@
       .footer-links a { padding: 12px 8px; }
       .founders-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 880px) {
-      .bento { grid-template-columns: 1fr; }
-      .b-a, .b-b, .b-c { grid-column: auto; grid-row: auto; grid-template-columns: 1fr; }
-      .bento-card .bento-art { order: -1; justify-self: start; width: 150px; }
-      .b-b .bento-art { width: 150px; }
-    }
     @media (max-width: 560px) {
       .hero { padding: 116px 20px 150px; }
       .hero-proof { padding: 16px 20px; font-size: 14px; }
@@ -649,7 +590,6 @@
       .integ-card { padding: 18px 14px; height: 88px; }
       .integ-card img { max-width: 100%; }
       .founder-card { flex-direction: column; gap: 18px; padding: 28px 24px; }
-      .bento-card { padding: 26px 22px; }
     }
   </style>
 </head>
@@ -744,76 +684,12 @@
   </section>
 
 
-  <!-- VALUE BAND -->
-  <section class="value-bg on-green is-deep" aria-labelledby="value-h">
-    <div class="value-wrap">
-      <h2 class="section-h value-h reveal" id="value-h">We build the exact tools <em>your operation runs on.</em></h2>
-      <div class="bento stagger">
-        <article class="bento-card b-a">
-          <div>
-            <h3>If you can sketch it, we build it</h3>
-            <p>A pipeline, a research tool, an analytics view, an automation you sketched on a napkin.</p>
-          </div>
-          <!-- a ring still being drafted: construction lines, open arcs, the pencil mid-stroke -->
-          <svg class="bento-art draw" viewBox="-110 -110 220 220" aria-hidden="true">
-            <line class="guide fade" x1="-108" y1="0" x2="108" y2="0"/>
-            <line class="guide fade" x1="0" y1="-108" x2="0" y2="108"/>
-            <circle class="d" pathLength="1" r="30"/>
-            <path class="d" pathLength="1" d="M22 -47.1A52 52 0 1 1 -39.8 -33.4"/>
-            <circle class="dashed fade" r="74"/>
-            <path class="d" pathLength="1" d="M-16.7 -94.5A96 96 0 1 1 -8.4 95.6"/>
-            <path class="d accent" pathLength="1" d="M-40.6 87A96 96 0 0 1 -32.8 -90.2"/>
-            <circle class="dot fade" cx="-32.8" cy="-90.2" r="4.5"/>
-          </svg>
-        </article>
-        <article class="bento-card b-b">
-          <div>
-            <h3>Your process, your words</h3>
-            <p>Built around your process and the words you already use for the work, never a template.</p>
-          </div>
-          <!-- growth rings, each drawn clean but grown off-center: the same system, shaped by its own conditions -->
-          <svg class="bento-art draw" viewBox="-100 -100 200 200" aria-hidden="true">
-            <circle class="d" pathLength="1" cx="-20" cy="15" r="16"/>
-            <circle class="d" pathLength="1" cx="-16" cy="12" r="32"/>
-            <circle class="d" pathLength="1" cx="-12" cy="9" r="48"/>
-            <circle class="d accent" pathLength="1" cx="-8" cy="6" r="64"/>
-            <circle class="d" pathLength="1" cx="-4" cy="3" r="80"/>
-            <circle class="d" pathLength="1" cx="0" cy="0" r="96"/>
-            <circle class="dot fade" cx="-20" cy="15" r="3"/>
-          </svg>
-        </article>
-        <article class="bento-card b-c">
-          <div>
-            <h3>Start with the biggest headache</h3>
-            <p>Start with what's costing you most, then add the next piece once it has proven itself.</p>
-          </div>
-          <!-- a ring built in segments: four in place, two still to come -->
-          <svg class="bento-art draw" data-stagger="0.28" viewBox="-100 -100 200 200" aria-hidden="true">
-            <circle class="dashed fade" r="52"/>
-            <circle class="d" pathLength="1" r="28"/>
-            <path class="d seg on" pathLength="1" d="M4.1 -77.9A78 78 0 0 1 65.4 -42.5"/>
-            <path class="d seg on" pathLength="1" d="M69.5 -35.4A78 78 0 0 1 69.5 35.4"/>
-            <path class="d seg on" pathLength="1" d="M65.4 42.5A78 78 0 0 1 4.1 77.9"/>
-            <path class="d seg on" pathLength="1" d="M-4.1 77.9A78 78 0 0 1 -65.4 42.5"/>
-            <path class="seg off fade" d="M-69.5 35.4A78 78 0 0 1 -69.5 -35.4"/>
-            <path class="seg off fade" d="M-65.4 -42.5A78 78 0 0 1 -4.1 -77.9"/>
-          </svg>
-        </article>
-      </div>
-      <a href="what-we-build.html" class="value-link reveal">
-        See everything we build
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
-
-
   <!-- PROOF -->
-  <section class="proof-bg" id="proof" aria-labelledby="proof-h">
+  <section class="proof-bg on-green is-deep" id="proof" aria-labelledby="proof-h">
     <div class="section-wrap proof-grid">
       <div class="reveal">
         <h2 class="section-h proof-h" id="proof-h">From a wall calendar to scheduling that <em>runs itself</em></h2>
-        <p class="proof-lede">One build, as an example: a family-owned water-feature contractor with 250-odd accounts, built around how they already work.</p>
+        <p class="proof-lede">One build, as an example: route optimization and scheduling for a family-owned water-feature contractor with 250-odd accounts, built around how they already work. Billing, reports or something custom get the same treatment.</p>
         <a href="what-we-build.html#case-study" class="proof-link">
           See the full build
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
