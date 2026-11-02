@@ -384,12 +384,13 @@
     .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
     .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
     .proof-link {
-      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 18px; align-self: flex-end;
-      font-weight: 600; font-size: 16px; color: var(--on-green-accent); text-decoration: none;
-      border-bottom: 1px solid var(--line-on-green-2);
+      display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 24px; align-self: flex-start;
+      padding: 0 22px; border: 1px solid var(--line-on-green-2); border-radius: 10px;
+      font-weight: 600; font-size: 15.5px; color: #fff; text-decoration: none;
+      transition: background-color .3s var(--ease), border-color .3s var(--ease);
     }
     .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
-    .proof-link:hover { color: #fff; }
+    .proof-link:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.5); }
     .proof-link:hover svg { transform: translateX(3px); }
     .proof-rows { list-style: none; display: grid; gap: 14px; }
     .proof-head, .proof-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
@@ -428,7 +429,7 @@
       .proof-before s { background: none; text-decoration: line-through; }
     }
 
-    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px clamp(20px, 3vw, 36px); }
+    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
     .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
     @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-link { align-self: flex-start; } }
@@ -740,7 +741,7 @@
       <div class="proof-intro reveal">
         <h2 class="section-h proof-h" id="proof-h">Case study</h2>
         <p class="proof-sub">From a paper calendar and printed routes to online, semi-automated scheduling, dispatch and routing.</p>
-        <p class="proof-lede">One build, as an example: a family-owned water-feature contractor with <strong>250-odd accounts</strong>. We build the same way for billing, reports, or anything custom.</p>
+        <p class="proof-lede">One example: a family-owned water-feature contractor with <strong>250-odd accounts</strong>, <strong>in production since August 2026</strong>. We build the same way for billing, reports, or anything custom.</p>
       </div>
       <div class="proof-board">
       <div class="proof-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
@@ -761,10 +762,9 @@
       </div>
       <div class="proof-more">
       <ul class="proof-facts reveal" role="list">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>In production since August 2026.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>The owner approves every route before it goes out.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every visit logged to the minute, even with no signal.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Read-only, Intuit-approved QuickBooks app. QuickBooks stays the books.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Reads your QuickBooks, never edits it. QuickBooks stays the books.</span></li>
       </ul>
       <a href="what-we-build.html#case-study" class="proof-link">
         See the full build
