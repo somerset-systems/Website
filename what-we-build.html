@@ -531,7 +531,7 @@
       </svg>
     </div>
     <h1 class="wwb-title hdr-anim">Scheduling, routing, billing and paperwork, <em>built around how your business runs</em></h1>
-    <p class="wwb-lede hdr-anim">Custom software for home-service and field-service businesses, connected to the tools you already use.</p>
+    <p class="wwb-lede hdr-anim">Custom software for home-service and field-service businesses, connected to QuickBooks, Jobber, ServiceTitan and the tools you already run.</p>
     <div class="wwb-actions hdr-anim">
       <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
         Book a Demo
@@ -676,20 +676,12 @@
           <p class="ba-after"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Every schedule buried in free-form notes</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>Kept in sync with QuickBooks, which stays the books</p>
-        </li>
-        <li class="ba-row">
           <p class="ba-before"><span class="ba-tag">Before</span><s>The crew working off a clipboard</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
         </li>
         <li class="ba-row">
           <p class="ba-before"><span class="ba-tag">Before</span><s>Arguments over when the crew showed up</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Mileage rebuilt at the end of the month</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>Mileage tracked every day</p>
         </li>
       </ol>
       <ul class="case-foot reveal" role="list">
@@ -841,7 +833,7 @@
       // Process: the line draws across as you scroll, each step lights up as it reaches it
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {
-        const steps = gsap.utils.toArray('.step');
+        const steps = gsap.utils.toArray('.step-num');
         gsap.set(steps, { opacity: 0.35 });
         gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
           .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0)
