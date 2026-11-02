@@ -370,34 +370,68 @@
     .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
 
     /* ── PROOF (one real build, three Before/Now rows) ─────── */
-    .proof-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+    .proof-grid {
+      display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      grid-template-areas: "intro board" "more more";
+      grid-template-rows: auto auto;
+      column-gap: clamp(32px, 6vw, 88px); align-items: start;
+    }
+    .proof-intro { grid-area: intro; }
+    .proof-board { grid-area: board; }
+    .proof-more { grid-area: more; margin-top: clamp(36px, 4vw, 52px); padding-top: 28px; border-top: 1px solid var(--line-on-green-2); }
+    .proof-lede strong { color: #fff; font-weight: 600; }
     .proof-h { margin-bottom: 14px; }
-    .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 26ch; margin-bottom: 20px; text-wrap: balance; }
-    .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; margin-bottom: 28px; text-wrap: pretty; }
+    .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
+    .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
     .proof-link {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px;
       font-weight: 600; font-size: 16px; color: var(--on-green-accent); text-decoration: none;
+      border-bottom: 1px solid var(--line-on-green-2);
     }
     .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
     .proof-link:hover { color: #fff; }
     .proof-link:hover svg { transform: translateX(3px); }
-    .proof-rows { list-style: none; border-top: 1px solid var(--line-on-green-2); }
-    .proof-row { display: grid; grid-template-columns: 1fr 28px 1.3fr; column-gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line-on-green); }
-    .proof-before { font-size: 16px; color: var(--on-green-muted); line-height: 1.5; }
-    .proof-after { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.5; text-wrap: pretty; }
-    .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); justify-self: center; }
+    .proof-rows { list-style: none; display: grid; gap: 14px; }
+    .proof-head, .proof-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
+    .proof-row { align-items: stretch; }
+    .proof-head { margin-bottom: 10px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
+    .proof-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
+    .proof-before {
+      display: flex; align-items: center; padding: 16px 18px;
+      border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
+      font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
+    }
+    .proof-before s {
+      text-decoration: none;
+      background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 100% 1.5px;
+    }
+    .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
+    .proof-after {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+      background: var(--bg); color: var(--green-deep); border-radius: 14px;
+      font-size: 16.5px; font-weight: 600; line-height: 1.4; text-wrap: pretty;
+    }
     .proof-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .proof-ico { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
+    .proof-ico svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     @media (max-width: 880px) {
-      .proof-grid { grid-template-columns: 1fr; }
-      .proof-row { grid-template-columns: 1fr; row-gap: 6px; padding: 18px 0; }
-      .proof-arrow { display: none; }
-      .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+      .proof-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "board" "more"; grid-template-rows: auto; row-gap: 32px; }
+      .proof-row { grid-template-columns: 1fr; row-gap: 8px; }
+      .proof-head { display: none; }
+      .proof-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .proof-before .proof-tag { color: var(--on-green-muted); }
-      .proof-after .proof-tag { color: var(--on-green-accent); }
+      .proof-after .proof-tag { color: var(--green); }
     }
 
-    .proof-note { margin-top: 20px; display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--on-green-soft); line-height: 1.55; }
-    .proof-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
+    @media (forced-colors: active) {
+      .proof-before s { background: none; text-decoration: line-through; }
+    }
+
+    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
+    .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
+    .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } }
 
     /* ── TRADES (real work, labeled by trade) ──────────────── */
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
@@ -420,14 +454,19 @@
       .trade { flex: 0 0 62%; max-width: 280px; scroll-snap-align: start; }
     }
 
+    @media (prefers-reduced-motion: no-preference) {
+      .js .proof-before s { background-size: 0% 1.5px; transition: background-size .7s var(--ease) .55s; }
+      .js .stagger.in .proof-before s { background-size: 100% 1.5px; }
+      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .9s, transform .7s var(--ease) .9s; }
+      .js .stagger.in .proof-after { opacity: 1; transform: none; }
+      .js .stagger.in .proof-row:nth-child(2) .proof-before s { transition-delay: .7s; }
+      .js .stagger.in .proof-row:nth-child(2) .proof-after { transition-delay: 1.05s; }
+      .js .stagger.in .proof-row:nth-child(3) .proof-before s { transition-delay: .85s; }
+      .js .stagger.in .proof-row:nth-child(3) .proof-after { transition-delay: 1.2s; }
+    }
+
     /* ── HOVER (pointer devices only, off for reduced motion) ── */
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      .proof-row { transition: background-color .3s var(--ease), padding .3s var(--ease); }
-      .js .stagger > .proof-row { transition: opacity .7s var(--ease), transform .7s var(--ease), background-color .3s var(--ease), padding .3s var(--ease); }
-      .proof-row:hover { background-color: rgba(255, 255, 255, 0.07); padding-left: 14px; padding-right: 14px; }
-      .proof-arrow { transition: transform .3s var(--ease); }
-      .proof-row:hover .proof-arrow { transform: translateX(5px); }
-      .proof-row:hover .proof-after { color: var(--on-green-accent); }
 
       .integ-card, .js .stagger > .integ-card {
         transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease);
@@ -694,34 +733,38 @@
   <!-- PROOF -->
   <section class="proof-bg on-green is-deep" id="proof" aria-labelledby="proof-h">
     <div class="section-wrap proof-grid">
-      <div class="reveal">
+      <div class="proof-intro reveal">
         <h2 class="section-h proof-h" id="proof-h">Case study</h2>
         <p class="proof-sub">From a paper calendar and printed routes to online, semi-automated scheduling, dispatch and routing.</p>
-        <p class="proof-lede">One build, as an example: a family-owned water-feature contractor with 250-odd accounts, built around how they already work. Billing, reports or something custom get the same treatment.</p>
-        <a href="what-we-build.html#case-study" class="proof-link">
-          See the full build
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <p class="proof-lede">One build, as an example: a family-owned water-feature contractor with <strong>250-odd accounts</strong>. We build the same way for billing, reports, or anything custom.</p>
       </div>
-      <div>
+      <div class="proof-board">
+      <div class="proof-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="proof-rows stagger" role="list">
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-tag">Before</span>A hand-copied wall calendar</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="proof-after"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>A hand-copied wall calendar</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
         </li>
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-tag">Before</span>Printed route sheets</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="proof-after"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</p>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>Printed route sheets</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
         </li>
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-tag">Before</span>The crew working off a clipboard</p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="proof-after"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>The crew working off a clipboard</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
         </li>
       </ol>
-      <p class="proof-note reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-        <span>The owner approves every route before it goes out, and QuickBooks stays the books.</span>
-      </p>
+      </div>
+      <div class="proof-more">
+      <ul class="proof-facts reveal" role="list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>The owner approves every route before it goes out.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every visit logged to the minute, even with no signal.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>In production since August 2026, on a read-only, Intuit-approved QuickBooks app. QuickBooks stays the books.</span></li>
+      </ul>
+      <a href="what-we-build.html#case-study" class="proof-link">
+        See the full build
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
       </div>
     </div>
   </section>
