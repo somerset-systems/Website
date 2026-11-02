@@ -401,7 +401,9 @@
     /* ── TRADES (real work, labeled by trade) ──────────────── */
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .trades-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(24px, 5vw, 60px); }
-    .trades-h { max-width: 22ch; margin-bottom: clamp(28px, 4vw, 44px); }
+    .trades-head { display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 5vw, 72px); margin-bottom: clamp(28px, 4vw, 44px); }
+    .trades-h { max-width: 20ch; margin-bottom: 0; }
+    .trades-sub { max-width: 34ch; font-size: 17px; line-height: 1.6; color: var(--soft); padding-bottom: 6px; text-wrap: pretty; }
     .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
     .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -411,6 +413,7 @@
     }
     .trade-label { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
     @media (max-width: 880px) {
+      .trades-head { flex-direction: column; align-items: flex-start; gap: 14px; }
       .trades-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 5vw, 60px); gap: 10px; margin: 0 calc(-1 * clamp(24px, 5vw, 60px)); padding: 0 clamp(24px, 5vw, 60px); scrollbar-width: none; }
       .trades-row::-webkit-scrollbar { display: none; }
       .trade { flex: 0 0 62%; max-width: 280px; scroll-snap-align: start; }
@@ -672,7 +675,10 @@
   <!-- TRADES -->
   <section class="trades-bg" id="trades" aria-labelledby="trades-h">
     <div class="trades-wrap">
-      <h2 class="section-h trades-h reveal" id="trades-h">Built for the trades that keep homes running</h2>
+      <div class="trades-head reveal">
+        <h2 class="section-h trades-h" id="trades-h">Built for the trades that keep homes running</h2>
+        <p class="trades-sub">Crews in the field and the office behind them, from the first call to the final invoice.</p>
+      </div>
       <ul class="trades-row stagger" role="list">
         <li class="trade"><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">HVAC</span></li>
         <li class="trade"><img src="images/trade-electrical.jpg" alt="An electrician in a hard hat and gloves working inside an open electrical cabinet" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Electrical</span></li>
