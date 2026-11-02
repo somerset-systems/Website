@@ -402,8 +402,8 @@
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .trades-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(24px, 5vw, 60px); }
     .trades-head { display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 5vw, 72px); margin-bottom: clamp(28px, 4vw, 44px); }
-    .trades-h { max-width: 20ch; margin-bottom: 0; }
-    .trades-sub { max-width: 34ch; font-size: 17px; line-height: 1.6; color: var(--soft); padding-bottom: 6px; text-wrap: pretty; }
+    .trades-h { flex: none; max-width: 20ch; margin-bottom: 0; }
+    .trades-sub { flex: 1 1 0; max-width: 36ch; font-size: 17px; line-height: 1.6; color: var(--soft); padding-bottom: 6px; text-wrap: pretty; }
     .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
     .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -677,7 +677,7 @@
     <div class="trades-wrap">
       <div class="trades-head reveal">
         <h2 class="section-h trades-h" id="trades-h">Built for the trades that keep homes running</h2>
-        <p class="trades-sub">Crews in the field and the office behind them, from the first call to the final invoice.</p>
+        <p class="trades-sub">Custom tools for scheduling, dispatch, invoicing and customer follow-up, or anything else your office needs.</p>
       </div>
       <ul class="trades-row stagger" role="list">
         <li class="trade"><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">HVAC</span></li>
