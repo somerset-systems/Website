@@ -402,10 +402,7 @@
       border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
       font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
     }
-    .proof-before s {
-      text-decoration: none;
-      background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 100% 1px;
-    }
+    .proof-before s { text-decoration: none; }
     .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
     .proof-after {
       display: flex; align-items: center; gap: 14px; padding: 16px 18px;
@@ -423,10 +420,6 @@
       .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .proof-before .proof-tag { color: var(--on-green-muted); }
       .proof-after .proof-tag { color: var(--green); }
-    }
-
-    @media (forced-colors: active) {
-      .proof-before s { background: none; text-decoration: line-through; }
     }
 
     .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
@@ -460,14 +453,10 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .js .proof-before s { background-size: 0% 1px; transition: background-size .7s var(--ease) .55s; }
-      .js .stagger.in .proof-before s { background-size: 100% 1px; }
-      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .9s, transform .7s var(--ease) .9s; }
+      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .25s, transform .7s var(--ease) .25s; }
       .js .stagger.in .proof-after { opacity: 1; transform: none; }
-      .js .stagger.in .proof-row:nth-child(2) .proof-before s { transition-delay: .7s; }
-      .js .stagger.in .proof-row:nth-child(2) .proof-after { transition-delay: 1.05s; }
-      .js .stagger.in .proof-row:nth-child(3) .proof-before s { transition-delay: .85s; }
-      .js .stagger.in .proof-row:nth-child(3) .proof-after { transition-delay: 1.2s; }
+      .js .stagger.in .proof-row:nth-child(2) .proof-after { transition-delay: .4s; }
+      .js .stagger.in .proof-row:nth-child(3) .proof-after { transition-delay: .55s; }
     }
 
     /* ── HOVER (pointer devices only, off for reduced motion) ── */
