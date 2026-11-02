@@ -553,7 +553,7 @@
           <h3 class="build-card-h">Scheduling &amp; routes</h3>
           <p class="build-out">Recurring jobs scheduled from the notes you already keep, routes planned around traffic, and the day's stops on each crew phone.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes routes, recurring jobs, crew phone</summary>
             <ul class="build-panel-list">
             <li>Recurring service built from the notes already sitting in your records</li>
             <li>Routes planned around real traffic, with a cap on drive time</li>
@@ -571,7 +571,7 @@
           <h3 class="build-card-h">Billing &amp; collections</h3>
           <p class="build-out">Month-end invoices drafted from the visits your crew logged, and a follow-up schedule for whatever is still unpaid.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes invoices, proposals, collections</summary>
             <ul class="build-panel-list">
             <li>One invoice per customer drafted from the visits your crew logged, at each customer's own rate</li>
             <li>Anything unusual held back for a look: a visit that ran long, extra work with no price yet, a part bought for that customer</li>
@@ -587,7 +587,7 @@
           <h3 class="build-card-h">Paperwork &amp; reports</h3>
           <p class="build-out">Upload anything. Each document is read, filed to the right job, and the details pulled out so nobody retypes them.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes uploads, filing, reports</summary>
             <ul class="build-panel-list">
             <li>One place to upload everything: PDFs, scans, photos of paper forms, emailed attachments</li>
             <li>Each document read, labeled, and filed to the right job, customer, or vendor</li>
@@ -603,7 +603,7 @@
           <h3 class="build-card-h">Customers &amp; follow-up</h3>
           <p class="build-out">The full history on screen when they call, plus renewals, reminders, and review requests queued for you.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes history, reminders, reviews, leads</summary>
             <ul class="build-panel-list">
             <li>The customer's full history on screen the moment they call</li>
             <li>Replies drafted from your own records, ready to edit and send</li>
@@ -620,7 +620,7 @@
           <h3 class="build-card-h">Profit &amp; research</h3>
           <p class="build-out">See what each job really earned, ask questions in plain words, and get the numbers back.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes margins, briefings, research</summary>
             <ul class="build-panel-list">
             <li>Margin by job, tech, and customer, after labor and materials, not revenue billed</li>
             <li>Reports and owner briefings written for you, on whatever schedule suits you</li>
@@ -635,7 +635,7 @@
           <h3 class="build-card-h">Anything else</h3>
           <p class="build-out">Most of what we build isn't on this list. It starts as a description of your problem.</p>
           <details class="build-more">
-            <summary>What's included</summary>
+            <summary>Includes scoping, pricing, support</summary>
             <ul class="build-panel-list">
             <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
             <li>Recent examples: a proposal builder that works from the site walkthrough, and month-end invoices drafted from the crew log</li>
@@ -834,11 +834,8 @@
       // Process: the line draws across as you scroll, each step lights up as it reaches it
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {
-        const steps = gsap.utils.toArray('.step-num');
-        gsap.set(steps, { opacity: 0.35 });
         gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
-          .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0)
-          .to(steps, { opacity: 1, ease: 'none', duration: 0.1, stagger: 0.3 }, 0);
+          .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
       });
       mm.add('(max-width: 960px)', () => {
         gsap.from('.step', { opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
