@@ -378,13 +378,13 @@
     }
     .proof-intro { grid-area: intro; }
     .proof-board { grid-area: board; }
-    .proof-more { grid-area: more; margin-top: clamp(36px, 4vw, 52px); padding-top: 28px; border-top: 1px solid var(--line-on-green-2); }
+    .proof-more { grid-area: more; display: flex; flex-direction: column; margin-top: clamp(36px, 4vw, 52px); padding-top: 28px; border-top: 1px solid var(--line-on-green-2); }
     .proof-lede strong { color: #fff; font-weight: 600; }
     .proof-h { margin-bottom: 14px; }
     .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
     .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
     .proof-link {
-      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px;
+      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 18px; align-self: flex-end;
       font-weight: 600; font-size: 16px; color: var(--on-green-accent); text-decoration: none;
       border-bottom: 1px solid var(--line-on-green-2);
     }
@@ -403,7 +403,7 @@
     }
     .proof-before s {
       text-decoration: none;
-      background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 100% 1.5px;
+      background: linear-gradient(currentColor, currentColor) no-repeat 0 58% / 100% 1px;
     }
     .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
     .proof-after {
@@ -428,10 +428,14 @@
       .proof-before s { background: none; text-decoration: line-through; }
     }
 
-    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
+    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px clamp(20px, 3vw, 36px); }
     .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
-    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-link { align-self: flex-start; } }
+    @media (max-width: 520px) {
+      .proof-rows { gap: 10px; }
+      .proof-before, .proof-after { padding: 12px 16px; }
+    }
 
     /* ── TRADES (real work, labeled by trade) ──────────────── */
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
@@ -455,8 +459,8 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .js .proof-before s { background-size: 0% 1.5px; transition: background-size .7s var(--ease) .55s; }
-      .js .stagger.in .proof-before s { background-size: 100% 1.5px; }
+      .js .proof-before s { background-size: 0% 1px; transition: background-size .7s var(--ease) .55s; }
+      .js .stagger.in .proof-before s { background-size: 100% 1px; }
       .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .9s, transform .7s var(--ease) .9s; }
       .js .stagger.in .proof-after { opacity: 1; transform: none; }
       .js .stagger.in .proof-row:nth-child(2) .proof-before s { transition-delay: .7s; }
@@ -757,9 +761,10 @@
       </div>
       <div class="proof-more">
       <ul class="proof-facts reveal" role="list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>In production since August 2026.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>The owner approves every route before it goes out.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every visit logged to the minute, even with no signal.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>In production since August 2026, on a read-only, Intuit-approved QuickBooks app. QuickBooks stays the books.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Read-only, Intuit-approved QuickBooks app. QuickBooks stays the books.</span></li>
       </ul>
       <a href="what-we-build.html#case-study" class="proof-link">
         See the full build
