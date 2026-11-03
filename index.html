@@ -72,6 +72,10 @@
   </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    @font-face {
+      font-family: 'Montserrat Fallback'; src: local('Arial');
+      size-adjust: 112.8%; ascent-override: 85.8%; descent-override: 22.2%; line-gap-override: 0%;
+    }
 
     :root {
       --green:         #456650;   /* brand primary: also the drenched hero/CTA surface */
@@ -103,7 +107,7 @@
       --on-green-muted:    #D3E2D8;   /* AA on --green (4.7:1) */
       --on-green-accent:   #CFE6D6;   /* emphasis text on green: 4.9:1 on --green (sage-light is only 3.4:1) */
 
-      --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-display: 'Montserrat', 'Montserrat Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
       /* Fine grain for green surfaces (tiny inline SVG noise, no request) */
@@ -152,7 +156,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    h1, h2, h3 { font-family: var(--font-display); }
+    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; }
     h1 em, h2 em, h3 em { font-style: normal; }
 
     /* Green surfaces share the grain + light text */
@@ -224,7 +228,7 @@
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 60px; height: 66px;
-      background: rgba(46, 74, 56, 0.82);
+      background: rgba(46, 74, 56, 0.92);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border-bottom: 1px solid var(--line-on-green);
@@ -408,6 +412,7 @@
     }
     .proof-before s { text-decoration: none; }
     .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
+    .proof-text { text-wrap: pretty; }
     .proof-after {
       display: flex; align-items: center; gap: 14px; padding: 16px 18px;
       background: var(--bg); color: var(--green-deep); border-radius: 14px;
@@ -429,7 +434,7 @@
     .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
     .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
-    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-more { margin-top: 0; } }
     @media (max-width: 520px) {
       .proof-rows { gap: 10px; }
       .proof-before, .proof-after { padding: 12px 16px; }
@@ -452,7 +457,7 @@
       content: ""; position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(28, 46, 36, 0.82) 0%, rgba(28, 46, 36, 0) 48%);
     }
-    .trade-label { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
+    .trade-label { overflow-wrap: anywhere; position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
     @media (max-width: 880px) {
       .trades-head { flex-direction: column; align-items: flex-start; gap: 14px; }
       .trades-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 5vw, 60px); gap: 10px; margin: 0 calc(-1 * clamp(24px, 5vw, 60px)); padding: 0 clamp(24px, 5vw, 60px); scrollbar-width: none; }
@@ -476,6 +481,7 @@
     .trades-bg.is-feed .trade { flex: 0 0 auto; width: clamp(220px, 21vw, 290px); max-width: none; }
     .trades-bg.is-feed .trade img { -webkit-user-drag: none; user-select: none; }
     .feed-controls { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .feed-controls[hidden] { display: none; }
     .feed-toggle {
       display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px 0 14px;
       background: var(--bg-white); border: 1px solid var(--border-strong); border-radius: 999px;
@@ -538,10 +544,12 @@
       text-align: center;
     }
     .integ-more {
-      display: inline-flex; align-items: center; padding: 8px 16px;
+      display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; text-decoration: none;
+      transition: background-color .2s, border-color .2s;
       border: 1px dashed rgba(69, 102, 80, 0.5); border-radius: 999px;
       font-size: 14px; font-weight: 600; color: var(--green);
     }
+    .integ-more:hover { background: var(--green-dim); border-color: var(--green); }
     .integ-note { font-size: 15.5px; color: var(--soft); text-wrap: pretty; }
 
     /* ── FOUNDERS ──────────────────────────────────────────── */
@@ -566,7 +574,7 @@
       object-fit: cover; object-position: center; display: block;
       background-color: var(--green);
     }
-    .founder-name  { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
+    .founder-name  { overflow-wrap: anywhere; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
     .founder-role  {
       font-size: 14px; font-weight: 600; color: var(--green);
       margin-bottom: 14px; display: block;
@@ -575,7 +583,7 @@
     .founder-bio p { margin: 0 0 12px; }
     .founder-bio p:last-child { margin-bottom: 0; }
     .founder-more {
-      display: none; margin-top: 10px; padding: 12px 0; min-height: 44px;
+      display: none; margin-top: 4px; padding: 0; min-height: 44px;
       background: none; border: none; cursor: pointer;
       font: 600 15px/1.2 var(--font-body); color: var(--green);
       text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 4px;
@@ -674,8 +682,9 @@
       .founders-grid { grid-template-columns: 1fr; }
     }
     /* phones wide enough keep Book a Demo in the bar, in reach on every screen */
-    @media (min-width: 370px) and (max-width: 960px) {
+    @media (min-width: 340px) and (max-width: 960px) {
       .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 13.5px; }
+      .mobile-menu-cta { display: none; }
       .nav-logo { min-height: 44px; }
       .nav-end { gap: 6px; }
     }
@@ -683,14 +692,15 @@
       .nav-logo { gap: 9px; }
       .nav-logo img { height: 36px; }
       .nav-logo .nav-wm-1 { font-size: 16px; }
-      .nav-logo .nav-wm-2 { font-size: 10px; letter-spacing: 0.3em; }
-      body > nav { padding: 0 18px; }
+      .nav-logo .nav-wm-2 { font-size: 11px; letter-spacing: 0.28em; }
+      body > nav { padding: 0 16px; }
+      .nav-end .nav-cta { padding: 0 12px; font-size: 13px; }
     }
     @media (max-width: 560px) {
       .hero { padding: 112px 20px 0; }
       .hero-proof { margin: 40px -20px 0; padding: 18px 20px 20px; font-size: 15px; }
       .hero-mark { width: 60px; height: 60px; margin-bottom: 22px; }
-      .hero-h { margin-bottom: 20px; }
+      .hero-h { margin-bottom: 20px; font-size: clamp(30px, 10.2vw, 44px); }
       .hero-sub { margin-bottom: 32px; }
       .cta-logo { height: 64px; margin-bottom: 24px; }
       .hero-actions { flex-direction: column; width: 100%; max-width: 340px; }
@@ -703,7 +713,7 @@
       .founder-card { display: grid; grid-template-columns: 56px 1fr; gap: 0 14px; padding: 24px 20px; border-radius: 16px; }
       .founder-card > div { display: contents; }
       .founder-avatar { width: 56px; height: 56px; grid-row: 1 / span 2; align-self: center; }
-      .founder-name { grid-column: 2; align-self: end; margin-bottom: 0; }
+      .founder-name { grid-column: 2; align-self: end; margin-bottom: 0; font-size: clamp(17px, 5vw, 19px); }
       .founder-role { grid-column: 2; align-self: start; margin-bottom: 0; }
       .founder-bio { grid-column: 1 / -1; margin-top: 16px; }
       .founder-more { grid-column: 1 / -1; justify-self: start; display: inline-block; }
@@ -722,7 +732,7 @@
   <!-- NAV -->
   <nav>
     <a href="#main" class="nav-logo" aria-label="Somerset Systems home">
-      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="42" height="42" />
+      <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="42" height="42" />
       <span class="nav-wordmark"><span class="nav-wm-1">SOMERSET</span><span class="nav-wm-2">SYSTEMS</span></span>
     </a>
     <div class="nav-links">
@@ -773,7 +783,7 @@
       </svg>
     </div>
     <div class="hero-inner">
-      <img class="hero-mark hero-anim" src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
+      <img class="hero-mark hero-anim" src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
       <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the service industry.</span></h1>
       <p class="hero-sub hero-anim">We connect the tools you already run and automate the busywork around them.</p>
       <div class="hero-actions hero-anim">
@@ -806,7 +816,7 @@
         <li class="trade"><picture><source type="image/webp" srcset="images/trade-landscaping-400.webp 400w, images/trade-landscaping.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Landscaping</span></li>
       </ul>
       <div class="feed-controls" hidden>
-        <button class="feed-toggle" id="feedToggle" type="button" aria-controls="trades-row" aria-pressed="false">
+        <button class="feed-toggle" id="feedToggle" type="button" aria-controls="trades-row">
           <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
           <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.6v10.8a.8.8 0 0 0 1.2.7l8.6-5.4a.8.8 0 0 0 0-1.4L5.2 1.9a.8.8 0 0 0-1.2.7z"/></svg>
           <span class="feed-toggle-txt">Pause photos</span>
@@ -875,7 +885,7 @@
         <li class="integ-card"><img src="logos/servicetitan.png" alt="ServiceTitan" width="138" height="30" loading="lazy" decoding="async" /></li>
       </ul>
       <div class="integ-foot reveal">
-        <span class="integ-more">+ your software</span>
+        <a class="integ-more" href="#contact">+ your software</a>
         <p class="integ-note">Don't see yours? If it has an export or an API, we can almost certainly connect it.</p>
       </div>
     </div>
@@ -914,27 +924,27 @@
       <h2 class="section-h reveal" id="faq-h">Straight <em>answers</em></h2>
       <div class="faq-list reveal">
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-1" aria-expanded="true" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-1" aria-labelledby="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-2" aria-expanded="true" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-2" aria-labelledby="faq-q-2"><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-3" aria-expanded="true" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-3" aria-labelledby="faq-q-3"><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-4" aria-expanded="true" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-4" aria-labelledby="faq-q-4"><div class="faq-a-inner"><p>Not a long one, and you pick the shape. Either a setup fee with a six-month minimum, or no setup fee at all with twelve. The build happens up front, so the minimum is what covers it. After that you are month to month and can cancel if it stops earning its keep. No auto-renewing years, no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-5" aria-expanded="true" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-5" aria-labelledby="faq-q-5"><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
+          <button class="faq-q" id="faq-q-6" aria-expanded="true" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true"></span></button>
           <div class="faq-a" id="faq-a-6" aria-labelledby="faq-q-6"><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
         </div>
       </div>
@@ -945,7 +955,7 @@
   <!-- CTA -->
   <section class="cta-wrap on-green" id="contact" aria-labelledby="cta-h">
     <div class="cta-glow" aria-hidden="true"></div>
-    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="84" height="84" decoding="async">
+    <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" class="cta-logo" width="84" height="84" decoding="async">
     <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
@@ -960,7 +970,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="32" height="32" />
+      <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="32" height="32" />
       <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
     </div>
     <div class="footer-links">
@@ -980,6 +990,7 @@
     // Answers are readable without JS; JS collapses them, then each opens on its own.
     // (Closing the others on open used to throw the tapped question off-screen on phones.)
     document.querySelectorAll('.faq-a').forEach(a => a.setAttribute('inert', ''));
+    document.querySelectorAll('.faq-q').forEach(q => q.setAttribute('aria-expanded', 'false'));
     function toggleFaq(btn) {
       const item = btn.closest('.faq-item');
       const open = !item.classList.contains('open');
@@ -1054,7 +1065,7 @@
       b.addEventListener('click', () => {
         const open = card.classList.toggle('is-open');
         b.setAttribute('aria-expanded', String(open));
-        b.textContent = open ? 'Show less' : 'Read more about ' + name;
+        b.textContent = (open ? 'Show less about ' : 'Read more about ') + name;
         if (window.ScrollTrigger) ScrollTrigger.refresh();
       });
       bio.after(b);
@@ -1096,7 +1107,7 @@
         }
       }
 
-      let x = 0, last = 0, onScreen = false, userPaused = false, hovered = false, drag = null, resumeAt = 0;
+      let raf = 0, x = 0, last = 0, onScreen = false, userPaused = false, hovered = false, drag = null, resumeAt = 0;
       const speed = () => (window.innerWidth < 720 ? 32 : 40);   // px per second: a drift, not a ticker
       const wrap = () => { if (x <= -setW) x += setW; if (x > 0) x -= setW; };
       const paint = () => { row.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)'; };
@@ -1104,17 +1115,19 @@
       function tick(t) {
         const dt = last ? Math.min(t - last, 64) / 1000 : 0;
         last = t;
-        if (onScreen && !userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
-        requestAnimationFrame(tick);
+        if (!userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
+        raf = onScreen ? requestAnimationFrame(tick) : 0;
       }
 
       const label = btn.querySelector('.feed-toggle-txt');
-      btn.addEventListener('click', () => {
-        userPaused = !userPaused;
-        btn.setAttribute('aria-pressed', String(userPaused));
+      const setPaused = p => {
+        userPaused = p;
         label.textContent = userPaused ? 'Play photos' : 'Pause photos';
         band.classList.toggle('feed-paused', userPaused);
-      });
+      };
+      btn.addEventListener('click', () => setPaused(!userPaused));
+      const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (rm.addEventListener) rm.addEventListener('change', e => { if (e.matches) setPaused(true); });
 
       viewport.addEventListener('mouseenter', () => { hovered = true; });
       viewport.addEventListener('mouseleave', () => { hovered = false; });
@@ -1143,7 +1156,10 @@
       ['pointerup', 'pointercancel'].forEach(t => viewport.addEventListener(t, endDrag));
       row.addEventListener('dragstart', e => e.preventDefault());
 
-      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0.1 }).observe(viewport);
+      new IntersectionObserver(es => {
+        onScreen = es[0].isIntersecting;
+        if (onScreen && !raf) { last = 0; raf = requestAnimationFrame(tick); }
+      }, { threshold: 0.1 }).observe(viewport);
 
       let rw = window.innerWidth;
       window.addEventListener('resize', () => {
@@ -1152,7 +1168,6 @@
       });
 
       build();
-      requestAnimationFrame(tick);
     })();
 
     // Active-section highlighting in the nav (same-page anchors only)
