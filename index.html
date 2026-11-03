@@ -236,7 +236,7 @@
       font-size: 18px; font-weight: 800; letter-spacing: -0.3px; color: #fff;
     }
     .nav-logo .nav-wm-2 {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.32em; color: var(--on-green-accent);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.32em; color: var(--on-green-accent);
       margin-top: 2px;
     }
     .nav-links {
@@ -341,6 +341,21 @@
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
+    /* one line of proof pinned to the foot of the hero, so the fold carries a real result */
+    .hero-proof {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 12px;
+      padding: 20px 24px; text-align: center;
+      border-top: 1px solid var(--line-on-green);
+      font-size: 15px; line-height: 1.45; color: var(--on-green-soft); text-decoration: none;
+      transition: background .3s var(--ease);
+    }
+    .hero-proof strong { font-weight: 600; color: #fff; }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--on-green-accent); }
+    .hero-proof svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .3s var(--ease); }
+    .hero-proof:hover { background: rgba(255, 255, 255, 0.06); }
+    .hero-proof:hover svg { transform: translateX(3px); }
+
     /* pre-hide what the intro timeline reveals (only when the motion layer runs) */
     .motion .hero-anim { visibility: hidden; }
 
@@ -354,50 +369,112 @@
     .section-h em { font-style: normal; color: var(--green); }
     .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
 
-    /* ── VALUE BAND (pillars, each with its own take on the rings) ── */
-    .value-wrap {
-      max-width: 1140px; margin: 0 auto;
-      padding: clamp(80px, 10vw, 128px) clamp(24px, 5vw, 60px);
+    /* ── PROOF (one real build, three Before/Now rows) ─────── */
+    .proof-grid {
+      display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      grid-template-areas: "intro board" "more more";
+      grid-template-rows: auto auto;
+      column-gap: clamp(32px, 6vw, 88px); align-items: start;
     }
-    .value-h { max-width: 18ch; margin-bottom: clamp(40px, 5vw, 56px); }
-    .bento {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 14px; margin-bottom: clamp(40px, 5vw, 52px);
+    .proof-intro { grid-area: intro; }
+    .proof-board { grid-area: board; }
+    .proof-more { grid-area: more; display: flex; flex-direction: column; margin-top: clamp(36px, 4vw, 52px); padding-top: 28px; border-top: 1px solid var(--line-on-green-2); }
+    .proof-lede strong { color: #fff; font-weight: 600; }
+    .proof-h { margin-bottom: 14px; }
+    .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
+    .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
+    .proof-link {
+      display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 24px; align-self: flex-start;
+      padding: 0 22px; border: 1px solid var(--line-on-green-2); border-radius: 10px;
+      font-weight: 600; font-size: 15.5px; color: #fff; text-decoration: none;
+      transition: background-color .3s var(--ease), border-color .3s var(--ease);
     }
-    .bento-card {
-      display: grid; align-items: center; gap: 24px;
-      padding: 30px;
-      background: var(--deep-card);
-      border: 1px solid var(--line-on-green); border-radius: 18px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
+    .proof-link:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.5); }
+    .proof-link:hover svg { transform: translateX(3px); }
+    .proof-rows { list-style: none; display: grid; gap: 14px; }
+    .proof-head, .proof-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
+    .proof-row { align-items: stretch; }
+    .proof-head { margin-bottom: 10px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
+    .proof-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
+    .proof-before {
+      display: flex; align-items: center; padding: 16px 18px;
+      border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
+      font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
     }
-    .b-a, .b-c { grid-column: span 2; grid-template-columns: 1fr 190px; }
-    .b-b { grid-row: span 2; align-content: space-between; }
-    .b-b .bento-art { order: -1; justify-self: center; width: 230px; }
-    .bento-card h3 {
-      font-size: clamp(19px, 1.7vw, 22px); font-weight: 700; letter-spacing: -0.02em;
-      color: var(--on-green); margin-bottom: 10px;
+    .proof-before s { text-decoration: none; }
+    .proof-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
+    .proof-after {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+      background: var(--bg); color: var(--green-deep); border-radius: 14px;
+      font-size: 16.5px; font-weight: 600; line-height: 1.4; text-wrap: pretty;
     }
-    .bento-card p { font-size: 16.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 38ch; text-wrap: pretty; }
-    .bento-art { width: 190px; height: auto; display: block; overflow: visible; }
-    .bento-art * { fill: none; stroke: rgba(255, 255, 255, 0.42); stroke-width: 1.5; }
-    .bento-art .accent { stroke: var(--sage-light); stroke-width: 2; }
-    .bento-art .guide { stroke: rgba(255, 255, 255, 0.2); stroke-width: 1; stroke-dasharray: 3 5; }
-    .bento-art .dashed { stroke-dasharray: 2 6; }
-    .bento-art .dot { fill: var(--sage-light); stroke: none; }
-    .bento-art .seg { stroke-width: 9; stroke-linecap: butt; }
-    .bento-art .seg.on { stroke: var(--sage-light); }
-    .bento-art .seg.off { stroke: rgba(255, 255, 255, 0.14); }
+    .proof-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .proof-ico { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
+    .proof-ico svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    @media (max-width: 880px) {
+      .proof-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "board" "more"; grid-template-rows: auto; row-gap: 32px; }
+      .proof-row { grid-template-columns: 1fr; row-gap: 8px; }
+      .proof-head { display: none; }
+      .proof-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+      .proof-before .proof-tag { color: var(--on-green-muted); }
+      .proof-after .proof-tag { color: var(--green); }
+    }
 
-    .value-link {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-size: 16px; font-weight: 600; color: #fff; text-decoration: none;
-      border-bottom: 1px solid var(--line-on-green-2); padding-bottom: 4px;
-      transition: border-color .2s;
+    .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
+    .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
+    .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-link { align-self: flex-start; } }
+    @media (max-width: 520px) {
+      .proof-rows { gap: 10px; }
+      .proof-before, .proof-after { padding: 12px 16px; }
     }
-    .value-link svg { width: 17px; height: 17px; stroke: currentColor; transition: transform .25s var(--ease); }
-    .value-link:hover { border-color: #fff; }
-    .value-link:hover svg { transform: translateX(4px); }
+
+    /* ── TRADES (real work, labeled by trade) ──────────────── */
+    .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
+    .trades-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(24px, 5vw, 60px); }
+    .trades-head { display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 4vw, 48px); margin-bottom: clamp(28px, 4vw, 44px); }
+    .trades-h { flex: none; max-width: 20ch; margin-bottom: 0; }
+    .trades-sub { flex: 1 1 0; max-width: 44ch; font-size: 17px; line-height: 1.6; color: var(--soft); text-wrap: pretty; }
+    .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
+    .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .trade::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28, 46, 36, 0.82) 0%, rgba(28, 46, 36, 0) 48%);
+    }
+    .trade-label { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
+    @media (max-width: 880px) {
+      .trades-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .trades-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 5vw, 60px); gap: 10px; margin: 0 calc(-1 * clamp(24px, 5vw, 60px)); padding: 0 clamp(24px, 5vw, 60px); scrollbar-width: none; }
+      .trades-row::-webkit-scrollbar { display: none; }
+      .trade { flex: 0 0 62%; max-width: 280px; scroll-snap-align: start; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .25s, transform .7s var(--ease) .25s; }
+      .js .stagger.in .proof-after { opacity: 1; transform: none; }
+      .js .stagger.in .proof-row:nth-child(2) .proof-after { transition-delay: .4s; }
+      .js .stagger.in .proof-row:nth-child(3) .proof-after { transition-delay: .55s; }
+    }
+
+    /* ── HOVER (pointer devices only, off for reduced motion) ── */
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+      .integ-card, .js .stagger > .integ-card {
+        transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease);
+      }
+      .integ-card:hover { translate: 0 -4px; border-color: var(--green); }
+
+      .trade img { transition: transform 1s var(--ease); }
+      .trade:hover img { transform: scale(1.07); }
+      .trade-label { transition: translate .4s var(--ease); }
+      .trade:hover .trade-label { translate: 0 -6px; }
+
+      .founder-card { transition: translate .3s var(--ease), border-color .3s var(--ease); }
+      .founder-card:hover { translate: 0 -3px; border-color: var(--green-border); }
+    }
 
     /* ── INTEGRATIONS (static logo grid) ───────────────────── */
     .integ-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
@@ -540,14 +617,9 @@
       .footer-links a { padding: 12px 8px; }
       .founders-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 880px) {
-      .bento { grid-template-columns: 1fr; }
-      .b-a, .b-b, .b-c { grid-column: auto; grid-row: auto; grid-template-columns: 1fr; }
-      .bento-card .bento-art { order: -1; justify-self: start; width: 150px; }
-      .b-b .bento-art { width: 150px; }
-    }
     @media (max-width: 560px) {
-      .hero { padding: 116px 20px 90px; }
+      .hero { padding: 116px 20px 150px; }
+      .hero-proof { padding: 16px 20px; font-size: 14px; }
       .hero-mark { width: 72px; height: 72px; margin-bottom: 24px; }
       .cta-logo { height: 68px; }
       .hero-actions { flex-direction: column; width: 100%; max-width: 320px; }
@@ -555,7 +627,6 @@
       .integ-card { padding: 18px 14px; height: 88px; }
       .integ-card img { max-width: 100%; }
       .founder-card { flex-direction: column; gap: 18px; padding: 28px 24px; }
-      .bento-card { padding: 26px 22px; }
     }
   </style>
 </head>
@@ -576,7 +647,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Consultation</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -589,7 +660,7 @@
     <a href="#integrations" onclick="closeMenu()">Integrations</a>
     <a href="#team" onclick="closeMenu()">Team</a>
     <a href="#faq" onclick="closeMenu()">FAQ</a>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Consultation</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo</a>
   </div>
 
 
@@ -619,78 +690,76 @@
     <div class="hero-inner">
       <img class="hero-mark hero-anim" src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
       <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the service industry.</span></h1>
-      <p class="hero-sub hero-anim">We connect the software you already run, then automate the busywork around it.</p>
+      <p class="hero-sub hero-anim">We connect the tools you already run and automate the busywork around them.</p>
       <div class="hero-actions hero-anim">
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
-          Book a Consultation
+          Book a Demo
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
       </div>
     </div>
+    <a class="hero-proof hero-anim" href="what-we-build.html#case-study">
+      <strong>Live today:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
+      <span>See the build <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
   </section>
 
 
-  <!-- VALUE BAND -->
-  <section class="value-bg on-green is-deep" aria-labelledby="value-h">
-    <div class="value-wrap">
-      <h2 class="section-h value-h reveal" id="value-h">We build the exact tools <em>your operation runs on.</em></h2>
-      <div class="bento stagger">
-        <article class="bento-card b-a">
-          <div>
-            <h3>Anything You Picture</h3>
-            <p>A pipeline, a research tool, an analytics view, an automation you sketched on a napkin.</p>
-          </div>
-          <!-- a ring still being drafted: construction lines, open arcs, the pencil mid-stroke -->
-          <svg class="bento-art draw" viewBox="-110 -110 220 220" aria-hidden="true">
-            <line class="guide fade" x1="-108" y1="0" x2="108" y2="0"/>
-            <line class="guide fade" x1="0" y1="-108" x2="0" y2="108"/>
-            <circle class="d" pathLength="1" r="30"/>
-            <path class="d" pathLength="1" d="M22 -47.1A52 52 0 1 1 -39.8 -33.4"/>
-            <circle class="dashed fade" r="74"/>
-            <path class="d" pathLength="1" d="M-16.7 -94.5A96 96 0 1 1 -8.4 95.6"/>
-            <path class="d accent" pathLength="1" d="M-40.6 87A96 96 0 0 1 -32.8 -90.2"/>
-            <circle class="dot fade" cx="-32.8" cy="-90.2" r="4.5"/>
-          </svg>
-        </article>
-        <article class="bento-card b-b">
-          <div>
-            <h3>Exactly Your Way</h3>
-            <p>Built around your process and the words you already use for the work, never a template.</p>
-          </div>
-          <!-- growth rings, each drawn clean but grown off-center: the same system, shaped by its own conditions -->
-          <svg class="bento-art draw" viewBox="-100 -100 200 200" aria-hidden="true">
-            <circle class="d" pathLength="1" cx="-20" cy="15" r="16"/>
-            <circle class="d" pathLength="1" cx="-16" cy="12" r="32"/>
-            <circle class="d" pathLength="1" cx="-12" cy="9" r="48"/>
-            <circle class="d accent" pathLength="1" cx="-8" cy="6" r="64"/>
-            <circle class="d" pathLength="1" cx="-4" cy="3" r="80"/>
-            <circle class="d" pathLength="1" cx="0" cy="0" r="96"/>
-            <circle class="dot fade" cx="-20" cy="15" r="3"/>
-          </svg>
-        </article>
-        <article class="bento-card b-c">
-          <div>
-            <h3>One Piece at a Time</h3>
-            <p>Start with what's costing you most, then add the next piece once it has proven itself.</p>
-          </div>
-          <!-- a ring built in segments: four in place, two still to come -->
-          <svg class="bento-art draw" data-stagger="0.28" viewBox="-100 -100 200 200" aria-hidden="true">
-            <circle class="dashed fade" r="52"/>
-            <circle class="d" pathLength="1" r="28"/>
-            <path class="d seg on" pathLength="1" d="M4.1 -77.9A78 78 0 0 1 65.4 -42.5"/>
-            <path class="d seg on" pathLength="1" d="M69.5 -35.4A78 78 0 0 1 69.5 35.4"/>
-            <path class="d seg on" pathLength="1" d="M65.4 42.5A78 78 0 0 1 4.1 77.9"/>
-            <path class="d seg on" pathLength="1" d="M-4.1 77.9A78 78 0 0 1 -65.4 42.5"/>
-            <path class="seg off fade" d="M-69.5 35.4A78 78 0 0 1 -69.5 -35.4"/>
-            <path class="seg off fade" d="M-65.4 -42.5A78 78 0 0 1 -4.1 -77.9"/>
-          </svg>
-        </article>
+  <!-- TRADES -->
+  <section class="trades-bg" id="trades" aria-labelledby="trades-h">
+    <div class="trades-wrap">
+      <div class="trades-head reveal">
+        <h2 class="section-h trades-h" id="trades-h">Built for the trades that keep homes running</h2>
+        <p class="trades-sub">Custom tools for scheduling, dispatch, invoicing and customer follow-up, or anything else your office needs.</p>
       </div>
-      <a href="what-we-build.html" class="value-link reveal">
-        See everything we build
+      <ul class="trades-row stagger" role="list">
+        <li class="trade"><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">HVAC</span></li>
+        <li class="trade"><img src="images/trade-electrical.jpg" alt="An electrician in a hard hat and gloves working inside an open electrical cabinet" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Electrical</span></li>
+        <li class="trade"><img src="images/trade-plumbing.jpg" alt="A plumber's hands tightening a pipe fitting" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Plumbing</span></li>
+        <li class="trade"><img src="images/trade-lawn-care.jpg" alt="A push mower cutting a lawn in low sun" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Lawn care</span></li>
+        <li class="trade"><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Landscaping</span></li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- PROOF -->
+  <section class="proof-bg on-green is-deep" id="proof" aria-labelledby="proof-h">
+    <div class="section-wrap proof-grid">
+      <div class="proof-intro reveal">
+        <h2 class="section-h proof-h" id="proof-h">Case study</h2>
+        <p class="proof-sub">From a paper calendar and printed routes to online, semi-automated scheduling, dispatch and routing.</p>
+        <p class="proof-lede">One example: a family-owned water-feature contractor with <strong>250-odd accounts</strong>, <strong>in production since August 2026</strong>. We build the same way for billing, reports, or anything custom.</p>
+      </div>
+      <div class="proof-board">
+      <div class="proof-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
+      <ol class="proof-rows stagger" role="list">
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>A hand-copied wall calendar</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
+        </li>
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>Printed route sheets</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
+        </li>
+        <li class="proof-row">
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>The crew working off a clipboard</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
+        </li>
+      </ol>
+      </div>
+      <div class="proof-more">
+      <ul class="proof-facts reveal" role="list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>The owner approves every route before it goes out.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every visit logged to the minute, even with no signal.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Reads your QuickBooks, never edits it. QuickBooks stays the books.</span></li>
+      </ul>
+      <a href="what-we-build.html" class="proof-link">
+        See what we build
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+      </div>
     </div>
   </section>
 
@@ -725,7 +794,7 @@
           <div>
             <h3 class="founder-name">Thomas Ankenbrandt</h3>
             <span class="founder-role">Co-Founder</span>
-            <div class="founder-bio"><p>I'm an electrical engineer from Cal Poly SLO, but most of what I know has come from building software for real teams. I've built custom tools for nonprofits and AI-driven automations in corporate and industry settings.</p><p>That work convinced me that software which once took an engineering team months can now be built in weeks, and that changes what is worth building for a business like yours. That is what led us to start Somerset Systems.</p><p>Outside of work, I enjoy playing guitar, basketball, and traveling.</p></div>
+            <div class="founder-bio"><p>I'm an electrical engineer from Cal Poly SLO, but most of what I know has come from building software for real teams. I've built custom tools for nonprofits and AI-driven automations in corporate and industry settings.</p><p>That work convinced me that software which once took an engineering team months can now be built in weeks, and that changes what is worth building for a business like yours. That is what led us to start Somerset Systems.</p><p>When I'm not working, I'm playing guitar or basketball, or traveling.</p></div>
           </div>
         </div>
         <div class="founder-card">
@@ -733,7 +802,7 @@
           <div>
             <h3 class="founder-name">Victor Josifovski</h3>
             <span class="founder-role">Co-Founder</span>
-            <div class="founder-bio"><p>I come to Somerset Systems from a non-technical background, having studied political science at UC San Diego and worked across several legal organizations as an aspiring lawyer.</p><p>Working with law firms and nonprofits has given me an interest in how different organizations structure their work and the systems that keep them running day to day. What drew me to Somerset is the opportunity to understand those systems and use a new generation of software tools to make them work better.</p><p>Outside of work, you can find me reading or practicing jiu-jitsu.</p></div>
+            <div class="founder-bio"><p>I come to Somerset Systems from a non-technical background, having studied political science at UC San Diego and worked across several legal organizations as an aspiring lawyer.</p><p>Working with law firms and nonprofits has given me an interest in how different organizations structure their work and the systems that keep them running day to day. What drew me to Somerset is the opportunity to understand those systems and use a new generation of software tools to make them work better.</p><p>Away from work, you'll find me reading or training jiu-jitsu.</p></div>
           </div>
         </div>
       </div>
@@ -782,7 +851,7 @@
     <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
-      Book a Consultation
+      Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </section>
@@ -940,7 +1009,8 @@
         .from('.hero-mark', { autoAlpha: 0, scale: 0.8, rotation: -40, duration: 1 }, 0.05)
         .from('.hero-h .ch', { autoAlpha: 0, yPercent: 55, duration: 0.75, stagger: 0.012 }, 0.2)
         .from('.hero-sub', { autoAlpha: 0, y: 15, duration: 0.75 }, 0.85)
-        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0);
+        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0)
+        .from('.hero-proof', { autoAlpha: 0, duration: 0.8 }, 1.35);
 
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {

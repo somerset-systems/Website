@@ -200,7 +200,7 @@
     .nav-logo img { height: 42px; width: auto; display: block; }
     .nav-logo .nav-wordmark { display: flex; flex-direction: column; line-height: 1; font-family: var(--font-display); }
     .nav-logo .nav-wm-1 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; color: #fff; }
-    .nav-logo .nav-wm-2 { font-size: 10px; font-weight: 600; letter-spacing: 0.32em; color: var(--on-green-accent); margin-top: 2px; }
+    .nav-logo .nav-wm-2 { font-size: 11px; font-weight: 600; letter-spacing: 0.32em; color: var(--on-green-accent); margin-top: 2px; }
     .nav-links { display: flex; gap: 32px; align-items: center; justify-content: center; }
     .nav-links a {
       position: relative; padding: 6px 0;
@@ -255,7 +255,7 @@
     /* ── PAGE HEADER (compact brand-green band) ────────────── */
     .wwb-header {
       overflow: hidden; text-align: center;
-      padding: 150px 40px 96px;
+      padding: 132px 40px 80px;
     }
     .wwb-header-bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
     .wwb-header-bg::before {
@@ -273,18 +273,10 @@
     }
     .header-rings .ring { fill: none; stroke: rgba(255, 255, 255, 0.13); stroke-width: 1.2; }
     .header-rings .ring.accent { stroke: rgba(255, 255, 255, 0.32); }
-    .wwb-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 14px; font-weight: 500; color: var(--on-green-soft);
-      text-decoration: none; margin-bottom: 26px; transition: color .2s;
-    }
-    .wwb-back svg { width: 15px; height: 15px; stroke: currentColor; transition: transform .25s var(--ease); }
-    .wwb-back:hover { color: #fff; }
-    .wwb-back:hover svg { transform: translateX(-3px); }
     .wwb-title {
-      font-size: clamp(36px, 5.2vw, 68px);
+      font-size: clamp(34px, 4.6vw, 60px);
       font-weight: 700; letter-spacing: -0.04em; line-height: 1.04;
-      margin: 0 auto 22px; max-width: 16ch; text-wrap: balance;
+      margin: 0 auto 22px; max-width: 21ch; text-wrap: balance;
     }
     .wwb-title em { font-style: normal; color: var(--on-green-accent); }
     .wwb-lede {
@@ -302,85 +294,39 @@
     .section-h em { font-style: normal; color: var(--green); }
     .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
 
-    /* ── BUILD PICKER ────────────────────────────────────────── */
+    /* ── WHAT WE BUILD (all six visible; details open on demand) ── */
     .features-bg { background: var(--bg); }
     .visually-hidden {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
-    .builds {
-      display: grid;
-      grid-template-columns: minmax(240px, 340px) 1fr;
-      grid-template-rows: repeat(6, min-content) 1fr;
-      column-gap: clamp(24px, 3vw, 48px); row-gap: 8px;
-    }
-    .build-tab {
-      grid-column: 1;
-      display: flex; align-items: baseline; gap: 14px; width: 100%;
-      font: inherit; text-align: left; cursor: pointer;
-      background: transparent; border: 1px solid transparent; border-radius: 12px;
-      padding: 16px 18px; color: var(--soft);
-      transition: background .2s, border-color .2s, color .2s;
-    }
-    .build-tab:hover { background: var(--bg-white); border-color: var(--border); color: var(--text); }
-    .build-tab[aria-expanded="true"] {
-      background: var(--green); border-color: var(--green); color: #fff;
-    }
-    .build-tab-num {
-      flex: 0 0 auto; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums;
-      color: var(--green); transition: color .2s;
-    }
-    .build-tab[aria-expanded="true"] .build-tab-num { color: var(--on-green-accent); }
-    .build-tab-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.35; }
-
-    .build-panel {
-      grid-column: 2; grid-row: 1 / -1;
+    .build-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+    .build-card {
       background: var(--bg-white); border: 1px solid var(--border); border-radius: 18px;
-      padding: clamp(26px, 2.8vw, 40px);
+      padding: 28px 26px 22px; display: flex; flex-direction: column;
     }
-    /* Status line closing each panel: plain text, not a badge. 01 is the shipped build
-       (green, links to its case study); 02–06 are scoped per operation (quiet). */
-    .build-panel-status {
-      margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border);
-      font-size: 15px; font-weight: 600; color: var(--green);
+    .build-ico { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--green-border); margin-bottom: 20px; }
+    .build-ico svg { width: 22px; height: 22px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .build-card-h { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
+    .build-out { font-size: 16.5px; color: var(--soft); line-height: 1.6; text-wrap: pretty; margin-bottom: 18px; }
+    .build-incl { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--green); }
+    .build-ex { display: inline-block; margin-top: 12px; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
+    .build-ex:hover { text-decoration-color: currentColor; }
+    .builds-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: clamp(32px, 4vw, 48px); padding-top: 28px; border-top: 1px solid var(--border-strong); }
+    .builds-foot p { max-width: 52ch; font-size: 17px; color: var(--soft); line-height: 1.6; }
+    .btn-solid { background: var(--green); color: #fff; --btn-fill: var(--green-light); }
+    .btn-ghost { color: var(--on-green); border: 1px solid var(--line-on-green-2); --btn-fill: rgba(255, 255, 255, 0.1); }
+    .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.5); }
+    .nb { white-space: nowrap; }
+    .wwb-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 34px; }
+    @media (max-width: 960px) { .build-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) {
+      .build-grid { grid-template-columns: 1fr; }
+      .wwb-actions { flex-direction: column; align-items: stretch; max-width: 320px; margin-left: auto; margin-right: auto; }
     }
-    .build-panel-status a {
-      color: inherit; font-weight: 500; margin-left: 6px;
-      text-decoration: underline; text-decoration-color: var(--green-border);
-      text-underline-offset: 3px; transition: text-decoration-color .2s;
-    }
-    .build-panel-status a:hover { text-decoration-color: currentColor; }
-    .build-panel-status.is-scoped { color: var(--muted); font-weight: 500; }
-    .build-panel-status.is-scoped a { margin-left: 0; }
-    .build-panel-h {
-      font-size: clamp(21px, 2.1vw, 26px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.18; margin-bottom: 22px;
-      padding-bottom: 20px; border-bottom: 1px solid var(--border); text-wrap: balance;
-    }
-    .build-panel-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
-    .build-panel-list li {
-      position: relative; padding-left: 22px;
-      font-size: 16px; color: var(--soft); line-height: 1.6; text-wrap: pretty;
-    }
-    .build-panel-list li::before {
-      content: ''; position: absolute; left: 0; top: 10px;
-      width: 8px; height: 2px; border-radius: 2px; background: var(--green);
-    }
-
-    /* No JS: every panel stays open and readable. */
-    .js .build-panel { display: none; }
-    .js .build-panel.is-open { display: flex; flex-direction: column; animation: panel-in .28s var(--ease) both; }
-    @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    @media (min-width: 881px) {
-      .js .build-panel { display: flex; flex-direction: column; visibility: hidden; }
-      .js .build-panel.is-open { visibility: visible; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .js .build-panel.is-open { animation: none; }
-    }
-    @media (max-width: 880px) {
-      .builds { display: block; }
-      .build-panel { margin: 8px 0 14px; border-radius: 14px; }
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .build-card, .js .stagger > .build-card { transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease); }
+      .build-card:hover { translate: 0 -4px; border-color: var(--green-border); }
     }
 
     /* ── CASE STUDY (before / after) ─────────────────────────── */
@@ -394,14 +340,23 @@
     .case-h em { font-style: normal; color: var(--on-green-accent); }
     .case-lede { font-size: 18px; color: var(--on-green-soft); line-height: 1.65; text-wrap: pretty; }
 
-    .ba-head, .ba-row { display: grid; grid-template-columns: 1fr 48px 1.25fr; align-items: center; column-gap: 20px; }
-    .ba-head { padding-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
+    .ba-head, .ba-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
+    .ba-head { padding-bottom: 10px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
     .ba-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
-    .ba { list-style: none; border-top: 1px solid var(--line-on-green-2); }
-    .ba-row { padding: 20px 0; border-bottom: 1px solid var(--line-on-green); }
-    .ba-before { font-size: 16.5px; color: var(--on-green-muted); line-height: 1.5; }
-    .ba-after { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.5; text-wrap: pretty; }
-    .ba-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); justify-self: center; }
+    .ba { list-style: none; display: grid; gap: 12px; }
+    .ba-row { align-items: stretch; }
+    .ba-before {
+      display: flex; align-items: center; padding: 16px 18px;
+      border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
+      font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
+    }
+    .ba-before s { text-decoration: none; }
+    .ba-after {
+      display: flex; align-items: center; padding: 16px 18px;
+      background: var(--bg); color: var(--green-deep); border-radius: 14px;
+      font-size: 16.5px; font-weight: 600; line-height: 1.4; text-wrap: pretty;
+    }
+    .ba-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
     .ba-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* read aloud, shown on phones */
     .case-foot {
       list-style: none; margin-top: 32px;
@@ -416,11 +371,11 @@
     }
     @media (max-width: 720px) {
       .ba-head { display: none; }
-      .ba-row { grid-template-columns: 1fr; row-gap: 8px; padding: 18px 0; }
-      .ba-arrow { display: none; }
-      .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+      .ba-row { grid-template-columns: 1fr; row-gap: 8px; }
+      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .ba-before .ba-tag { color: var(--on-green-muted); }
-      .ba-after .ba-tag { color: var(--on-green-accent); }
+      .ba-after .ba-tag { color: var(--green); }
     }
 
     /* ── PROCESS (a timeline that draws itself) ─────────────── */
@@ -518,7 +473,7 @@
       <a href="index.html#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Consultation</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -532,7 +487,7 @@
     <a href="index.html#integrations">Integrations</a>
     <a href="index.html#team">Team</a>
     <a href="index.html#faq">FAQ</a>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Consultation</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo</a>
   </div>
 
 
@@ -555,117 +510,67 @@
         <circle class="ring" pathLength="1" r="716"/>
       </svg>
     </div>
-    <a href="index.html" class="wwb-back hdr-anim">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Back to home
-    </a>
-    <h1 class="wwb-title hdr-anim">Custom software, <em>engineered for your operation</em></h1>
-    <p class="wwb-lede hdr-anim">Built around the systems you already run, from a single workflow to the whole operation.</p>
+    <h1 class="wwb-title hdr-anim">Scheduling, routing, billing and paperwork, <em>built around how your business runs</em></h1>
+    <p class="wwb-lede hdr-anim">Custom software for <span class="nb">home-service</span> and <span class="nb">field-service</span> businesses, connected to QuickBooks, Jobber, ServiceTitan and the tools you already run.</p>
+    <div class="wwb-actions hdr-anim">
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
+        Book a Demo
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#case-study" class="btn btn-ghost">See a real example</a>
+    </div>
   </header>
 
 
   <!-- FEATURES -->
   <section class="features-bg" id="capabilities" aria-labelledby="features-h">
     <div class="section-wrap">
-      <h2 class="section-h reveal" id="features-h">Pick the one that sounds like your week</h2>
-      <div class="builds reveal">
-        <button type="button" class="build-tab" id="build-tab-scheduling" aria-expanded="true" aria-controls="build-panel-scheduling">
-          <span class="build-tab-num" aria-hidden="true">01</span>
-          <span class="build-tab-name">Scheduling, Dispatch &amp; Routing</span>
-        </button>
-        <div class="build-panel is-open" id="build-panel-scheduling" role="region" aria-labelledby="build-tab-scheduling">
-          <h3 class="build-panel-h">Automated scheduling, route optimization, and a mobile crew app</h3>
-          <ul class="build-panel-list">
-            <li>Recurring service built from the notes already sitting in your records</li>
-            <li>Routes planned around real traffic, with a cap on drive time</li>
-            <li>A phone screen instead of a clipboard, with the day's stops in order, working with or without signal</li>
-            <li>Time logged to the minute, with photos attached to the job record</li>
-            <li>Parts, materials, and chemicals requested from the field and tracked against the job</li>
-            <li>Payroll hours and mileage built from the stamps the crew already recorded</li>
-            <li>Nothing reaches the crew until you have looked at it and approved it</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#case-study">See an example</a> below.</p>
-        </div>
-        <button type="button" class="build-tab" id="build-tab-billing" aria-expanded="false" aria-controls="build-panel-billing">
-          <span class="build-tab-num" aria-hidden="true">02</span>
-          <span class="build-tab-name">Billing, Invoicing &amp; Collections</span>
-        </button>
-        <div class="build-panel" id="build-panel-billing" role="region" aria-labelledby="build-tab-billing">
-          <h3 class="build-panel-h">Month-end invoices, proposals, and collections follow-up</h3>
-          <ul class="build-panel-list">
-            <li>One invoice per customer drafted from the visits your crew logged, at each customer's own rate</li>
-            <li>Anything unusual held back for a look: a visit that ran long, extra work with no price yet, a part bought for that customer</li>
-            <li>Every number traced to its source: the visit, the note, the receipt photo. Visits planned but never logged are flagged before billing, so missed work turns up early</li>
-            <li>Proposals drafted from the site walkthrough, in good, better, and best options in your own format, priced from your price book and past jobs</li>
-            <li>Outstanding invoices chased on a schedule, from first nudge to final notice</li>
-            <li>Nothing is sent or charged until someone in your office signs off on it</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
-        </div>
-        <button type="button" class="build-tab" id="build-tab-documents" aria-expanded="false" aria-controls="build-panel-documents">
-          <span class="build-tab-num" aria-hidden="true">03</span>
-          <span class="build-tab-name">Document Processing &amp; Reports</span>
-        </button>
-        <div class="build-panel" id="build-panel-documents" role="region" aria-labelledby="build-tab-documents">
-          <h3 class="build-panel-h">Document uploads, automatic sorting, and reports in your format</h3>
-          <ul class="build-panel-list">
-            <li>One place to upload everything: PDFs, scans, photos of paper forms, emailed attachments</li>
-            <li>Each document read, labeled, and filed to the right job, customer, or vendor</li>
-            <li>The details that matter (dates, totals, part numbers, signatures) pulled out, so nobody retypes them</li>
-            <li>Search every file in plain words instead of digging through folders</li>
-            <li>Reports written in your company's terms and layout, not a generic template</li>
-            <li>Anything the system is unsure of is flagged for a person to check</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
-        </div>
-        <button type="button" class="build-tab" id="build-tab-customer" aria-expanded="false" aria-controls="build-panel-customer">
-          <span class="build-tab-num" aria-hidden="true">04</span>
-          <span class="build-tab-name">Customer Communication &amp; Growth</span>
-        </button>
-        <div class="build-panel" id="build-panel-customer" role="region" aria-labelledby="build-tab-customer">
-          <h3 class="build-panel-h">Customer history, automated follow-ups, reviews, and lead tracking</h3>
-          <ul class="build-panel-list">
-            <li>The customer's full history on screen the moment they call</li>
-            <li>Replies drafted from your own records, ready to edit and send</li>
-            <li>Renewals, maintenance reminders, and quote follow-ups queued for you, so nobody has to remember</li>
-            <li>Review requests ready the day the job closes, not three weeks later</li>
-            <li>Campaigns built against the customers who have gone quiet</li>
-            <li>Referrals tracked back to the customer who sent them</li>
-            <li>New leads landing in the same system as the work, not a separate inbox</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
-        </div>
-        <button type="button" class="build-tab" id="build-tab-analytics" aria-expanded="false" aria-controls="build-panel-analytics">
-          <span class="build-tab-num" aria-hidden="true">05</span>
-          <span class="build-tab-name">Analytics, Reporting &amp; Research</span>
-        </button>
-        <div class="build-panel" id="build-panel-analytics" role="region" aria-labelledby="build-tab-analytics">
-          <h3 class="build-panel-h">Job profitability reports, automated briefings, and market research</h3>
-          <ul class="build-panel-list">
-            <li>Margin by job, tech, and customer, after labor and materials, not revenue billed</li>
-            <li>Reports and owner briefings written for you, on whatever schedule suits you</li>
-            <li>Ask a question in plain words (<em>which jobs lost money last quarter?</em>) and get the number back instead of a report to build</li>
-            <li>Rebates, rule changes, and manufacturer bulletins matched to the customers they affect</li>
-            <li>Pricing and competitive research on the markets you are bidding into</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
-        </div>
-        <button type="button" class="build-tab" id="build-tab-custom" aria-expanded="false" aria-controls="build-panel-custom">
-          <span class="build-tab-num" aria-hidden="true">06</span>
-          <span class="build-tab-name">Custom Software</span>
-        </button>
-        <div class="build-panel" id="build-panel-custom" role="region" aria-labelledby="build-tab-custom">
-          <h3 class="build-panel-h">Custom software built around your specific workflow</h3>
-          <ul class="build-panel-list">
-            <li>Most of what we build is not on this list. It starts as a description of a problem.</li>
-            <li>Recent examples: a proposal builder that works from the site walkthrough, and month-end invoices drafted from the crew log</li>
-            <li>Scoped in writing and priced before any work begins</li>
-            <li>Built on the systems you already run, so nothing has to be torn out</li>
-            <li>Sized to the job, from a single workflow to the system your whole operation runs on</li>
-            <li>Maintained and extended after delivery, the same as everything else</li>
-          </ul>
-          <p class="build-panel-status is-scoped">Scoped and built per client. <a href="#contact">Reach out</a> for a demo if interested.</p>
-        </div>
+      <h2 class="section-h reveal" id="features-h">What we build</h2>
+      <ul class="build-grid stagger" role="list">
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span>
+          <h3 class="build-card-h">Scheduling &amp; routes</h3>
+          <p class="build-out">Recurring jobs scheduled from the notes you already keep, routes planned around traffic, and the day's stops on each crew phone.</p>
+          <p class="build-incl">Includes routes, recurring jobs, crew phone</p>
+          <a class="build-ex" href="#case-study">See an example below</a>
+        </li>
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
+          <h3 class="build-card-h">Billing &amp; collections</h3>
+          <p class="build-out">Month-end invoices drafted from the visits your crew logged, and a follow-up schedule for whatever is still unpaid.</p>
+          <p class="build-incl">Includes invoices, proposals, collections</p>
+        </li>
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span>
+          <h3 class="build-card-h">Paperwork &amp; reports</h3>
+          <p class="build-out">Upload anything. Each document is read, filed to the right job, and the details pulled out so nobody retypes them.</p>
+          <p class="build-incl">Includes uploads, filing, reports</p>
+        </li>
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg></span>
+          <h3 class="build-card-h">Customers &amp; follow-up</h3>
+          <p class="build-out">The full history on screen when they call, plus renewals, reminders, and review requests queued for you.</p>
+          <p class="build-incl">Includes history, reminders, reviews, leads</p>
+        </li>
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span>
+          <h3 class="build-card-h">Profit &amp; research</h3>
+          <p class="build-out">See what each job really earned, ask questions in plain words, and get the numbers back.</p>
+          <p class="build-incl">Includes margins, briefings, research</p>
+        </li>
+        <li class="build-card">
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          <h3 class="build-card-h">Anything else</h3>
+          <p class="build-out">Most of what we build isn't on this list. It starts as a description of your problem.</p>
+          <p class="build-incl">Includes scoping, pricing, support</p>
+        </li>
+      </ul>
+      <div class="builds-foot reveal">
+        <p>Every build is scoped in writing and priced before work begins, then maintained after delivery.</p>
+        <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-solid">
+          Book a Demo
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -682,28 +587,20 @@
       <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="ba stagger" role="list">
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>A hand-copied wall calendar</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span><s>A hand-copied wall calendar</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>Printed route sheets</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span><s>Printed route sheets</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>Every schedule buried in free-form notes</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>Kept in sync with QuickBooks, which stays the books</p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>The crew working off a clipboard</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span><s>The crew working off a clipboard</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>Arguments over when the crew showed up</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span><s>Arguments over when the crew showed up</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span>Mileage rebuilt at the end of the month</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>Mileage tracked every day</p>
         </li>
       </ol>
       <ul class="case-foot reveal" role="list">
@@ -753,7 +650,7 @@
     <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
-      Book a Consultation
+      Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </section>
@@ -814,35 +711,6 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
-    // Build picker: click/tap selects, hover previews on desktop pointers
-    const buildTabs = Array.from(document.querySelectorAll('.build-tab'));
-    if (buildTabs.length) {
-      const desktopHover = window.matchMedia('(hover: hover) and (min-width: 881px)');
-      let hoverTimer;
-      const selectBuild = (id) => {
-        buildTabs.forEach(tab => {
-          const target = tab.getAttribute('aria-controls');
-          const on = target === id;
-          tab.setAttribute('aria-expanded', on ? 'true' : 'false');
-          const panel = document.getElementById(target);
-          if (panel) panel.classList.toggle('is-open', on);
-        });
-        // on mobile the accordion changes page height
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      };
-      buildTabs.forEach(tab => {
-        const id = tab.getAttribute('aria-controls');
-        tab.addEventListener('click', () => selectBuild(id));
-        tab.addEventListener('focus', () => selectBuild(id));
-        tab.addEventListener('mouseenter', () => {
-          if (!desktopHover.matches) return;
-          clearTimeout(hoverTimer);
-          hoverTimer = setTimeout(() => selectBuild(id), 120);
-        });
-        tab.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
-      });
-    }
-
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
     if ('IntersectionObserver' in window) {
@@ -884,11 +752,8 @@
       // Process: the line draws across as you scroll, each step lights up as it reaches it
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {
-        const steps = gsap.utils.toArray('.step');
-        gsap.set(steps, { opacity: 0.35 });
         gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
-          .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0)
-          .to(steps, { opacity: 1, ease: 'none', duration: 0.1, stagger: 0.3 }, 0);
+          .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
       });
       mm.add('(max-width: 960px)', () => {
         gsap.from('.step', { opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
