@@ -58,6 +58,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <!-- Montserrat = brand face (wordmark, headings). Public Sans = plain, sturdy body text. -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
@@ -75,6 +76,10 @@
     @font-face {
       font-family: 'Montserrat Fallback'; src: local('Arial');
       size-adjust: 112.8%; ascent-override: 85.8%; descent-override: 22.2%; line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: 'Public Sans Fallback'; src: local('Arial');
+      size-adjust: 104.6%; ascent-override: 90.8%; descent-override: 22%; line-gap-override: 0%;
     }
 
     :root {
@@ -108,7 +113,7 @@
       --on-green-accent:   #CFE6D6;   /* emphasis text on green: 4.9:1 on --green (sage-light is only 3.4:1) */
 
       --font-display: 'Montserrat', 'Montserrat Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-body:    'Public Sans', 'Public Sans Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
       /* Fine grain for green surfaces (tiny inline SVG noise, no request) */
       --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -0.45'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -213,10 +218,11 @@
     .btn-light { background: #fff; color: var(--deep); --btn-fill: var(--sage-light); }
     .btn-ghost {
       color: var(--on-green); border: 1px solid var(--line-on-green-2);
-      --btn-fill: rgba(255, 255, 255, 0.1);
+      --btn-fill: color-mix(in srgb, var(--on-green) 10%, transparent);
     }
-    .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.5); }
+    .btn-ghost:hover { border-color: color-mix(in srgb, var(--on-green) 50%, transparent); }
     .btn-sm { padding: 10px 18px; font-size: 13.5px; border-radius: 8px; }
+    @media (max-width: 560px) { .btn:not(.btn-sm) { white-space: normal; text-align: center; line-height: 1.25; } }
     @media (prefers-reduced-motion: reduce) {
       .btn::before { transition: none; }
       .btn:hover svg { transform: none; }
@@ -228,7 +234,7 @@
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 60px; height: 66px;
-      background: rgba(46, 74, 56, 0.92);
+      background: color-mix(in srgb, var(--deep) 92%, transparent);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border-bottom: 1px solid var(--line-on-green);
@@ -259,7 +265,7 @@
     .nav-links a:hover { color: #fff; }
     .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
     .nav-links a.active { color: #fff; }
-    .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+    .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-shrink: 0; }
     .nav-toggle {
       display: none; flex-direction: column; justify-content: center; gap: 5px;
       width: 44px; height: 44px; padding: 11px; margin-right: -11px;
@@ -276,7 +282,7 @@
     .mobile-menu {
       display: none; position: fixed; top: 66px; left: 0; right: 0; z-index: 190;
       flex-direction: column; padding: 8px 24px 18px;
-      background: rgba(46, 74, 56, 0.98); backdrop-filter: blur(20px);
+      background: color-mix(in srgb, var(--deep) 98%, transparent); backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--line-on-green);
       opacity: 0; transform: translateY(-10px); pointer-events: none;
       visibility: hidden;
@@ -316,8 +322,8 @@
     .hero-glow {
       position: absolute; inset: 0;
       background:
-        radial-gradient(60% 50% at 50% 0%, rgba(160, 196, 171, 0.42), transparent 70%),
-        radial-gradient(80% 45% at 50% 100%, rgba(46, 74, 56, 0.7), transparent 75%);
+        radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--sage-light) 42%, transparent), transparent 70%),
+        radial-gradient(80% 45% at 50% 100%, color-mix(in srgb, var(--deep) 70%, transparent), transparent 75%);
     }
 
     /* tree-ring field: irregular concentric hairlines, faded at the edges */
@@ -329,8 +335,8 @@
               mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
       overflow: visible;
     }
-    .hero-rings .ring { fill: none; stroke: rgba(255, 255, 255, 0.13); stroke-width: 1.2; }
-    .hero-rings .ring.accent { stroke: rgba(255, 255, 255, 0.32); }
+    .hero-rings .ring { fill: none; stroke: color-mix(in srgb, var(--on-green) 13%, transparent); stroke-width: 1.2; }
+    .hero-rings .ring.accent { stroke: color-mix(in srgb, var(--on-green) 32%, transparent); }
 
     .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; max-width: min(1180px, 100%); margin-block: auto; }
     .hero-mark { width: 92px; height: 92px; margin-bottom: 32px; display: block; }
@@ -360,7 +366,7 @@
     .hero-proof strong { font-weight: 600; color: #fff; }
     .hero-proof span { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-weight: 600; color: var(--on-green-accent); white-space: nowrap; }
     .hero-proof svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .3s var(--ease); }
-    .hero-proof:hover { background: rgba(255, 255, 255, 0.06); }
+    .hero-proof:hover { background: color-mix(in srgb, var(--on-green) 6%, transparent); }
     .hero-proof:hover svg { transform: translateX(3px); }
 
     /* pre-hide what the intro timeline reveals (only when the motion layer runs) */
@@ -398,7 +404,7 @@
       transition: background-color .3s var(--ease), border-color .3s var(--ease);
     }
     .proof-link svg { width: 16px; height: 16px; stroke: currentColor; transition: transform .3s var(--ease); }
-    .proof-link:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.5); }
+    .proof-link:hover { background: color-mix(in srgb, var(--on-green) 8%, transparent); border-color: color-mix(in srgb, var(--on-green) 50%, transparent); }
     .proof-link:hover svg { transform: translateX(3px); }
     .proof-rows { list-style: none; display: grid; gap: 14px; }
     .proof-head, .proof-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
@@ -407,7 +413,7 @@
     .proof-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
     .proof-before {
       display: flex; align-items: center; padding: 16px 18px;
-      border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
+      border: 1.5px dashed color-mix(in srgb, var(--on-green) 50%, transparent); border-radius: 14px;
       font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
     }
     .proof-before s { text-decoration: none; }
@@ -436,7 +442,9 @@
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
     @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-more { margin-top: 0; } }
     @media (max-width: 520px) {
-      .proof-rows { gap: 10px; }
+      .proof-rows { gap: 26px; }
+      .proof-row { row-gap: 4px; }
+      .proof-arrow { width: 18px; height: 18px; }
       .proof-before, .proof-after { padding: 12px 16px; }
       .proof-sub { font-size: 19px; }
       .proof-lede { font-size: 16.5px; }
@@ -455,7 +463,7 @@
     .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .trade::after {
       content: ""; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(28, 46, 36, 0.82) 0%, rgba(28, 46, 36, 0) 48%);
+      background: linear-gradient(to top, color-mix(in srgb, var(--green-deep) 82%, transparent) 0%, color-mix(in srgb, var(--green-deep) 0%, transparent) 48%);
     }
     .trade-label { overflow-wrap: anywhere; position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1; font: 700 18px/1.2 var(--font-display); letter-spacing: -0.01em; color: #fff; }
     @media (max-width: 880px) {
@@ -546,7 +554,7 @@
     .integ-more {
       display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; text-decoration: none;
       transition: background-color .2s, border-color .2s;
-      border: 1px dashed rgba(69, 102, 80, 0.5); border-radius: 999px;
+      border: 1px dashed color-mix(in srgb, var(--green) 50%, transparent); border-radius: 999px;
       font-size: 14px; font-weight: 600; color: var(--green);
     }
     .integ-more:hover { background: var(--green-dim); border-color: var(--green); }
@@ -601,7 +609,7 @@
       display: flex; justify-content: space-between; align-items: center; gap: 24px;
       font-size: 17px; font-weight: 600; transition: color .2s;
     }
-    .faq-q:hover { color: var(--green); }
+    @media (hover: hover) { .faq-q:hover { color: var(--green); } }
     .faq-plus {
       position: relative; flex-shrink: 0; width: 16px; height: 16px; color: var(--green);
       transition: transform .3s var(--ease);
@@ -641,8 +649,8 @@
     .cta-glow {
       position: absolute; inset: 0; z-index: -2; pointer-events: none;
       background:
-        radial-gradient(55% 60% at 50% 110%, rgba(160, 196, 171, 0.38), transparent 70%),
-        radial-gradient(70% 50% at 50% -10%, rgba(46, 74, 56, 0.6), transparent 75%);
+        radial-gradient(55% 60% at 50% 110%, color-mix(in srgb, var(--sage-light) 38%, transparent), transparent 70%),
+        radial-gradient(70% 50% at 50% -10%, color-mix(in srgb, var(--deep) 60%, transparent), transparent 75%);
     }
     .cta-wrap h2 {
       font-size: clamp(34px, 4.6vw, 62px);
@@ -671,6 +679,8 @@
     @media (max-width: 960px) {
       body > nav { display: flex; justify-content: space-between; padding: 0 24px; }
       .nav-links { display: none; }
+      .nav-logo { min-height: 44px; min-width: 0; overflow: hidden; }
+      .nav-logo img { flex: none; }
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
       .nav-end .nav-cta { display: none; }
@@ -683,9 +693,8 @@
     }
     /* phones wide enough keep Book a Demo in the bar, in reach on every screen */
     @media (min-width: 340px) and (max-width: 960px) {
-      .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 13.5px; }
+      .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 14px; }
       .mobile-menu-cta { display: none; }
-      .nav-logo { min-height: 44px; }
       .nav-end { gap: 6px; }
     }
     @media (max-width: 400px) {
@@ -694,7 +703,7 @@
       .nav-logo .nav-wm-1 { font-size: 16px; }
       .nav-logo .nav-wm-2 { font-size: 11px; letter-spacing: 0.28em; }
       body > nav { padding: 0 16px; }
-      .nav-end .nav-cta { padding: 0 12px; font-size: 13px; }
+      .nav-end .nav-cta { padding: 0 11px; font-size: 14px; }
     }
     @media (max-width: 560px) {
       .hero { padding: 112px 20px 0; }
@@ -742,7 +751,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo<span class="sr-only"> (opens in a new tab)</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -755,7 +764,7 @@
     <a href="#integrations" onclick="closeMenu()">Integrations</a>
     <a href="#team" onclick="closeMenu()">Team</a>
     <a href="#faq" onclick="closeMenu()">FAQ</a>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo<span class="sr-only"> (opens in a new tab)</span></a>
   </div>
 
 
@@ -790,7 +799,7 @@
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
           Book a Demo
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <span class="sr-only"> (opens in a new tab)</span></a>
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
       </div>
     </div>
@@ -861,7 +870,7 @@
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
           Book a Demo
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <span class="sr-only"> (opens in a new tab)</span></a>
         <a href="what-we-build.html" class="proof-link">
           See what we build
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -961,7 +970,7 @@
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
       Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+    <span class="sr-only"> (opens in a new tab)</span></a>
   </section>
 
   </main>
@@ -983,9 +992,6 @@
   </footer>
 
   <!-- Motion layer. Everything above works without these; if they fail, the page stays static. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
     // Answers are readable without JS; JS collapses them, then each opens on its own.
     // (Closing the others on open used to throw the tapped question off-screen on phones.)
@@ -1027,7 +1033,7 @@
       if (!mobileMenu.classList.contains('open')) return;
       if (e.key === 'Escape') { closeMenu(true); return; }
       if (e.key !== 'Tab') return;
-      const items = [navToggle, ...mobileMenu.querySelectorAll('a')];
+      const items = [navToggle, ...[...mobileMenu.querySelectorAll('a')].filter(a => a.getClientRects().length)];
       const first = items[0], last = items[items.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
@@ -1047,7 +1053,7 @@
             io.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      }, { rootMargin: '0px 0px -24px 0px', threshold: 0 });
       revealEls.forEach(el => io.observe(el));
     } else {
       revealEls.forEach(el => el.classList.add('in'));
@@ -1095,7 +1101,9 @@
         const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
         const lastLi = originals[originals.length - 1];
         setW = lastLi.offsetLeft + lastLi.offsetWidth + gap - originals[0].offsetLeft;   // one full loop
-        const copies = Math.max(1, Math.ceil(viewport.clientWidth / setW));
+        step = originals[1].offsetLeft - originals[0].offsetLeft;                          // one card + gap
+        inset = row.parentNode.parentNode.getBoundingClientRect().left + parseFloat(getComputedStyle(row.parentNode.parentNode).paddingLeft) - viewport.getBoundingClientRect().left;
+        const copies = Math.max(1, Math.ceil((viewport.clientWidth + step) / setW));
         for (let c = 0; c < copies; c++) {
           originals.forEach(li => {
             const k = li.cloneNode(true);
@@ -1107,6 +1115,7 @@
         }
       }
 
+      let snapTo = null, step = 0, inset = 0;
       let raf = 0, x = 0, last = 0, onScreen = false, userPaused = false, hovered = false, drag = null, resumeAt = 0;
       const speed = () => (window.innerWidth < 720 ? 32 : 40);   // px per second: a drift, not a ticker
       const wrap = () => { if (x <= -setW) x += setW; if (x > 0) x -= setW; };
@@ -1115,7 +1124,11 @@
       function tick(t) {
         const dt = last ? Math.min(t - last, 64) / 1000 : 0;
         last = t;
-        if (!userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
+        if (snapTo !== null && !drag) {
+          x += (snapTo - x) * Math.min(1, dt * 12);
+          if (Math.abs(snapTo - x) < 0.5) { x = snapTo; snapTo = null; wrap(); }
+          paint();
+        } else if (!userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
         raf = onScreen ? requestAnimationFrame(tick) : 0;
       }
 
@@ -1149,6 +1162,12 @@
       });
       const endDrag = e => {
         if (!drag || e.pointerId !== drag.id) return;
+        if (drag.moved && step) {
+          snapTo = inset + Math.round((x - inset) / step) * step;
+          // keep target and position in the same lap of the loop
+          if (snapTo > 0) { snapTo -= setW; x -= setW; }
+          else if (snapTo <= -setW) { snapTo += setW; x += setW; }
+        }
         drag = null;
         viewport.classList.remove('is-dragging');
         resumeAt = performance.now() + 1600;   // let them look before it moves again
@@ -1168,6 +1187,7 @@
       });
 
       build();
+      x = inset; wrap(); paint();   // start with the first trade lined up with the heading
     })();
 
     // Active-section highlighting in the nav (same-page anchors only)
@@ -1191,7 +1211,16 @@
     });
 
     // ── Motion layer: GSAP + ScrollTrigger + Lenis ─────────────
-    (function () {
+    // Loaded on demand: nothing downloads with reduced motion, and Lenis only for a mouse/trackpad.
+    const loadScript = src => new Promise((ok, fail) => {
+      const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = fail; document.head.appendChild(s);
+    });
+    const LIB = { gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js', lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js' };
+    if (document.documentElement.classList.contains('motion')) {
+      loadScript(LIB.gsap).then(() => loadScript(LIB.st)).then(initMotion)
+        .catch(() => document.documentElement.classList.remove('motion'));
+    }
+    function initMotion() {
       const root = document.documentElement;
       if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
         root.classList.remove('motion');
@@ -1200,7 +1229,7 @@
       gsap.registerPlugin(ScrollTrigger);
 
       // Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
-      if (window.Lenis && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(() => {
         const lenis = new Lenis({ lerp: 0.11 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -1221,7 +1250,7 @@
             } });
           });
         });
-      }
+      }).catch(() => {});
 
       // Hero headline: split into words → characters. Screen readers get the h1's aria-label.
       const h = document.querySelector('.hero-h');
@@ -1263,7 +1292,7 @@
 
       // Layout shifts once web fonts land; re-measure trigger positions
       if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
-    })();
+    }
   </script>
 
 </body>
