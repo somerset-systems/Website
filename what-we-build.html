@@ -45,6 +45,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <!-- Montserrat = brand face (wordmark, headings). Public Sans = plain, sturdy body text. -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
@@ -52,11 +53,21 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
-      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 3000);
+      var pre = document.createElement('link'); pre.rel = 'preload'; pre.as = 'script';
+      pre.href = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js'; document.head.appendChild(pre);
+      setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('motion'); }, 2500);
     }
   </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    @font-face {
+      font-family: 'Montserrat Fallback'; src: local('Arial');
+      size-adjust: 112.8%; ascent-override: 85.8%; descent-override: 22.2%; line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: 'Public Sans Fallback'; src: local('Arial');
+      size-adjust: 104.6%; ascent-override: 90.8%; descent-override: 22%; line-gap-override: 0%;
+    }
 
     :root {
       --green:         #456650;   /* brand primary: also the drenched header/CTA surface */
@@ -88,8 +99,8 @@
       --on-green-muted:    #D3E2D8;
       --on-green-accent:   #CFE6D6;   /* emphasis text on green: 4.9:1 on --green (sage-light is only 3.4:1) */
 
-      --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-display: 'Montserrat', 'Montserrat Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-body:    'Public Sans', 'Public Sans Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
       --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -0.45'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 
@@ -127,7 +138,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    h1, h2, h3 { font-family: var(--font-display); }
+    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: break-word; }
     h1 em, h2 em, h3 em { font-style: normal; }
 
     .on-green { background: var(--green); color: var(--on-green); position: relative; isolation: isolate; }
@@ -154,6 +165,7 @@
     .js .stagger.in > *:nth-child(4) { transition-delay: .19s; }
     .js .stagger.in > *:nth-child(5) { transition-delay: .24s; }
     .js .stagger.in > *:nth-child(6) { transition-delay: .29s; }
+    .js .steps-grid.stagger > .steps-line { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
       .js .reveal, .js .stagger > * {
         opacity: 1 !important; transform: none !important; transition: none !important;
@@ -180,6 +192,7 @@
     .btn:hover svg { transform: translateX(3px); }
     .btn-light { background: #fff; color: var(--deep); --btn-fill: var(--sage-light); }
     .btn-sm { padding: 10px 18px; font-size: 13.5px; border-radius: 8px; }
+    @media (max-width: 560px) { .btn:not(.btn-sm) { white-space: normal; text-align: center; line-height: 1.25; } }
     @media (prefers-reduced-motion: reduce) {
       .btn::before { transition: none; }
       .btn:hover svg { transform: none; }
@@ -191,7 +204,7 @@
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 0 60px; height: 66px;
-      background: rgba(46, 74, 56, 0.82);
+      background: color-mix(in srgb, var(--deep) 92%, transparent);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border-bottom: 1px solid var(--line-on-green);
@@ -215,7 +228,7 @@
     .nav-links a:hover { color: #fff; }
     .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
     .nav-links a.active { color: #fff; }
-    .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+    .nav-end { display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-shrink: 0; }
     .nav-toggle {
       display: none; flex-direction: column; justify-content: center; gap: 5px;
       width: 44px; height: 44px; padding: 11px; margin-right: -11px;
@@ -232,12 +245,14 @@
     .mobile-menu {
       display: none; position: fixed; top: 66px; left: 0; right: 0; z-index: 190;
       flex-direction: column; padding: 8px 24px 18px;
-      background: rgba(46, 74, 56, 0.98); backdrop-filter: blur(20px);
+      background: color-mix(in srgb, var(--deep) 98%, transparent); backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--line-on-green);
       opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden;
       transition: opacity .25s ease, transform .25s var(--ease), visibility .25s;
     }
-    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    /* visibility flips at once on open, so focus can move into the menu straight away */
+    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity .25s ease, transform .25s var(--ease), visibility 0s; }
+    .mobile-menu a[aria-current="page"] { color: #fff; font-weight: 600; }
     .mobile-menu a {
       font-size: 16px; font-weight: 500; color: var(--on-green-soft);
       text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--line-on-green);
@@ -261,8 +276,8 @@
     .wwb-header-bg::before {
       content: ""; position: absolute; inset: 0;
       background:
-        radial-gradient(60% 70% at 50% 0%, rgba(160, 196, 171, 0.4), transparent 70%),
-        radial-gradient(80% 50% at 50% 110%, rgba(46, 74, 56, 0.7), transparent 75%);
+        radial-gradient(60% 70% at 50% 0%, color-mix(in srgb, var(--sage-light) 40%, transparent), transparent 70%),
+        radial-gradient(80% 50% at 50% 110%, color-mix(in srgb, var(--deep) 70%, transparent), transparent 75%);
     }
     /* the same ring field as the landing hero, anchored low so it rises behind the title */
     .header-rings {
@@ -271,8 +286,8 @@
       -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent 92%);
               mask-image: radial-gradient(closest-side, #000 30%, transparent 92%);
     }
-    .header-rings .ring { fill: none; stroke: rgba(255, 255, 255, 0.13); stroke-width: 1.2; }
-    .header-rings .ring.accent { stroke: rgba(255, 255, 255, 0.32); }
+    .header-rings .ring { fill: none; stroke: color-mix(in srgb, var(--on-green) 13%, transparent); stroke-width: 1.2; }
+    .header-rings .ring.accent { stroke: color-mix(in srgb, var(--on-green) 32%, transparent); }
     .wwb-title {
       font-size: clamp(34px, 4.6vw, 60px);
       font-weight: 700; letter-spacing: -0.04em; line-height: 1.04;
@@ -309,20 +324,34 @@
     .build-ico svg { width: 22px; height: 22px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .build-card-h { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
     .build-out { font-size: 16.5px; color: var(--soft); line-height: 1.6; text-wrap: pretty; margin-bottom: 18px; }
-    .build-incl { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--green); }
-    .build-ex { display: inline-block; margin-top: 12px; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
+    .build-incl { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; font-weight: 500; line-height: 1.45; color: var(--soft); text-wrap: balance; }
+    .build-ex svg { width: 15px; height: 15px; stroke: currentColor; transition: transform .3s var(--ease); }
+    .build-ex:hover svg { transform: translateY(2px); }
+    .build-ex { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 10px 0; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
     .build-ex:hover { text-decoration-color: currentColor; }
     .builds-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: clamp(32px, 4vw, 48px); padding-top: 28px; border-top: 1px solid var(--border-strong); }
     .builds-foot p { max-width: 52ch; font-size: 17px; color: var(--soft); line-height: 1.6; }
     .btn-solid { background: var(--green); color: #fff; --btn-fill: var(--green-light); }
-    .btn-ghost { color: var(--on-green); border: 1px solid var(--line-on-green-2); --btn-fill: rgba(255, 255, 255, 0.1); }
-    .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.5); }
+    .btn-ghost { color: var(--on-green); border: 1px solid var(--line-on-green-2); --btn-fill: color-mix(in srgb, var(--on-green) 10%, transparent); }
+    .btn-ghost:hover { border-color: color-mix(in srgb, var(--on-green) 50%, transparent); }
     .nb { white-space: nowrap; }
     .wwb-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 34px; }
     @media (max-width: 960px) { .build-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 640px) {
-      .build-grid { grid-template-columns: 1fr; }
-      .wwb-actions { flex-direction: column; align-items: stretch; max-width: 320px; margin-left: auto; margin-right: auto; }
+      .build-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .wwb-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin-left: auto; margin-right: auto; }
+      /* phones: icon beside the name, so six cards stop being three screens of scrolling */
+      .build-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; padding: 18px 16px 14px; border-radius: 16px; }
+      .build-ico { width: 40px; height: 40px; margin: 0; align-self: center; }
+      .build-ico svg { width: 20px; height: 20px; }
+      .build-card-h { font-size: 20px; margin: 0; align-self: center; }
+      .build-out, .build-incl, .build-ex { grid-column: 1 / -1; }
+      .build-out { font-size: 16px; margin: 10px 0 10px; }
+      .build-incl { padding-top: 10px; font-size: 14.5px; }
+      .build-ex { justify-self: start; }
+      .builds-foot { gap: 20px; }
+      .builds-foot p { font-size: 16.5px; }
+      .builds-foot .btn { width: 100%; }
     }
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
       .build-card, .js .stagger > .build-card { transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease); }
@@ -345,14 +374,18 @@
     .ba-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
     .ba { list-style: none; display: grid; gap: 12px; }
     .ba-row { align-items: stretch; }
+    .ba-row > * { min-width: 0; }
     .ba-before {
       display: flex; align-items: center; padding: 16px 18px;
-      border: 1.5px dashed rgba(255, 255, 255, 0.5); border-radius: 14px;
+      border: 1.5px dashed color-mix(in srgb, var(--on-green) 50%, transparent); border-radius: 14px;
       font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
     }
     .ba-before s { text-decoration: none; }
+    .ba-text { text-wrap: pretty; }
+    .ba-ico { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
+    .ba-ico svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .ba-after {
-      display: flex; align-items: center; padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
       background: var(--bg); color: var(--green-deep); border-radius: 14px;
       font-size: 16.5px; font-weight: 600; line-height: 1.4; text-wrap: pretty;
     }
@@ -363,7 +396,7 @@
       display: flex; flex-wrap: wrap; gap: 10px 28px;
       font-size: 15px; color: var(--on-green-soft);
     }
-    .case-foot li { position: relative; padding-left: 22px; }
+    .case-foot li { position: relative; padding-left: 22px; text-wrap: pretty; }
     .case-foot li::before {
       content: ""; position: absolute; left: 0; top: 6px; width: 11px; height: 6px;
       border-left: 2px solid var(--on-green-accent); border-bottom: 2px solid var(--on-green-accent);
@@ -372,7 +405,13 @@
     @media (max-width: 720px) {
       .ba-head { display: none; }
       .ba-row { grid-template-columns: 1fr; row-gap: 8px; }
-      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .ba-before { display: block; padding-left: 72px; }
+      .ba { gap: 26px; }
+      .ba-row { row-gap: 4px; }
+      .ba-arrow { width: 18px; height: 18px; }
+      .case-lede { font-size: 17px; }
+      .case-foot { flex-direction: column; gap: 12px; }
+      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 27px; }
       .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .ba-before .ba-tag { color: var(--on-green-muted); }
       .ba-after .ba-tag { color: var(--green); }
@@ -391,7 +430,7 @@
       position: absolute; inset: 0; background: var(--green);
       transform: scaleX(1); transform-origin: left;
     }
-    .motion .steps-line i { transform: scaleX(0); }
+    .motion.st .steps-line i { transform: scaleX(0); }
     .step-num {
       position: relative; z-index: 1;
       display: inline-flex; align-items: center; justify-content: center;
@@ -410,8 +449,8 @@
     .cta-glow {
       position: absolute; inset: 0; z-index: -2; pointer-events: none;
       background:
-        radial-gradient(55% 60% at 50% 110%, rgba(160, 196, 171, 0.38), transparent 70%),
-        radial-gradient(70% 50% at 50% -10%, rgba(46, 74, 56, 0.6), transparent 75%);
+        radial-gradient(55% 60% at 50% 110%, color-mix(in srgb, var(--sage-light) 38%, transparent), transparent 70%),
+        radial-gradient(70% 50% at 50% -10%, color-mix(in srgb, var(--deep) 60%, transparent), transparent 75%);
     }
     .cta-logo { height: 84px; width: auto; margin-bottom: 30px; opacity: .95; }
     .cta-wrap h2 {
@@ -432,7 +471,7 @@
     .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: #fff; }
     .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--on-green-accent); }
     .footer-links { display: flex; gap: 22px; }
-    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; overflow-wrap: anywhere; }
     .footer-links a:hover { color: #fff; }
     .footer-copy { font-size: 13px; color: var(--on-green-muted); }
 
@@ -440,19 +479,48 @@
     @media (max-width: 960px) {
       body > nav { display: flex; justify-content: space-between; padding: 0 24px; }
       .nav-links { display: none; }
+      .nav-logo { min-height: 44px; min-width: 0; overflow: hidden; }
+      body > nav.nav-tight .nav-cta { display: none; }
+      body > nav.nav-tight ~ .mobile-menu .mobile-menu-cta { display: block; }
+      .nav-logo img { flex: none; }
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
       .nav-end .nav-cta { display: none; }
-      footer { padding: 28px 24px; flex-direction: column; }
-      .footer-links { gap: 6px; flex-direction: column; align-items: center; }
-      .footer-links a { padding: 12px 8px; }
+      footer { padding: 32px 24px 28px; flex-direction: column; gap: 18px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 0 20px; text-align: center; }
+      .footer-links a { padding: 11px 4px; font-size: 15px; }
+      .footer-links a[href^="mailto"] { flex-basis: 100%; }
+      .footer-copy { font-size: 14px; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
       .steps-line { display: none; }
     }
+    /* phones wide enough keep Book a Demo in the bar, in reach on every screen */
+    @media (min-width: 340px) and (max-width: 960px) {
+      .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 14px; }
+      .mobile-menu-cta { display: none; }
+      .nav-end { gap: 10px; }
+    }
+    @media (max-width: 400px) {
+      .nav-logo { gap: 9px; }
+      .nav-logo img { height: 36px; }
+      .nav-logo .nav-wm-1 { font-size: 16px; }
+      .nav-logo .nav-wm-2 { font-size: 11px; letter-spacing: 0.28em; }
+      body > nav { padding: 0 16px; }
+      .nav-end .nav-cta { padding: 0 11px; font-size: 14px; }
+    }
     @media (max-width: 560px) {
-      .wwb-header { padding: 124px 20px 72px; }
-      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
-      .cta-logo { height: 68px; }
+      .wwb-header { padding: 112px 24px 64px; }
+      .wwb-lede { font-size: 17px; }
+      .wwb-actions { margin-top: 28px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+      /* steps read as a list: number beside the title */
+      .step { display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
+      .step-num { margin: 0; grid-row: 1 / span 2; }
+      .step-title { align-self: center; margin: 0 0 6px; }
+      .step-desc { grid-column: 2; }
+      .cta-logo { height: 64px; margin-bottom: 24px; }
+      .cta-wrap p { font-size: 17px; margin-bottom: 32px; }
+      .cta-wrap .btn { width: 100%; max-width: 340px; }
     }
   </style>
 </head>
@@ -463,7 +531,7 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo" aria-label="Somerset Systems home">
-      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="42" height="42" />
+      <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="42" height="42" />
       <span class="nav-wordmark"><span class="nav-wm-1">SOMERSET</span><span class="nav-wm-2">SYSTEMS</span></span>
     </a>
     <div class="nav-links">
@@ -473,7 +541,7 @@
       <a href="index.html#faq">FAQ</a>
     </div>
     <div class="nav-end">
-      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo</a>
+      <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light btn-sm nav-cta">Book a Demo<span class="visually-hidden"> (opens in a new tab)</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -483,11 +551,11 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
-    <a href="what-we-build.html" onclick="closeMenu()">What We Build</a>
+    <a href="what-we-build.html" aria-current="page" onclick="closeMenu()">What We Build</a>
     <a href="index.html#integrations">Integrations</a>
     <a href="index.html#team">Team</a>
     <a href="index.html#faq">FAQ</a>
-    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo</a>
+    <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="mobile-menu-cta" onclick="closeMenu()">Book a Demo<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
 
 
@@ -516,7 +584,7 @@
       <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
         Book a Demo
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      <span class="visually-hidden"> (opens in a new tab)</span></a>
       <a href="#case-study" class="btn btn-ghost">See a real example</a>
     </div>
   </header>
@@ -532,7 +600,7 @@
           <h3 class="build-card-h">Scheduling &amp; routes</h3>
           <p class="build-out">Recurring jobs scheduled from the notes you already keep, routes planned around traffic, and the day's stops on each crew phone.</p>
           <p class="build-incl">Includes routes, recurring jobs, crew phone</p>
-          <a class="build-ex" href="#case-study">See an example below</a>
+          <a class="build-ex" href="#case-study">See an example below <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
@@ -559,7 +627,7 @@
           <p class="build-incl">Includes margins, briefings, research</p>
         </li>
         <li class="build-card">
-          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+          <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span>
           <h3 class="build-card-h">Anything else</h3>
           <p class="build-out">Most of what we build isn't on this list. It starts as a description of your problem.</p>
           <p class="build-incl">Includes scoping, pricing, support</p>
@@ -570,7 +638,7 @@
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-solid">
           Book a Demo
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <span class="visually-hidden"> (opens in a new tab)</span></a>
       </div>
     </div>
   </section>
@@ -587,20 +655,20 @@
       <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="ba stagger" role="list">
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>A hand-copied wall calendar</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
+          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">A hand-copied wall calendar</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Printed route sheets</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</p>
+          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">Printed route sheets</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>The crew working off a clipboard</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
+          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">The crew working off a clipboard</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Arguments over when the crew showed up</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</p>
+          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">Arguments over when the crew showed up</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</span></p>
         </li>
       </ol>
       <ul class="case-foot reveal" role="list">
@@ -616,26 +684,26 @@
   <section class="process-bg" id="process" aria-labelledby="process-h">
     <div class="section-wrap">
       <h2 class="section-h reveal" id="process-h">A clear timeline upfront, then we move fast</h2>
-      <div class="steps-grid">
+      <div class="steps-grid stagger">
         <div class="steps-line" aria-hidden="true"><i></i></div>
         <div class="step">
           <span class="step-num">01</span>
-          <h3 class="step-title">Strategy Call &amp; Walkthrough</h3>
+          <h3 class="step-title">Strategy call &amp; walkthrough</h3>
           <div class="step-desc">A free call to learn how you run today, then a walkthrough built around your services rather than a generic demo.</div>
         </div>
         <div class="step">
           <span class="step-num">02</span>
-          <h3 class="step-title">Written Scope &amp; Proposal</h3>
+          <h3 class="step-title">Written scope &amp; proposal</h3>
           <div class="step-desc">Exactly what gets built, the timeline, and the price, agreed before any work starts.</div>
         </div>
         <div class="step">
           <span class="step-num">03</span>
-          <h3 class="step-title">Build &amp; Test</h3>
+          <h3 class="step-title">Build &amp; test</h3>
           <div class="step-desc">We build around your existing data and workflow. You test it before it goes live.</div>
         </div>
         <div class="step">
           <span class="step-num">04</span>
-          <h3 class="step-title">Delivery &amp; Support</h3>
+          <h3 class="step-title">Delivery &amp; support</h3>
           <div class="step-desc">We train your team, then keep it running and extend it as you grow.</div>
         </div>
       </div>
@@ -646,13 +714,13 @@
   <!-- CTA -->
   <section class="cta-wrap on-green" id="contact" aria-labelledby="cta-h">
     <div class="cta-glow" aria-hidden="true"></div>
-    <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" class="cta-logo" width="84" height="84" decoding="async">
+    <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" class="cta-logo" width="84" height="84" decoding="async">
     <h2 id="cta-h">Ready to see <em>what's possible?</em></h2>
     <p>A 30-minute conversation about your operation, with no pitch deck and no obligation on either side.</p>
     <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
       Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+    <span class="visually-hidden"> (opens in a new tab)</span></a>
   </section>
 
   </main>
@@ -661,7 +729,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="Somerset-Systems-11.png" alt="" aria-hidden="true" width="32" height="32" />
+      <img src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="32" height="32" />
       <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
     </div>
     <div class="footer-links">
@@ -673,9 +741,6 @@
     <div class="footer-copy">© 2026 Somerset Systems LLC</div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
     // Mobile menu
     const navToggle = document.getElementById('navToggle');
@@ -698,18 +763,32 @@
       if (mobileMenu.classList.contains('open')) closeMenu(true);
       else openMenu();
     }
-    // Keep focus inside the open menu; Escape closes and returns focus to the toggle.
-    mobileMenu.addEventListener('keydown', e => {
+    // While open, Tab cycles the toggle + menu links; Escape or a tap outside closes it.
+    document.addEventListener('keydown', e => {
+      if (!mobileMenu.classList.contains('open')) return;
       if (e.key === 'Escape') { closeMenu(true); return; }
       if (e.key !== 'Tab') return;
-      const items = mobileMenu.querySelectorAll('a');
-      if (!items.length) return;
+      const items = [navToggle, ...[...mobileMenu.querySelectorAll('a')].filter(a => a.getClientRects().length)];
       const first = items[0], last = items[items.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
+    document.addEventListener('click', e => {
+      if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
+    });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
+
+    // If enlarged text would squeeze the wordmark, Book a Demo moves from the bar into the menu.
+    (function () {
+      const bar = document.querySelector('body > nav'), logo = bar.querySelector('.nav-logo'), wm = bar.querySelector('.nav-wordmark');
+      if (!window.ResizeObserver || !logo || !wm) return;
+      const fit = () => {
+        bar.classList.remove('nav-tight');
+        if (logo.scrollWidth > logo.clientWidth + 1) bar.classList.add('nav-tight');
+      };
+      const ro = new ResizeObserver(fit); ro.observe(bar); ro.observe(wm);
+      if (document.fonts) document.fonts.ready.then(fit);
+    })();
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
@@ -721,47 +800,60 @@
             io.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      }, { rootMargin: '0px 0px -24px 0px', threshold: 0 });
       revealEls.forEach(el => io.observe(el));
     } else {
       revealEls.forEach(el => el.classList.add('in'));
     }
 
     // ── Motion layer: GSAP + ScrollTrigger + Lenis ─────────────
-    (function () {
+    // Loaded on demand: nothing downloads with reduced motion. The header intro needs only GSAP,
+    // so it starts the moment GSAP lands. ScrollTrigger (the desktop process line) and Lenis
+    // (mouse/trackpad smooth scroll) load alongside it, and only where they run.
+    const loadScript = src => new Promise((ok, fail) => {
+      const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = fail; document.head.appendChild(s);
+    });
+    const LIB = { gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js', lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js' };
+    if (document.documentElement.classList.contains('motion')) {
+      const st = window.matchMedia('(min-width: 961px)').matches ? loadScript(LIB.st) : null;
+      loadScript(LIB.gsap).then(() => {
+        initMotion();
+        if (st) st.then(initScroll).catch(() => {});
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(initLenis).catch(() => {});
+      }).catch(() => document.documentElement.classList.remove('motion'));
+    }
+
+    function initMotion() {
       const root = document.documentElement;
-      if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
-        root.classList.remove('motion');
-        return;
-      }
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (window.Lenis) {
-        const lenis = new Lenis({ lerp: 0.11 });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(t => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
-      }
-
+      if (!root.classList.contains('motion') || !window.gsap) { root.classList.remove('motion'); return; }
       // Header intro: copy readable within ~1.1s; the rings keep rising behind it
       gsap.set('.hdr-anim', { autoAlpha: 1 });
       gsap.timeline({ defaults: { ease: 'power3.out' } })
         .fromTo('.header-rings .ring', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, stagger: 0.055, ease: 'power2.inOut' }, 0)
         .from('.hdr-anim', { autoAlpha: 0, y: 16, duration: 0.75, stagger: 0.085 }, 0.12);
+      window.__motionReady = true;   // the head's safety net checks this
+    }
 
-      // Process: the line draws across as you scroll, each step lights up as it reaches it
-      const mm = gsap.matchMedia();
-      mm.add('(min-width: 961px)', () => {
+    function initScroll() {
+      if (!window.__motionReady || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add('st');   // the process line starts undrawn only once it can draw
+      // Process: the line draws across as you scroll (desktop; phones use the plain reveal)
+      gsap.matchMedia().add('(min-width: 961px)', () => {
         gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
           .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
       });
-      mm.add('(max-width: 960px)', () => {
-        gsap.from('.step', { opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.steps-grid', start: 'top 85%', once: true } });
-      });
-
       if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
-    })();
+    }
+
+    function initLenis() {
+      if (!window.__motionReady || !window.Lenis) return;
+      // Lenis only for a mouse/trackpad; on touch it adds nothing and fights native scroll
+      const lenis = new Lenis({ lerp: 0.11 });
+      lenis.on('scroll', () => { if (window.ScrollTrigger) ScrollTrigger.update(); });
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
   </script>
 
 </body>
