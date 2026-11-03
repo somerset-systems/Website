@@ -494,7 +494,12 @@
     .trades-bg.is-feed .trade { flex: 0 0 auto; width: clamp(220px, 21vw, 290px); max-width: none; }
     .trades-bg.is-feed .trade { -webkit-user-select: none; user-select: none; }
     .trades-bg.is-feed .trade img { -webkit-user-drag: none; }
-    .feed-controls { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .feed-controls { position: relative; height: 0; }
+    .feed-toggle:not(:focus-visible) {
+      position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; margin: -1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
+    .feed-toggle:focus-visible { position: absolute; right: 0; top: 14px; }
     .feed-controls[hidden] { display: none; }
     .feed-toggle {
       display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px 0 14px;
@@ -509,7 +514,6 @@
     @media (max-width: 880px) {
       .trades-bg.is-feed .trade { width: min(60vw, 250px); }
       .trades-bg.is-feed .trades-row { gap: 10px; }
-      .feed-controls { justify-content: center; }
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -1137,7 +1141,7 @@
       }
 
       let snapTo = null, step = 0, inset = 0;
-      let raf = 0, x = 0, last = 0, onScreen = false, userPaused = false, hovered = false, drag = null, resumeAt = 0;
+      let raf = 0, x = 0, last = 0, onScreen = false, userPaused = false, drag = null, resumeAt = 0;
       const speed = () => (window.innerWidth < 720 ? 32 : 40);   // px per second: a drift, not a ticker
       const wrap = () => { if (x <= -setW) x += setW; if (x > 0) x -= setW; };
       const paint = () => { row.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)'; };
@@ -1149,7 +1153,7 @@
           x += (snapTo - x) * Math.min(1, dt * 12);
           if (Math.abs(snapTo - x) < 0.5) { x = snapTo; snapTo = null; wrap(); }
           paint();
-        } else if (!userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
+        } else if (!userPaused && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
         raf = onScreen ? requestAnimationFrame(tick) : 0;
       }
 
@@ -1163,8 +1167,6 @@
       const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (rm.addEventListener) rm.addEventListener('change', e => { if (e.matches) setPaused(true); });
 
-      viewport.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovered = true; });
-      viewport.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hovered = false; });
 
       // drag / swipe to move it by hand; vertical page scroll stays native (touch-action: pan-y)
       viewport.addEventListener('pointerdown', e => {
@@ -1192,7 +1194,7 @@
         }
         drag = null;
         viewport.classList.remove('is-dragging');
-        if (moved) resumeAt = performance.now() + 1600;   // after a swipe, let them look before it moves again (a tap doesn't pause)
+        if (moved) resumeAt = performance.now() + 500;   // after a swipe it settles on a card, then keeps moving (a tap doesn't pause)
       };
       ['pointerup', 'pointercancel'].forEach(t => viewport.addEventListener(t, endDrag));
       row.addEventListener('dragstart', e => e.preventDefault());
