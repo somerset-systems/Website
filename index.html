@@ -131,7 +131,7 @@
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     /* Lenis drives scrolling when the motion layer is active */
     html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    html.lenis { scroll-behavior: auto !important; }   /* Lenis does the smoothing; native smooth fights its jumps */
 
     /* Keyboard focus: visible ring on every interactive element */
     :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
@@ -330,9 +330,12 @@
 
     /* tree-ring field: irregular concentric hairlines, faded at the edges */
     .hero-rings {
-      /* centered on the hero even when wider than it (inset + auto margins pin it left) */
-      position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-      width: min(1500px, 190vw); height: min(1500px, 190vw);
+      /* centered on the hero even when wider than it, using negative margins: GSAP owns this element's
+         transform (pointer lean, scroll exit) and drops a CSS translate, which threw the rings bottom-right */
+      --rings: min(1500px, 190vw);
+      position: absolute; left: 50%; top: 50%;
+      width: var(--rings); height: var(--rings);
+      margin: calc(var(--rings) / -2) 0 0 calc(var(--rings) / -2);
       -webkit-mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
               mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
       overflow: visible;
@@ -387,13 +390,14 @@
     /* ── PROOF (one real build, three Before/Now rows) ─────── */
     .proof-grid {
       display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      grid-template-areas: "intro board" "more more";
-      grid-template-rows: auto auto;
+      grid-template-areas: "intro board" "log log" "more more";
+      grid-template-rows: auto auto auto;
       column-gap: clamp(32px, 6vw, 88px); align-items: start;
     }
     .proof-intro { grid-area: intro; }
     .proof-board { grid-area: board; }
-    .proof-more { grid-area: more; display: flex; flex-direction: column; margin-top: clamp(36px, 4vw, 52px); padding-top: 28px; border-top: 1px solid var(--line-on-green-2); }
+    .proof-log { grid-area: log; margin-top: clamp(36px, 4vw, 52px); }
+    .proof-more { grid-area: more; display: flex; flex-direction: column; margin-top: clamp(28px, 3vw, 36px); }
     .proof-lede strong { color: #fff; font-weight: 600; }
     .proof-h { margin-bottom: 14px; }
     .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
@@ -431,7 +435,7 @@
     .proof-ico { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
     .proof-ico svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     @media (max-width: 880px) {
-      .proof-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "board" "more"; grid-template-rows: auto; row-gap: 32px; }
+      .proof-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "board" "log" "more"; grid-template-rows: auto; row-gap: 32px; }
       .proof-row { grid-template-columns: 1fr; row-gap: 8px; }
       .proof-head { display: none; }
       .proof-arrow { transform: rotate(90deg); justify-self: start; margin-left: 27px; }
@@ -444,7 +448,7 @@
     .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
     .proof-facts li { text-wrap: pretty; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
-    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-more { margin-top: 0; } }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-more { margin-top: 0; } .proof-log { margin-top: 12px; } }
     @media (max-width: 520px) {
       .proof-rows { gap: 26px; }
       .proof-row { row-gap: 4px; }
@@ -455,6 +459,19 @@
       .proof-lede { font-size: 16.5px; }
       .proof-actions { flex-direction: column; }
       .proof-actions > * { width: 100%; }
+    }
+
+    /* ── THE LOG (real counts from the live system, dated; reads like a log sheet, not a metrics banner) ── */
+    .log-h { font: 700 clamp(20px, 2vw, 24px)/1.2 var(--font-display); letter-spacing: -0.02em; color: #fff; margin-bottom: 16px; }
+    .log-rows { list-style: none; border-top: 1px solid var(--line-on-green-2); border-bottom: 1px solid var(--line-on-green-2); }
+    .log-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 12px 0; border-top: 1px solid var(--line-on-green); }
+    .log-row:first-child { border-top: 0; }
+    .log-n { flex: none; min-width: 152px; font: 700 40px/1.1 var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: #fff; }
+    .log-l { flex: 1 1 150px; min-width: 0; overflow-wrap: anywhere; font-size: 16px; line-height: 1.45; color: var(--on-green-soft); text-wrap: balance; }
+    @media (max-width: 720px) {
+      .log-row { align-items: center; gap: 4px 10px; padding: 14px 0; min-height: 75px; }
+      .log-n { min-width: 112px; font-size: 30px; }
+      .log-l { flex-basis: 130px; max-width: 27ch; }
     }
 
     /* ── TRADES (real work, labeled by trade) ──────────────── */
@@ -816,7 +833,7 @@
       </div>
     </div>
     <a class="hero-proof" href="what-we-build.html#case-study">
-      <strong>Live today:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
+      <strong>Case study:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
       <span>See the build <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
   </section>
@@ -859,11 +876,11 @@
       <div class="proof-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="proof-rows stagger" role="list">
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>A hand-copied wall calendar</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>A hand-copied wall calendar, a full day every month</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
         </li>
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>Printed route sheets</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>Printed route sheets, about an hour every day</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
         </li>
         <li class="proof-row">
@@ -871,6 +888,13 @@
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
         </li>
       </ol>
+      </div>
+      <div class="proof-log reveal">
+        <h3 class="log-h">On pace for a full year</h3>
+        <ul class="log-rows" role="list">
+          <li class="log-row"><span class="log-n">1,500+</span> <span class="log-l">auto-scheduled visits, none moved by hand</span></li>
+          <li class="log-row"><span class="log-n">250+</span> <span class="log-l">office hours saved, estimated</span></li>
+        </ul>
       </div>
       <div class="proof-more">
       <ul class="proof-facts reveal" role="list">
@@ -1308,6 +1332,13 @@
       lenis.on('scroll', () => { if (window.ScrollTrigger) ScrollTrigger.update(); });
       gsap.ticker.add(t => lenis.raf(t * 1000));
       gsap.ticker.lagSmoothing(0);
+      const landing = location.hash && document.getElementById(location.hash.slice(1));
+      if (landing) {
+        // resize() first: on a warm cache Lenis hasn't measured the page yet and clamps the jump to 0
+        const go = () => { lenis.resize(); lenis.scrollTo(landing, { immediate: true, force: true, offset: -84 }); };
+        go();
+        if (document.fonts) document.fonts.ready.then(go);   // fonts can move it after the first jump
+      }
       // same-page anchors glide instead of jumping (skip link keeps native focus behavior)
       document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(a => {
         a.addEventListener('click', e => {
