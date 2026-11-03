@@ -68,6 +68,8 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
+      var pre = document.createElement('link'); pre.rel = 'preload'; pre.as = 'script';
+      pre.href = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js'; document.head.appendChild(pre);
       setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('motion'); }, 2500);
     }
   </script>
@@ -459,7 +461,7 @@
     .trades-bg { background: var(--bg); border-bottom: 1px solid var(--border); }
     .trades-wrap { max-width: 1140px; margin: 0 auto; padding: clamp(64px, 8vw, 96px) clamp(24px, 5vw, 60px); }
     .trades-head { display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 4vw, 48px); margin-bottom: clamp(28px, 4vw, 44px); }
-    .trades-h { flex: none; max-width: 20ch; margin-bottom: 0; }
+    .trades-h { flex: 0 1 auto; min-width: 0; max-width: 20ch; margin-bottom: 0; }
     .trades-sub { flex: 1 1 0; max-width: 44ch; font-size: 17px; line-height: 1.6; color: var(--soft); text-wrap: pretty; }
     .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
@@ -712,8 +714,8 @@
       .nav-end .nav-cta { padding: 0 11px; font-size: 14px; }
     }
     @media (max-width: 560px) {
-      .hero { padding: 112px 20px 0; }
-      .hero-proof { margin: 40px -20px 0; padding: 18px 20px 20px; font-size: 15px; }
+      .hero { padding: 108px 24px 0; min-height: calc(100dvh - 56px); }
+      .hero-proof { margin: 36px -24px 0; padding: 18px 24px 20px; font-size: 15px; }
       .hero-mark { width: 60px; height: 60px; margin-bottom: 22px; }
       .hero-h { margin-bottom: 20px; font-size: clamp(30px, 10.2vw, 44px); }
       .hero-sub { margin-bottom: 32px; }
@@ -940,27 +942,27 @@
       <div class="faq-list reveal">
         <div class="faq-item">
           <button class="faq-q" id="faq-q-1" aria-expanded="true" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-1" aria-labelledby="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
+          <div class="faq-a" id="faq-a-1" data-q="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-2" aria-expanded="true" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-2" aria-labelledby="faq-q-2"><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
+          <div class="faq-a" id="faq-a-2" data-q="faq-q-2"><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-3" aria-expanded="true" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-3" aria-labelledby="faq-q-3"><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
+          <div class="faq-a" id="faq-a-3" data-q="faq-q-3"><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-4" aria-expanded="true" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-4" aria-labelledby="faq-q-4"><div class="faq-a-inner"><p>Not a long one, and you pick the shape. Either a setup fee with a six-month minimum, or no setup fee at all with twelve. The build happens up front, so the minimum is what covers it. After that you are month to month and can cancel if it stops earning its keep. No auto-renewing years, no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
+          <div class="faq-a" id="faq-a-4" data-q="faq-q-4"><div class="faq-a-inner"><p>Not a long one, and you pick the shape. Either a setup fee with a six-month minimum, or no setup fee at all with twelve. The build happens up front, so the minimum is what covers it. After that you are month to month and can cancel if it stops earning its keep. No auto-renewing years, no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-5" aria-expanded="true" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-5" aria-labelledby="faq-q-5"><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
+          <div class="faq-a" id="faq-a-5" data-q="faq-q-5"><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-6" aria-expanded="true" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="faq-a-6" aria-labelledby="faq-q-6"><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
+          <div class="faq-a" id="faq-a-6" data-q="faq-q-6"><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
         </div>
       </div>
     </div>
@@ -1161,8 +1163,8 @@
       const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (rm.addEventListener) rm.addEventListener('change', e => { if (e.matches) setPaused(true); });
 
-      viewport.addEventListener('mouseenter', () => { hovered = true; });
-      viewport.addEventListener('mouseleave', () => { hovered = false; });
+      viewport.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovered = true; });
+      viewport.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hovered = false; });
 
       // drag / swipe to move it by hand; vertical page scroll stays native (touch-action: pan-y)
       viewport.addEventListener('pointerdown', e => {
@@ -1181,7 +1183,8 @@
       });
       const endDrag = e => {
         if (!drag || e.pointerId !== drag.id) return;
-        if (drag.moved && step) {
+        const moved = drag.moved;
+        if (moved && step) {
           snapTo = inset + Math.round((x - inset) / step) * step;
           // keep target and position in the same lap of the loop
           if (snapTo > 0) { snapTo -= setW; x -= setW; }
@@ -1189,7 +1192,7 @@
         }
         drag = null;
         viewport.classList.remove('is-dragging');
-        resumeAt = performance.now() + 1600;   // let them look before it moves again
+        if (moved) resumeAt = performance.now() + 1600;   // after a swipe, let them look before it moves again (a tap doesn't pause)
       };
       ['pointerup', 'pointercancel'].forEach(t => viewport.addEventListener(t, endDrag));
       row.addEventListener('dragstart', e => e.preventDefault());

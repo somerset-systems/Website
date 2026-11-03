@@ -53,6 +53,8 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
+      var pre = document.createElement('link'); pre.rel = 'preload'; pre.as = 'script';
+      pre.href = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js'; document.head.appendChild(pre);
       setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('motion'); }, 2500);
     }
   </script>
@@ -336,10 +338,10 @@
     .wwb-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 34px; }
     @media (max-width: 960px) { .build-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 640px) {
-      .build-grid { grid-template-columns: 1fr; gap: 10px; }
+      .build-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
       .wwb-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin-left: auto; margin-right: auto; }
       /* phones: icon beside the name, so six cards stop being three screens of scrolling */
-      .build-card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; padding: 18px 16px 14px; border-radius: 16px; }
+      .build-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; padding: 18px 16px 14px; border-radius: 16px; }
       .build-ico { width: 40px; height: 40px; margin: 0; align-self: center; }
       .build-ico svg { width: 20px; height: 20px; }
       .build-card-h { font-size: 20px; margin: 0; align-self: center; }
@@ -507,7 +509,7 @@
       .nav-end .nav-cta { padding: 0 11px; font-size: 14px; }
     }
     @media (max-width: 560px) {
-      .wwb-header { padding: 116px 20px 64px; }
+      .wwb-header { padding: 112px 24px 64px; }
       .wwb-lede { font-size: 17px; }
       .wwb-actions { margin-top: 28px; }
       .steps-grid { grid-template-columns: 1fr; gap: 28px; }
