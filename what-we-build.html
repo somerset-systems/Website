@@ -52,7 +52,7 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
-      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 3000);
+      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 2000);
     }
   </script>
   <style>
@@ -237,7 +237,9 @@
       opacity: 0; transform: translateY(-10px); pointer-events: none; visibility: hidden;
       transition: opacity .25s ease, transform .25s var(--ease), visibility .25s;
     }
-    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    /* visibility flips at once on open, so focus can move into the menu straight away */
+    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity .25s ease, transform .25s var(--ease), visibility 0s; }
+    .mobile-menu a[aria-current="page"] { color: #fff; font-weight: 600; }
     .mobile-menu a {
       font-size: 16px; font-weight: 500; color: var(--on-green-soft);
       text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--line-on-green);
@@ -310,7 +312,7 @@
     .build-card-h { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
     .build-out { font-size: 16.5px; color: var(--soft); line-height: 1.6; text-wrap: pretty; margin-bottom: 18px; }
     .build-incl { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--green); }
-    .build-ex { display: inline-block; margin-top: 12px; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
+    .build-ex { display: inline-block; margin-top: 4px; padding: 10px 0; font-size: 15px; font-weight: 600; color: var(--green); text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 3px; }
     .build-ex:hover { text-decoration-color: currentColor; }
     .builds-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: clamp(32px, 4vw, 48px); padding-top: 28px; border-top: 1px solid var(--border-strong); }
     .builds-foot p { max-width: 52ch; font-size: 17px; color: var(--soft); line-height: 1.6; }
@@ -321,8 +323,20 @@
     .wwb-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 34px; }
     @media (max-width: 960px) { .build-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 640px) {
-      .build-grid { grid-template-columns: 1fr; }
-      .wwb-actions { flex-direction: column; align-items: stretch; max-width: 320px; margin-left: auto; margin-right: auto; }
+      .build-grid { grid-template-columns: 1fr; gap: 12px; }
+      .wwb-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin-left: auto; margin-right: auto; }
+      /* phones: icon beside the name, so six cards stop being three screens of scrolling */
+      .build-card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; padding: 20px 18px 18px; border-radius: 16px; }
+      .build-ico { width: 40px; height: 40px; margin: 0; align-self: center; }
+      .build-ico svg { width: 20px; height: 20px; }
+      .build-card-h { font-size: 20px; margin: 0; align-self: center; }
+      .build-out, .build-incl, .build-ex { grid-column: 1 / -1; }
+      .build-out { font-size: 16px; margin: 12px 0 14px; }
+      .build-incl { padding-top: 12px; font-size: 14.5px; }
+      .build-ex { justify-self: start; }
+      .builds-foot { gap: 20px; }
+      .builds-foot p { font-size: 16.5px; }
+      .builds-foot .btn { width: 100%; }
     }
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
       .build-card, .js .stagger > .build-card { transition: opacity .7s var(--ease), transform .7s var(--ease), translate .3s var(--ease), border-color .3s var(--ease); }
@@ -372,6 +386,9 @@
     @media (max-width: 720px) {
       .ba-head { display: none; }
       .ba-row { grid-template-columns: 1fr; row-gap: 8px; }
+      .ba-before, .ba-after { display: block; }
+      .case-lede { font-size: 17px; }
+      .case-foot { flex-direction: column; gap: 12px; }
       .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
       .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .ba-before .ba-tag { color: var(--on-green-muted); }
@@ -432,7 +449,7 @@
     .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: #fff; }
     .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--on-green-accent); }
     .footer-links { display: flex; gap: 22px; }
-    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; overflow-wrap: anywhere; }
     .footer-links a:hover { color: #fff; }
     .footer-copy { font-size: 13px; color: var(--on-green-muted); }
 
@@ -443,16 +460,40 @@
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
       .nav-end .nav-cta { display: none; }
-      footer { padding: 28px 24px; flex-direction: column; }
-      .footer-links { gap: 6px; flex-direction: column; align-items: center; }
-      .footer-links a { padding: 12px 8px; }
+      footer { padding: 32px 24px 28px; flex-direction: column; gap: 18px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 0 20px; text-align: center; }
+      .footer-links a { padding: 11px 4px; font-size: 15px; }
+      .footer-links a[href^="mailto"] { flex-basis: 100%; }
+      .footer-copy { font-size: 14px; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
       .steps-line { display: none; }
     }
+    /* phones wide enough keep Book a Demo in the bar, in reach on every screen */
+    @media (min-width: 370px) and (max-width: 960px) {
+      .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 13.5px; }
+      .nav-logo { min-height: 44px; }
+      .nav-end { gap: 6px; }
+    }
+    @media (max-width: 400px) {
+      .nav-logo { gap: 9px; }
+      .nav-logo img { height: 36px; }
+      .nav-logo .nav-wm-1 { font-size: 16px; }
+      .nav-logo .nav-wm-2 { font-size: 10px; letter-spacing: 0.3em; }
+      body > nav { padding: 0 18px; }
+    }
     @media (max-width: 560px) {
-      .wwb-header { padding: 124px 20px 72px; }
-      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
-      .cta-logo { height: 68px; }
+      .wwb-header { padding: 116px 20px 64px; }
+      .wwb-lede { font-size: 17px; }
+      .wwb-actions { margin-top: 28px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+      /* steps read as a list: number beside the title */
+      .step { display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
+      .step-num { margin: 0; grid-row: 1 / span 2; }
+      .step-title { align-self: center; margin: 0 0 6px; }
+      .step-desc { grid-column: 2; }
+      .cta-logo { height: 64px; margin-bottom: 24px; }
+      .cta-wrap p { font-size: 17px; margin-bottom: 32px; }
+      .cta-wrap .btn { width: 100%; max-width: 340px; }
     }
   </style>
 </head>
@@ -483,7 +524,7 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
-    <a href="what-we-build.html" onclick="closeMenu()">What We Build</a>
+    <a href="what-we-build.html" aria-current="page" onclick="closeMenu()">What We Build</a>
     <a href="index.html#integrations">Integrations</a>
     <a href="index.html#team">Team</a>
     <a href="index.html#faq">FAQ</a>
@@ -587,19 +628,19 @@
       <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="ba stagger" role="list">
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>A hand-copied wall calendar</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span>A hand-copied wall calendar</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Printed route sheets</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span>Printed route sheets</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>The crew working off a clipboard</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span>The crew working off a clipboard</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</p>
         </li>
         <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><s>Arguments over when the crew showed up</s></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="ba-before"><span class="ba-tag">Before</span>Arguments over when the crew showed up</p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="ba-after"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</p>
         </li>
       </ol>
@@ -620,22 +661,22 @@
         <div class="steps-line" aria-hidden="true"><i></i></div>
         <div class="step">
           <span class="step-num">01</span>
-          <h3 class="step-title">Strategy Call &amp; Walkthrough</h3>
+          <h3 class="step-title">Strategy call &amp; walkthrough</h3>
           <div class="step-desc">A free call to learn how you run today, then a walkthrough built around your services rather than a generic demo.</div>
         </div>
         <div class="step">
           <span class="step-num">02</span>
-          <h3 class="step-title">Written Scope &amp; Proposal</h3>
+          <h3 class="step-title">Written scope &amp; proposal</h3>
           <div class="step-desc">Exactly what gets built, the timeline, and the price, agreed before any work starts.</div>
         </div>
         <div class="step">
           <span class="step-num">03</span>
-          <h3 class="step-title">Build &amp; Test</h3>
+          <h3 class="step-title">Build &amp; test</h3>
           <div class="step-desc">We build around your existing data and workflow. You test it before it goes live.</div>
         </div>
         <div class="step">
           <span class="step-num">04</span>
-          <h3 class="step-title">Delivery &amp; Support</h3>
+          <h3 class="step-title">Delivery &amp; support</h3>
           <div class="step-desc">We train your team, then keep it running and extend it as you grow.</div>
         </div>
       </div>
@@ -698,17 +739,19 @@
       if (mobileMenu.classList.contains('open')) closeMenu(true);
       else openMenu();
     }
-    // Keep focus inside the open menu; Escape closes and returns focus to the toggle.
-    mobileMenu.addEventListener('keydown', e => {
+    // While open, Tab cycles the toggle + menu links; Escape or a tap outside closes it.
+    document.addEventListener('keydown', e => {
+      if (!mobileMenu.classList.contains('open')) return;
       if (e.key === 'Escape') { closeMenu(true); return; }
       if (e.key !== 'Tab') return;
-      const items = mobileMenu.querySelectorAll('a');
-      if (!items.length) return;
+      const items = [navToggle, ...mobileMenu.querySelectorAll('a')];
       const first = items[0], last = items[items.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
+    document.addEventListener('click', e => {
+      if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
+    });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
@@ -736,7 +779,8 @@
       }
       gsap.registerPlugin(ScrollTrigger);
 
-      if (window.Lenis) {
+      // Lenis only for a mouse/trackpad; on touch it adds nothing and fights native scroll
+      if (window.Lenis && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         const lenis = new Lenis({ lerp: 0.11 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add(t => lenis.raf(t * 1000));

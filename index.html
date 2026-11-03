@@ -67,7 +67,7 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
-      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 3000);
+      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 2000);
     }
   </script>
   <style>
@@ -76,6 +76,7 @@
     :root {
       --green:         #456650;   /* brand primary: also the drenched hero/CTA surface */
       --green-light:   #527B5E;
+      --green-dim:     rgba(69, 102, 80, 0.08);
       --green-border:  rgba(69, 102, 80, 0.18);
       --brown:         #7A4828;
       --green-deep:    #1C2E24;   /* legacy (skip link) */
@@ -187,8 +188,7 @@
     }
 
     /* Rings that draw themselves (GSAP). pathLength="1" on each stroke makes the dash math 0→1. */
-    .motion .draw .d, .motion .hero-rings .ring { stroke-dasharray: 1; stroke-dashoffset: 1; }
-    .motion .draw .fade { opacity: 0; }
+    .motion .hero-rings .ring { stroke-dasharray: 1; stroke-dashoffset: 1; }
 
     /* ── BUTTONS ───────────────────────────────────────────── */
     .btn {
@@ -278,7 +278,9 @@
       visibility: hidden;
       transition: opacity .25s ease, transform .25s var(--ease), visibility .25s;
     }
-    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    /* visibility flips at once on open, so focus can move into the menu straight away */
+    .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity .25s ease, transform .25s var(--ease), visibility 0s; }
+    .mobile-menu a[aria-current="page"] { color: #fff; font-weight: 600; }
     .mobile-menu a {
       font-size: 16px; font-weight: 500; color: var(--on-green-soft);
       text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--line-on-green);
@@ -301,7 +303,7 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center;
-      padding: 130px 40px 100px;
+      padding: 130px 40px 0;
       overflow: hidden;
     }
     .hero-bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
@@ -316,7 +318,8 @@
 
     /* tree-ring field: irregular concentric hairlines, faded at the edges */
     .hero-rings {
-      position: absolute; inset: 0; margin: auto;
+      /* centered on the hero even when wider than it (inset + auto margins pin it left) */
+      position: absolute; left: 50%; top: 50%; translate: -50% -50%;
       width: min(1500px, 190vw); height: min(1500px, 190vw);
       -webkit-mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
               mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
@@ -325,7 +328,7 @@
     .hero-rings .ring { fill: none; stroke: rgba(255, 255, 255, 0.13); stroke-width: 1.2; }
     .hero-rings .ring.accent { stroke: rgba(255, 255, 255, 0.32); }
 
-    .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; max-width: 1180px; }
+    .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; max-width: min(1180px, 100%); margin-block: auto; }
     .hero-mark { width: 92px; height: 92px; margin-bottom: 32px; display: block; }
     .hero-h {
       font-size: clamp(38px, 5.7vw, 80px);
@@ -341,17 +344,17 @@
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
-    /* one line of proof pinned to the foot of the hero, so the fold carries a real result */
+    /* one line of proof at the foot of the hero, so the fold carries a real result.
+       In normal flow (not absolute) so it can never sit on top of the buttons on short screens. */
     .hero-proof {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 12px;
-      padding: 20px 24px; text-align: center;
+      position: relative; align-self: stretch; margin: 48px -40px 0;
+      display: block; padding: 20px 24px; text-align: center;
       border-top: 1px solid var(--line-on-green);
-      font-size: 15px; line-height: 1.45; color: var(--on-green-soft); text-decoration: none;
+      font-size: 15px; line-height: 1.5; color: var(--on-green-soft); text-decoration: none; text-wrap: balance;
       transition: background .3s var(--ease);
     }
     .hero-proof strong { font-weight: 600; color: #fff; }
-    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--on-green-accent); }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-weight: 600; color: var(--on-green-accent); white-space: nowrap; }
     .hero-proof svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .3s var(--ease); }
     .hero-proof:hover { background: rgba(255, 255, 255, 0.06); }
     .hero-proof:hover svg { transform: translateX(3px); }
@@ -383,8 +386,9 @@
     .proof-h { margin-bottom: 14px; }
     .proof-sub { font: 600 clamp(20px, 2vw, 24px)/1.35 var(--font-display); letter-spacing: -0.015em; color: #fff; max-width: 28ch; margin-bottom: 20px; text-wrap: balance; }
     .proof-lede { font-size: 17.5px; color: var(--on-green-soft); line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
+    .proof-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     .proof-link {
-      display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 24px; align-self: flex-start;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px;
       padding: 0 22px; border: 1px solid var(--line-on-green-2); border-radius: 10px;
       font-weight: 600; font-size: 15.5px; color: #fff; text-decoration: none;
       transition: background-color .3s var(--ease), border-color .3s var(--ease);
@@ -425,10 +429,14 @@
     .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
     .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
-    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-link { align-self: flex-start; } }
+    @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } }
     @media (max-width: 520px) {
       .proof-rows { gap: 10px; }
       .proof-before, .proof-after { padding: 12px 16px; }
+      .proof-sub { font-size: 19px; }
+      .proof-lede { font-size: 16.5px; }
+      .proof-actions { flex-direction: column; }
+      .proof-actions > * { width: 100%; }
     }
 
     /* ── TRADES (real work, labeled by trade) ──────────────── */
@@ -450,6 +458,38 @@
       .trades-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 5vw, 60px); gap: 10px; margin: 0 calc(-1 * clamp(24px, 5vw, 60px)); padding: 0 clamp(24px, 5vw, 60px); scrollbar-width: none; }
       .trades-row::-webkit-scrollbar { display: none; }
       .trade { flex: 0 0 62%; max-width: 280px; scroll-snap-align: start; }
+    }
+
+    /* Feed mode (JS on, motion allowed): the row drifts sideways on its own, edge to edge.
+       Without JS or with reduced motion the static grid / swipe row above is what shows. */
+    .feed-viewport {
+      margin-inline: calc(50% - 50vw); overflow: hidden; touch-action: pan-y; cursor: grab;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--feed-fade), #000 calc(100% - var(--feed-fade)), transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 var(--feed-fade), #000 calc(100% - var(--feed-fade)), transparent);
+      --feed-fade: clamp(20px, 6vw, 96px);
+    }
+    .feed-viewport.is-dragging { cursor: grabbing; }
+    .trades-bg.is-feed .trades-row {
+      display: flex; width: max-content; gap: 12px; margin: 0; padding: 0;
+      overflow: visible; scroll-snap-type: none; will-change: transform;
+    }
+    .trades-bg.is-feed .trade { flex: 0 0 auto; width: clamp(220px, 21vw, 290px); max-width: none; }
+    .trades-bg.is-feed .trade img { -webkit-user-drag: none; user-select: none; }
+    .feed-controls { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .feed-toggle {
+      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px 0 14px;
+      background: var(--bg-white); border: 1px solid var(--border-strong); border-radius: 999px;
+      font: 600 14px/1 var(--font-body); color: var(--text); cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .feed-toggle:hover { border-color: var(--green); color: var(--green); }
+    .feed-toggle svg { width: 16px; height: 16px; fill: currentColor; }
+    .feed-toggle .i-play, .feed-paused .feed-toggle .i-pause { display: none; }
+    .feed-paused .feed-toggle .i-play { display: block; }
+    @media (max-width: 880px) {
+      .trades-bg.is-feed .trade { width: min(60vw, 250px); }
+      .trades-bg.is-feed .trades-row { gap: 10px; }
+      .feed-controls { justify-content: center; }
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -534,6 +574,13 @@
     .founder-bio { font-size: 16px; color: var(--soft); line-height: 1.7; }
     .founder-bio p { margin: 0 0 12px; }
     .founder-bio p:last-child { margin-bottom: 0; }
+    .founder-more {
+      display: none; margin-top: 10px; padding: 12px 0; min-height: 44px;
+      background: none; border: none; cursor: pointer;
+      font: 600 15px/1.2 var(--font-body); color: var(--green);
+      text-decoration: underline; text-decoration-color: var(--green-border); text-underline-offset: 4px;
+    }
+    .founder-more:hover { text-decoration-color: currentColor; }
 
     /* ── FAQ ───────────────────────────────────────────────── */
     .faq-bg { background: var(--bg); }
@@ -542,19 +589,26 @@
     .faq-q {
       width: 100%; padding: 24px 0;
       background: none; border: none; color: inherit;
-      font-family: inherit; text-align: left; cursor: pointer;
+      font-family: inherit; text-align: left; cursor: default;
       display: flex; justify-content: space-between; align-items: center; gap: 24px;
       font-size: 17px; font-weight: 600; transition: color .2s;
     }
     .faq-q:hover { color: var(--green); }
     .faq-plus {
-      flex-shrink: 0; font-size: 24px; font-weight: 400; line-height: 1; color: var(--green);
+      position: relative; flex-shrink: 0; width: 16px; height: 16px; color: var(--green);
       transition: transform .3s var(--ease);
     }
-    .faq-a {
-      display: grid; grid-template-rows: 0fr;
-      transition: grid-template-rows .35s ease;
+    .faq-plus::before, .faq-plus::after {
+      content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 2px; border-radius: 2px; background: currentColor;
     }
+    .faq-plus::after { transform: rotate(90deg); }
+    /* answers are open without JS; JS collapses them and toggles each one independently */
+    .faq-a { display: grid; grid-template-rows: 1fr; }
+    .faq-a-inner { padding-bottom: 24px; }
+    .js .faq-a { grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+    .js .faq-a-inner { padding-bottom: 0; }
+    .js .faq-q { cursor: pointer; }
+    html:not(.js) .faq-plus { display: none; }
     .faq-a-inner {
       overflow: hidden;
       font-size: 16px; color: var(--soft); line-height: 1.7; text-wrap: pretty;
@@ -566,8 +620,8 @@
       text-decoration: underline; text-underline-offset: 2px;
     }
     .faq-a-inner a:hover { color: var(--green-light); }
-    .faq-item.open .faq-a       { grid-template-rows: 1fr; }
-    .faq-item.open .faq-a-inner { padding-bottom: 24px; }
+    .js .faq-item.open .faq-a       { grid-template-rows: 1fr; }
+    .js .faq-item.open .faq-a-inner { padding-bottom: 24px; }
     .faq-item.open .faq-plus    { transform: rotate(45deg); }
     @media (prefers-reduced-motion: reduce) { .faq-a, .faq-plus { transition: none; } }
 
@@ -601,7 +655,7 @@
     .footer-wm-1 { font-size: 13px; font-weight: 800; letter-spacing: -0.2px; color: #fff; }
     .footer-wm-2 { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--on-green-accent); }
     .footer-links { display: flex; gap: 22px; }
-    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a { font-size: 13.5px; color: var(--on-green-muted); text-decoration: none; transition: color .2s; overflow-wrap: anywhere; }
     .footer-links a:hover { color: #fff; }
     .footer-copy { font-size: 13px; color: var(--on-green-muted); }
 
@@ -612,22 +666,53 @@
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
       .nav-end .nav-cta { display: none; }
-      footer { padding: 28px 24px; flex-direction: column; }
-      .footer-links { gap: 6px; flex-direction: column; align-items: center; }
-      .footer-links a { padding: 12px 8px; }
+      footer { padding: 32px 24px 28px; flex-direction: column; gap: 18px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 0 20px; text-align: center; }
+      .footer-links a { padding: 11px 4px; font-size: 15px; }
+      .footer-links a[href^="mailto"] { flex-basis: 100%; }
+      .footer-copy { font-size: 14px; }
       .founders-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 560px) {
-      .hero { padding: 116px 20px 150px; }
-      .hero-proof { padding: 16px 20px; font-size: 14px; }
-      .hero-mark { width: 72px; height: 72px; margin-bottom: 24px; }
-      .cta-logo { height: 68px; }
-      .hero-actions { flex-direction: column; width: 100%; max-width: 320px; }
-      .integ-grid { grid-template-columns: repeat(2, 1fr); }
-      .integ-card { padding: 18px 14px; height: 88px; }
-      .integ-card img { max-width: 100%; }
-      .founder-card { flex-direction: column; gap: 18px; padding: 28px 24px; }
+    /* phones wide enough keep Book a Demo in the bar, in reach on every screen */
+    @media (min-width: 370px) and (max-width: 960px) {
+      .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 13.5px; }
+      .nav-logo { min-height: 44px; }
+      .nav-end { gap: 6px; }
     }
+    @media (max-width: 400px) {
+      .nav-logo { gap: 9px; }
+      .nav-logo img { height: 36px; }
+      .nav-logo .nav-wm-1 { font-size: 16px; }
+      .nav-logo .nav-wm-2 { font-size: 10px; letter-spacing: 0.3em; }
+      body > nav { padding: 0 18px; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding: 112px 20px 0; }
+      .hero-proof { margin: 40px -20px 0; padding: 18px 20px 20px; font-size: 15px; }
+      .hero-mark { width: 60px; height: 60px; margin-bottom: 22px; }
+      .hero-h { margin-bottom: 20px; }
+      .hero-sub { margin-bottom: 32px; }
+      .cta-logo { height: 64px; margin-bottom: 24px; }
+      .hero-actions { flex-direction: column; width: 100%; max-width: 340px; }
+      .trades-sub { font-size: 16.5px; }
+      .integ-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .integ-card { padding: 18px 14px; height: 84px; }
+      .integ-card img { max-width: 100%; }
+      .integ-foot { flex-direction: column; gap: 12px; }
+      /* avatar sits beside the name; bio runs full width below */
+      .founder-card { display: grid; grid-template-columns: 56px 1fr; gap: 0 14px; padding: 24px 20px; border-radius: 16px; }
+      .founder-card > div { display: contents; }
+      .founder-avatar { width: 56px; height: 56px; grid-row: 1 / span 2; align-self: center; }
+      .founder-name { grid-column: 2; align-self: end; margin-bottom: 0; }
+      .founder-role { grid-column: 2; align-self: start; margin-bottom: 0; }
+      .founder-bio { grid-column: 1 / -1; margin-top: 16px; }
+      .founder-more { grid-column: 1 / -1; justify-self: start; display: inline-block; }
+      .js .founder-card:not(.is-open) .founder-bio p:not(:first-child) { display: none; }
+      .faq-q { padding: 20px 0; font-size: 16.5px; gap: 18px; }
+      .cta-wrap p { font-size: 17px; margin-bottom: 32px; }
+      .cta-wrap .btn { width: 100%; max-width: 340px; }
+    }
+    @media (max-width: 560px) { html:not(.js) .founder-more { display: none; } }
   </style>
 </head>
 <body>
@@ -699,7 +784,7 @@
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
       </div>
     </div>
-    <a class="hero-proof hero-anim" href="what-we-build.html#case-study">
+    <a class="hero-proof" href="what-we-build.html#case-study">
       <strong>Live today:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
       <span>See the build <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
@@ -713,13 +798,20 @@
         <h2 class="section-h trades-h" id="trades-h">Built for the trades that keep homes running</h2>
         <p class="trades-sub">Custom tools for scheduling, dispatch, invoicing and customer follow-up, or anything else your office needs.</p>
       </div>
-      <ul class="trades-row stagger" role="list">
-        <li class="trade"><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">HVAC</span></li>
-        <li class="trade"><img src="images/trade-electrical.jpg" alt="An electrician in a hard hat and gloves working inside an open electrical cabinet" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Electrical</span></li>
-        <li class="trade"><img src="images/trade-plumbing.jpg" alt="A plumber's hands tightening a pipe fitting" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Plumbing</span></li>
-        <li class="trade"><img src="images/trade-lawn-care.jpg" alt="A push mower cutting a lawn in low sun" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Lawn care</span></li>
-        <li class="trade"><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /><span class="trade-label">Landscaping</span></li>
+      <ul class="trades-row stagger" id="trades-row" role="list" aria-label="Trades we build for">
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-hvac-400.webp 400w, images/trade-hvac.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-hvac.jpg" alt="A technician checking the gauges on an outdoor air conditioning unit" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">HVAC</span></li>
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-electrical-400.webp 400w, images/trade-electrical.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-electrical.jpg" alt="An electrician in a hard hat and gloves working inside an open electrical cabinet" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Electrical</span></li>
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-plumbing-400.webp 400w, images/trade-plumbing.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-plumbing.jpg" alt="A plumber's hands tightening a pipe fitting" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Plumbing</span></li>
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-lawn-care-400.webp 400w, images/trade-lawn-care.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-lawn-care.jpg" alt="A push mower cutting a lawn in low sun" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Lawn care</span></li>
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-landscaping-400.webp 400w, images/trade-landscaping.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Landscaping</span></li>
       </ul>
+      <div class="feed-controls" hidden>
+        <button class="feed-toggle" id="feedToggle" type="button" aria-controls="trades-row" aria-pressed="false">
+          <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+          <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.6v10.8a.8.8 0 0 0 1.2.7l8.6-5.4a.8.8 0 0 0 0-1.4L5.2 1.9a.8.8 0 0 0-1.2.7z"/></svg>
+          <span class="feed-toggle-txt">Pause photos</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -736,15 +828,15 @@
       <div class="proof-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
       <ol class="proof-rows stagger" role="list">
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>A hand-copied wall calendar</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>A hand-copied wall calendar</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
         </li>
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>Printed route sheets</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>Printed route sheets</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
         </li>
         <li class="proof-row">
-          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span><s>The crew working off a clipboard</s></span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+          <p class="proof-before"><span class="proof-text"><span class="proof-tag">Before</span>The crew working off a clipboard</span></p><svg class="proof-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
           <p class="proof-after"><span class="proof-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="proof-text"><span class="proof-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
         </li>
       </ol>
@@ -755,10 +847,16 @@
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every visit logged to the minute, even with no signal.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Reads your QuickBooks, never edits it. QuickBooks stays the books.</span></li>
       </ul>
-      <a href="what-we-build.html" class="proof-link">
-        See what we build
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      <div class="proof-actions">
+        <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
+          Book a Demo
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="what-we-build.html" class="proof-link">
+          See what we build
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
       </div>
     </div>
   </section>
@@ -817,27 +915,27 @@
       <div class="faq-list reveal">
         <div class="faq-item">
           <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1" onclick="toggleFaq(this)"><span>My software already has dashboards and reports. Why do I need this?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" inert><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
+          <div class="faq-a" id="faq-a-1" aria-labelledby="faq-q-1"><div class="faq-a-inner"><p>Most of those tools only show you one system at a time, and each one defines things its own way. What QuickBooks counts as revenue, what your field software counts as a completed job, and what your CRM counts as an active customer rarely line up, so the numbers never quite agree.</p><p>We build one dashboard around your operation specifically: exactly the information you want to see, and none of the clutter you don't. Underneath it, we establish trusted definitions for the figures that matter to you, a single agreed source of truth that every system is measured against, so your software finally tells one consistent story instead of three conflicting ones.</p><p>On top of that, we automate the work itself, not just the handoffs between tools. Documents draft themselves from live data, follow-ups and reminders go out on their own, owner reports are written for you each morning, and routine coordination happens in the background. The result is one view you can trust, and far less manual work to keep it accurate.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2" onclick="toggleFaq(this)"><span>Is my business data safe if you connect to it?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" inert><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
+          <div class="faq-a" id="faq-a-2" aria-labelledby="faq-q-2"><div class="faq-a-inner"><p>Yes. We connect through the official, secure integrations each tool already provides, the same ones your accountant or other trusted apps use. Where the work only requires reading your data, we use read-only access. We never ask for your passwords, and we never sell or share your data. If you handle sensitive financial or customer records, we document exactly what is accessed and put it in writing in the agreement.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3" onclick="toggleFaq(this)"><span>The system drafts documents with AI. What if it gets something wrong?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" inert><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
+          <div class="faq-a" id="faq-a-3" aria-labelledby="faq-q-3"><div class="faq-a-inner"><p>Nothing goes out to a client automatically. The system drafts documents from your real data, someone on your team reviews them, and they only send once you approve. The AI handles the writing, while your people keep the final judgment. We also tune it on your own templates and language, so the drafts read like your business rather than a generic chatbot.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4" onclick="toggleFaq(this)"><span>Am I locked into a long contract?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" inert><div class="faq-a-inner"><p>Not a long one, and you pick the shape. Either a setup fee with a six-month minimum, or no setup fee at all with twelve. The build happens up front, so the minimum is what covers it. After that you are month to month and can cancel if it stops earning its keep. No auto-renewing years, no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
+          <div class="faq-a" id="faq-a-4" aria-labelledby="faq-q-4"><div class="faq-a-inner"><p>Not a long one, and you pick the shape. Either a setup fee with a six-month minimum, or no setup fee at all with twelve. The build happens up front, so the minimum is what covers it. After that you are month to month and can cancel if it stops earning its keep. No auto-renewing years, no setup tricks. We would rather keep your business because the system works than because you are locked in.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5" onclick="toggleFaq(this)"><span>What does this cost?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" inert><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
+          <div class="faq-a" id="faq-a-5" aria-labelledby="faq-q-5"><div class="faq-a-inner"><p>Pricing is based on the size of your operation and the scope of the build. The strategy call is free, with no commitment on either side, and we give you exact numbers before any work begins. Nothing is priced before we have seen how you actually run.</p></div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6" onclick="toggleFaq(this)"><span>What does monthly maintenance cover?</span> <span class="faq-plus" aria-hidden="true">+</span></button>
-          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6" inert><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
+          <div class="faq-a" id="faq-a-6" aria-labelledby="faq-q-6"><div class="faq-a-inner"><p>Everything it takes to keep the system running. That includes updates, integration maintenance, small changes as your business evolves, and direct access to us when something needs adjusting.</p></div></div>
         </div>
       </div>
     </div>
@@ -879,19 +977,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
+    // Answers are readable without JS; JS collapses them, then each opens on its own.
+    // (Closing the others on open used to throw the tapped question off-screen on phones.)
+    document.querySelectorAll('.faq-a').forEach(a => a.setAttribute('inert', ''));
     function toggleFaq(btn) {
       const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('open');
-        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-        i.querySelector('.faq-a').setAttribute('inert', '');
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-        item.querySelector('.faq-a').removeAttribute('inert');
-      }
+      const open = !item.classList.contains('open');
+      item.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      item.querySelector('.faq-a').toggleAttribute('inert', !open);
       // accordion height changes shift everything below it
       if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(), 400);
     }
@@ -917,17 +1011,19 @@
       if (mobileMenu.classList.contains('open')) closeMenu(true);
       else openMenu();
     }
-    // Keep focus inside the open menu; Escape closes and returns focus to the toggle.
-    mobileMenu.addEventListener('keydown', e => {
+    // While open, Tab cycles the toggle + menu links; Escape or a tap outside closes it.
+    document.addEventListener('keydown', e => {
+      if (!mobileMenu.classList.contains('open')) return;
       if (e.key === 'Escape') { closeMenu(true); return; }
       if (e.key !== 'Tab') return;
-      const items = mobileMenu.querySelectorAll('a');
-      if (!items.length) return;
+      const items = [navToggle, ...mobileMenu.querySelectorAll('a')];
       const first = items[0], last = items[items.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(true); });
+    document.addEventListener('click', e => {
+      if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
+    });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
@@ -945,6 +1041,119 @@
     } else {
       revealEls.forEach(el => el.classList.add('in'));
     }
+
+    // Founder bios: on phones only the first paragraph shows until "Read more" (CSS gates it to ≤560px)
+    document.querySelectorAll('.founder-card').forEach(card => {
+      const name = card.querySelector('.founder-name').textContent.split(' ')[0];
+      const bio = card.querySelector('.founder-bio');
+      bio.id = bio.id || 'bio-' + name.toLowerCase();
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'founder-more';
+      b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', bio.id);
+      b.textContent = 'Read more about ' + name;
+      b.addEventListener('click', () => {
+        const open = card.classList.toggle('is-open');
+        b.setAttribute('aria-expanded', String(open));
+        b.textContent = open ? 'Show less' : 'Read more about ' + name;
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      });
+      bio.after(b);
+    });
+
+    // ── Trades feed: the photo row drifts on its own once it is on screen ──
+    // Progressive enhancement: without JS or with reduced motion the row stays a static
+    // grid (desktop) / swipe row (phones). A visible Pause button covers WCAG 2.2.2;
+    // hovering holds it still, and a finger or mouse can drag it either way.
+    (function () {
+      const row = document.querySelector('.trades-row');
+      const band = document.getElementById('trades');
+      const btn = document.getElementById('feedToggle');
+      if (!row || !band || !btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const viewport = document.createElement('div');
+      viewport.className = 'feed-viewport';
+      row.parentNode.insertBefore(viewport, row);
+      viewport.appendChild(row);
+      band.classList.add('is-feed');
+      btn.parentNode.hidden = false;
+
+      const originals = [...row.children];
+      let setW = 0;
+      function build() {
+        row.querySelectorAll('[data-clone]').forEach(n => n.remove());
+        const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+        const lastLi = originals[originals.length - 1];
+        setW = lastLi.offsetLeft + lastLi.offsetWidth + gap - originals[0].offsetLeft;   // one full loop
+        const copies = Math.max(1, Math.ceil(viewport.clientWidth / setW));
+        for (let c = 0; c < copies; c++) {
+          originals.forEach(li => {
+            const k = li.cloneNode(true);
+            k.setAttribute('data-clone', '');
+            k.setAttribute('aria-hidden', 'true');
+            k.querySelector('img').alt = '';
+            row.appendChild(k);
+          });
+        }
+      }
+
+      let x = 0, last = 0, onScreen = false, userPaused = false, hovered = false, drag = null, resumeAt = 0;
+      const speed = () => (window.innerWidth < 720 ? 32 : 40);   // px per second: a drift, not a ticker
+      const wrap = () => { if (x <= -setW) x += setW; if (x > 0) x -= setW; };
+      const paint = () => { row.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)'; };
+
+      function tick(t) {
+        const dt = last ? Math.min(t - last, 64) / 1000 : 0;
+        last = t;
+        if (onScreen && !userPaused && !hovered && !drag && t >= resumeAt) { x -= speed() * dt; wrap(); paint(); }
+        requestAnimationFrame(tick);
+      }
+
+      const label = btn.querySelector('.feed-toggle-txt');
+      btn.addEventListener('click', () => {
+        userPaused = !userPaused;
+        btn.setAttribute('aria-pressed', String(userPaused));
+        label.textContent = userPaused ? 'Play photos' : 'Pause photos';
+        band.classList.toggle('feed-paused', userPaused);
+      });
+
+      viewport.addEventListener('mouseenter', () => { hovered = true; });
+      viewport.addEventListener('mouseleave', () => { hovered = false; });
+
+      // drag / swipe to move it by hand; vertical page scroll stays native (touch-action: pan-y)
+      viewport.addEventListener('pointerdown', e => {
+        if (e.button !== 0) return;
+        drag = { id: e.pointerId, sx: e.clientX, x0: x, moved: false };
+      });
+      viewport.addEventListener('pointermove', e => {
+        if (!drag || e.pointerId !== drag.id) return;
+        const dx = e.clientX - drag.sx;
+        if (!drag.moved && Math.abs(dx) > 6) {
+          drag.moved = true;
+          viewport.setPointerCapture(e.pointerId);
+          viewport.classList.add('is-dragging');
+        }
+        if (drag.moved) { x = drag.x0 + dx; wrap(); paint(); }
+      });
+      const endDrag = e => {
+        if (!drag || e.pointerId !== drag.id) return;
+        drag = null;
+        viewport.classList.remove('is-dragging');
+        resumeAt = performance.now() + 1600;   // let them look before it moves again
+      };
+      ['pointerup', 'pointercancel'].forEach(t => viewport.addEventListener(t, endDrag));
+      row.addEventListener('dragstart', e => e.preventDefault());
+
+      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0.1 }).observe(viewport);
+
+      let rw = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth === rw) return;   // ignore phone URL-bar height changes
+        rw = window.innerWidth; build(); wrap(); paint();
+      });
+
+      build();
+      requestAnimationFrame(tick);
+    })();
 
     // Active-section highlighting in the nav (same-page anchors only)
     const navMap = {};
@@ -976,7 +1185,7 @@
       gsap.registerPlugin(ScrollTrigger);
 
       // Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
-      if (window.Lenis) {
+      if (window.Lenis && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         const lenis = new Lenis({ lerp: 0.11 });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -988,7 +1197,13 @@
             const target = hash === '#main' ? 0 : document.querySelector(hash);
             if (target === null) return;
             e.preventDefault();
-            lenis.scrollTo(target, { offset: -84 });
+            lenis.scrollTo(target, { offset: -84, onComplete: () => {
+              // keep keyboard/screen-reader position and the URL in step with the glide
+              if (target === 0) return;
+              if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+              target.focus({ preventScroll: true });
+              history.replaceState(null, '', hash);
+            } });
           });
         });
       }
@@ -1009,8 +1224,7 @@
         .from('.hero-mark', { autoAlpha: 0, scale: 0.8, rotation: -40, duration: 1 }, 0.05)
         .from('.hero-h .ch', { autoAlpha: 0, yPercent: 55, duration: 0.75, stagger: 0.012 }, 0.2)
         .from('.hero-sub', { autoAlpha: 0, y: 15, duration: 0.75 }, 0.85)
-        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0)
-        .from('.hero-proof', { autoAlpha: 0, duration: 0.8 }, 1.35);
+        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0);
 
       const mm = gsap.matchMedia();
       mm.add('(min-width: 961px)', () => {
@@ -1030,19 +1244,6 @@
         };
         hero.addEventListener('pointermove', move);
         return () => hero.removeEventListener('pointermove', move);
-      });
-
-      // Pillar art draws in as each card arrives
-      ScrollTrigger.batch('.draw', {
-        start: 'top 88%', once: true,
-        onEnter: els => els.forEach((el, i) => {
-          const delay = 0.2 + i * 0.12;
-          gsap.to(el.querySelectorAll('.d'), {
-            strokeDashoffset: 0, duration: 1.5, ease: 'power2.out', delay,
-            stagger: parseFloat(el.dataset.stagger || 0.09)
-          });
-          gsap.to(el.querySelectorAll('.fade'), { opacity: 1, duration: 0.8, delay: delay + 0.9, stagger: 0.1 });
-        })
       });
 
       // Layout shifts once web fonts land; re-measure trigger positions
