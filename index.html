@@ -330,9 +330,12 @@
 
     /* tree-ring field: irregular concentric hairlines, faded at the edges */
     .hero-rings {
-      /* centered on the hero even when wider than it (inset + auto margins pin it left) */
-      position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-      width: min(1500px, 190vw); height: min(1500px, 190vw);
+      /* centered on the hero even when wider than it, using negative margins: GSAP owns this element's
+         transform (pointer lean, scroll exit) and drops a CSS translate, which threw the rings bottom-right */
+      --rings: min(1500px, 190vw);
+      position: absolute; left: 50%; top: 50%;
+      width: var(--rings); height: var(--rings);
+      margin: calc(var(--rings) / -2) 0 0 calc(var(--rings) / -2);
       -webkit-mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
               mask-image: radial-gradient(closest-side, #000 38%, transparent 96%);
       overflow: visible;
