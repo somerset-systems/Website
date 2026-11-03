@@ -53,7 +53,7 @@
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
-      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 2000);
+      setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('motion'); }, 2500);
     }
   </script>
   <style>
@@ -136,7 +136,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; }
+    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: break-word; }
     h1 em, h2 em, h3 em { font-style: normal; }
 
     .on-green { background: var(--green); color: var(--on-green); position: relative; isolation: isolate; }
@@ -163,6 +163,7 @@
     .js .stagger.in > *:nth-child(4) { transition-delay: .19s; }
     .js .stagger.in > *:nth-child(5) { transition-delay: .24s; }
     .js .stagger.in > *:nth-child(6) { transition-delay: .29s; }
+    .js .steps-grid.stagger > .steps-line { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
       .js .reveal, .js .stagger > * {
         opacity: 1 !important; transform: none !important; transition: none !important;
@@ -335,16 +336,16 @@
     .wwb-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 34px; }
     @media (max-width: 960px) { .build-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 640px) {
-      .build-grid { grid-template-columns: 1fr; gap: 12px; }
+      .build-grid { grid-template-columns: 1fr; gap: 10px; }
       .wwb-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin-left: auto; margin-right: auto; }
       /* phones: icon beside the name, so six cards stop being three screens of scrolling */
-      .build-card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; padding: 20px 18px 18px; border-radius: 16px; }
+      .build-card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; padding: 18px 16px 14px; border-radius: 16px; }
       .build-ico { width: 40px; height: 40px; margin: 0; align-self: center; }
       .build-ico svg { width: 20px; height: 20px; }
       .build-card-h { font-size: 20px; margin: 0; align-self: center; }
       .build-out, .build-incl, .build-ex { grid-column: 1 / -1; }
-      .build-out { font-size: 16px; margin: 12px 0 14px; }
-      .build-incl { padding-top: 12px; font-size: 14.5px; }
+      .build-out { font-size: 16px; margin: 10px 0 10px; }
+      .build-incl { padding-top: 10px; font-size: 14.5px; }
       .build-ex { justify-self: start; }
       .builds-foot { gap: 20px; }
       .builds-foot p { font-size: 16.5px; }
@@ -371,6 +372,7 @@
     .ba-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
     .ba { list-style: none; display: grid; gap: 12px; }
     .ba-row { align-items: stretch; }
+    .ba-row > * { min-width: 0; }
     .ba-before {
       display: flex; align-items: center; padding: 16px 18px;
       border: 1.5px dashed color-mix(in srgb, var(--on-green) 50%, transparent); border-radius: 14px;
@@ -392,7 +394,7 @@
       display: flex; flex-wrap: wrap; gap: 10px 28px;
       font-size: 15px; color: var(--on-green-soft);
     }
-    .case-foot li { position: relative; padding-left: 22px; }
+    .case-foot li { position: relative; padding-left: 22px; text-wrap: pretty; }
     .case-foot li::before {
       content: ""; position: absolute; left: 0; top: 6px; width: 11px; height: 6px;
       border-left: 2px solid var(--on-green-accent); border-bottom: 2px solid var(--on-green-accent);
@@ -401,13 +403,13 @@
     @media (max-width: 720px) {
       .ba-head { display: none; }
       .ba-row { grid-template-columns: 1fr; row-gap: 8px; }
-      .ba-before { display: block; }
+      .ba-before { display: block; padding-left: 72px; }
       .ba { gap: 26px; }
       .ba-row { row-gap: 4px; }
       .ba-arrow { width: 18px; height: 18px; }
       .case-lede { font-size: 17px; }
       .case-foot { flex-direction: column; gap: 12px; }
-      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 27px; }
       .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .ba-before .ba-tag { color: var(--on-green-muted); }
       .ba-after .ba-tag { color: var(--green); }
@@ -426,7 +428,7 @@
       position: absolute; inset: 0; background: var(--green);
       transform: scaleX(1); transform-origin: left;
     }
-    .motion .steps-line i { transform: scaleX(0); }
+    .motion.st .steps-line i { transform: scaleX(0); }
     .step-num {
       position: relative; z-index: 1;
       display: inline-flex; align-items: center; justify-content: center;
@@ -476,6 +478,8 @@
       body > nav { display: flex; justify-content: space-between; padding: 0 24px; }
       .nav-links { display: none; }
       .nav-logo { min-height: 44px; min-width: 0; overflow: hidden; }
+      body > nav.nav-tight .nav-cta { display: none; }
+      body > nav.nav-tight ~ .mobile-menu .mobile-menu-cta { display: block; }
       .nav-logo img { flex: none; }
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
@@ -492,7 +496,7 @@
     @media (min-width: 340px) and (max-width: 960px) {
       .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 14px; }
       .mobile-menu-cta { display: none; }
-      .nav-end { gap: 6px; }
+      .nav-end { gap: 10px; }
     }
     @media (max-width: 400px) {
       .nav-logo { gap: 9px; }
@@ -678,7 +682,7 @@
   <section class="process-bg" id="process" aria-labelledby="process-h">
     <div class="section-wrap">
       <h2 class="section-h reveal" id="process-h">A clear timeline upfront, then we move fast</h2>
-      <div class="steps-grid">
+      <div class="steps-grid stagger">
         <div class="steps-line" aria-hidden="true"><i></i></div>
         <div class="step">
           <span class="step-num">01</span>
@@ -772,6 +776,18 @@
     });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
+    // If enlarged text would squeeze the wordmark, Book a Demo moves from the bar into the menu.
+    (function () {
+      const bar = document.querySelector('body > nav'), logo = bar.querySelector('.nav-logo'), wm = bar.querySelector('.nav-wordmark');
+      if (!window.ResizeObserver || !logo || !wm) return;
+      const fit = () => {
+        bar.classList.remove('nav-tight');
+        if (logo.scrollWidth > logo.clientWidth + 1) bar.classList.add('nav-tight');
+      };
+      const ro = new ResizeObserver(fit); ro.observe(bar); ro.observe(wm);
+      if (document.fonts) document.fonts.ready.then(fit);
+    })();
+
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
     if ('IntersectionObserver' in window) {
@@ -789,49 +805,52 @@
     }
 
     // ── Motion layer: GSAP + ScrollTrigger + Lenis ─────────────
-    // Loaded on demand: nothing downloads with reduced motion, and Lenis only for a mouse/trackpad.
+    // Loaded on demand: nothing downloads with reduced motion. The header intro needs only GSAP,
+    // so it starts the moment GSAP lands. ScrollTrigger (the desktop process line) and Lenis
+    // (mouse/trackpad smooth scroll) load alongside it, and only where they run.
     const loadScript = src => new Promise((ok, fail) => {
       const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = fail; document.head.appendChild(s);
     });
     const LIB = { gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js', lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js' };
     if (document.documentElement.classList.contains('motion')) {
-      loadScript(LIB.gsap).then(() => loadScript(LIB.st)).then(initMotion)
-        .catch(() => document.documentElement.classList.remove('motion'));
+      const st = window.matchMedia('(min-width: 961px)').matches ? loadScript(LIB.st) : null;
+      loadScript(LIB.gsap).then(() => {
+        initMotion();
+        if (st) st.then(initScroll).catch(() => {});
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(initLenis).catch(() => {});
+      }).catch(() => document.documentElement.classList.remove('motion'));
     }
+
     function initMotion() {
       const root = document.documentElement;
-      if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
-        root.classList.remove('motion');
-        return;
-      }
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Lenis only for a mouse/trackpad; on touch it adds nothing and fights native scroll
-      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(() => {
-        const lenis = new Lenis({ lerp: 0.11 });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(t => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
-      }).catch(() => {});
-
+      if (!root.classList.contains('motion') || !window.gsap) { root.classList.remove('motion'); return; }
       // Header intro: copy readable within ~1.1s; the rings keep rising behind it
       gsap.set('.hdr-anim', { autoAlpha: 1 });
       gsap.timeline({ defaults: { ease: 'power3.out' } })
         .fromTo('.header-rings .ring', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, stagger: 0.055, ease: 'power2.inOut' }, 0)
         .from('.hdr-anim', { autoAlpha: 0, y: 16, duration: 0.75, stagger: 0.085 }, 0.12);
+      window.__motionReady = true;   // the head's safety net checks this
+    }
 
-      // Process: the line draws across as you scroll, each step lights up as it reaches it
-      const mm = gsap.matchMedia();
-      mm.add('(min-width: 961px)', () => {
+    function initScroll() {
+      if (!window.__motionReady || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add('st');   // the process line starts undrawn only once it can draw
+      // Process: the line draws across as you scroll (desktop; phones use the plain reveal)
+      gsap.matchMedia().add('(min-width: 961px)', () => {
         gsap.timeline({ scrollTrigger: { trigger: '.steps-grid', start: 'top 80%', end: 'bottom 55%', scrub: 0.6 } })
           .to('.steps-line i', { scaleX: 1, ease: 'none', duration: 1 }, 0);
       });
-      mm.add('(max-width: 960px)', () => {
-        gsap.from('.step', { opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.steps-grid', start: 'top 85%', once: true } });
-      });
-
       if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+
+    function initLenis() {
+      if (!window.__motionReady || !window.Lenis) return;
+      // Lenis only for a mouse/trackpad; on touch it adds nothing and fights native scroll
+      const lenis = new Lenis({ lerp: 0.11 });
+      lenis.on('scroll', () => { if (window.ScrollTrigger) ScrollTrigger.update(); });
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
     }
   </script>
 

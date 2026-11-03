@@ -64,11 +64,11 @@
   <script>
     // .js: reveal animations only apply when JS runs; without JS, all content is visible.
     // .motion: the GSAP layer (hero intro, ring drawing). Skipped for reduced-motion,
-    // and dropped after 3s if GSAP never arrives, so nothing can stay hidden.
+    // and dropped after 2.5s unless the intro has started, so nothing can stay hidden.
     document.documentElement.classList.add('js');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('motion');
-      setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 2000);
+      setTimeout(function () { if (!window.__motionReady) document.documentElement.classList.remove('motion'); }, 2500);
     }
   </script>
   <style>
@@ -161,7 +161,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: anywhere; }
+    h1, h2, h3 { font-family: var(--font-display); overflow-wrap: break-word; }
     h1 em, h2 em, h3 em { font-style: normal; }
 
     /* Green surfaces share the grain + light text */
@@ -409,6 +409,7 @@
     .proof-rows { list-style: none; display: grid; gap: 14px; }
     .proof-head, .proof-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
     .proof-row { align-items: stretch; }
+    .proof-row > * { min-width: 0; }
     .proof-head { margin-bottom: 10px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
     .proof-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
     .proof-before {
@@ -431,21 +432,23 @@
       .proof-grid { grid-template-columns: 1fr; grid-template-areas: "intro" "board" "more"; grid-template-rows: auto; row-gap: 32px; }
       .proof-row { grid-template-columns: 1fr; row-gap: 8px; }
       .proof-head { display: none; }
-      .proof-arrow { transform: rotate(90deg); justify-self: start; margin-left: 20px; }
+      .proof-arrow { transform: rotate(90deg); justify-self: start; margin-left: 27px; }
+      .proof-before { padding-left: 72px; }
       .proof-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
       .proof-before .proof-tag { color: var(--on-green-muted); }
       .proof-after .proof-tag { color: var(--green); }
     }
 
     .proof-facts { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px clamp(24px, 4vw, 48px); }
-    .proof-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
+    .proof-facts li { text-wrap: pretty; display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--on-green-soft); line-height: 1.5; }
     .proof-facts svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--on-green-accent); }
     @media (max-width: 880px) { .proof-facts { grid-template-columns: 1fr; } .proof-more { margin-top: 0; } }
     @media (max-width: 520px) {
       .proof-rows { gap: 26px; }
       .proof-row { row-gap: 4px; }
-      .proof-arrow { width: 18px; height: 18px; }
+      .proof-arrow { width: 18px; height: 18px; margin-left: 27px; }
       .proof-before, .proof-after { padding: 12px 16px; }
+      .proof-before { padding-left: 70px; }
       .proof-sub { font-size: 19px; }
       .proof-lede { font-size: 16.5px; }
       .proof-actions { flex-direction: column; }
@@ -487,7 +490,8 @@
       overflow: visible; scroll-snap-type: none; will-change: transform;
     }
     .trades-bg.is-feed .trade { flex: 0 0 auto; width: clamp(220px, 21vw, 290px); max-width: none; }
-    .trades-bg.is-feed .trade img { -webkit-user-drag: none; user-select: none; }
+    .trades-bg.is-feed .trade { -webkit-user-select: none; user-select: none; }
+    .trades-bg.is-feed .trade img { -webkit-user-drag: none; }
     .feed-controls { display: flex; justify-content: flex-end; margin-top: 18px; }
     .feed-controls[hidden] { display: none; }
     .feed-toggle {
@@ -582,7 +586,7 @@
       object-fit: cover; object-position: center; display: block;
       background-color: var(--green);
     }
-    .founder-name  { overflow-wrap: anywhere; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
+    .founder-name  { overflow-wrap: anywhere; line-height: 1.2; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
     .founder-role  {
       font-size: 14px; font-weight: 600; color: var(--green);
       margin-bottom: 14px; display: block;
@@ -680,6 +684,8 @@
       body > nav { display: flex; justify-content: space-between; padding: 0 24px; }
       .nav-links { display: none; }
       .nav-logo { min-height: 44px; min-width: 0; overflow: hidden; }
+      body > nav.nav-tight .nav-cta { display: none; }
+      body > nav.nav-tight ~ .mobile-menu .mobile-menu-cta { display: block; }
       .nav-logo img { flex: none; }
       .nav-toggle { display: flex; }
       .mobile-menu { display: flex; }
@@ -695,7 +701,7 @@
     @media (min-width: 340px) and (max-width: 960px) {
       .nav-end .nav-cta { display: inline-flex; min-height: 44px; padding: 0 14px; font-size: 14px; }
       .mobile-menu-cta { display: none; }
-      .nav-end { gap: 6px; }
+      .nav-end { gap: 10px; }
     }
     @media (max-width: 400px) {
       .nav-logo { gap: 9px; }
@@ -1043,6 +1049,18 @@
     });
     window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMenu(); });
 
+    // If enlarged text would squeeze the wordmark, Book a Demo moves from the bar into the menu.
+    (function () {
+      const bar = document.querySelector('body > nav'), logo = bar.querySelector('.nav-logo'), wm = bar.querySelector('.nav-wordmark');
+      if (!window.ResizeObserver || !logo || !wm) return;
+      const fit = () => {
+        bar.classList.remove('nav-tight');
+        if (logo.scrollWidth > logo.clientWidth + 1) bar.classList.add('nav-tight');
+      };
+      const ro = new ResizeObserver(fit); ro.observe(bar); ro.observe(wm);
+      if (document.fonts) document.fonts.ready.then(fit);
+    })();
+
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
     if ('IntersectionObserver' in window) {
@@ -1092,6 +1110,7 @@
       row.parentNode.insertBefore(viewport, row);
       viewport.appendChild(row);
       band.classList.add('is-feed');
+      row.classList.remove('stagger');
       btn.parentNode.hidden = false;
 
       const originals = [...row.children];
@@ -1211,46 +1230,25 @@
     });
 
     // ── Motion layer: GSAP + ScrollTrigger + Lenis ─────────────
-    // Loaded on demand: nothing downloads with reduced motion, and Lenis only for a mouse/trackpad.
+    // Loaded on demand: nothing downloads with reduced motion. The hero intro needs only GSAP,
+    // so it starts the moment GSAP lands. ScrollTrigger (desktop scroll effects) and Lenis
+    // (mouse/trackpad smooth scroll) load alongside it, and only where they run.
     const loadScript = src => new Promise((ok, fail) => {
       const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = fail; document.head.appendChild(s);
     });
     const LIB = { gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js', st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js', lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js' };
     if (document.documentElement.classList.contains('motion')) {
-      loadScript(LIB.gsap).then(() => loadScript(LIB.st)).then(initMotion)
-        .catch(() => document.documentElement.classList.remove('motion'));
+      const st = window.matchMedia('(min-width: 961px)').matches ? loadScript(LIB.st) : null;
+      loadScript(LIB.gsap).then(() => {
+        initMotion();
+        if (st) st.then(initScroll).catch(() => {});
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(initLenis).catch(() => {});
+      }).catch(() => document.documentElement.classList.remove('motion'));
     }
+
     function initMotion() {
       const root = document.documentElement;
-      if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
-        root.classList.remove('motion');
-        return;
-      }
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
-      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) loadScript(LIB.lenis).then(() => {
-        const lenis = new Lenis({ lerp: 0.11 });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(t => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
-        // same-page anchors glide instead of jumping (skip link keeps native focus behavior)
-        document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(a => {
-          a.addEventListener('click', e => {
-            const hash = a.getAttribute('href');
-            const target = hash === '#main' ? 0 : document.querySelector(hash);
-            if (target === null) return;
-            e.preventDefault();
-            lenis.scrollTo(target, { offset: -84, onComplete: () => {
-              // keep keyboard/screen-reader position and the URL in step with the glide
-              if (target === 0) return;
-              if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-              target.focus({ preventScroll: true });
-              history.replaceState(null, '', hash);
-            } });
-          });
-        });
-      }).catch(() => {});
+      if (!root.classList.contains('motion') || !window.gsap) { root.classList.remove('motion'); return; }
 
       // Hero headline: split into words → characters. Screen readers get the h1's aria-label.
       const h = document.querySelector('.hero-h');
@@ -1269,15 +1267,9 @@
         .from('.hero-h .ch', { autoAlpha: 0, yPercent: 55, duration: 0.75, stagger: 0.012 }, 0.2)
         .from('.hero-sub', { autoAlpha: 0, y: 15, duration: 0.75 }, 0.85)
         .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0);
+      window.__motionReady = true;   // the head's safety net checks this
 
-      const mm = gsap.matchMedia();
-      mm.add('(min-width: 961px)', () => {
-        // Scroll-linked hero exit: rings widen and turn, copy lifts away
-        gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } })
-          .to('.hero-rings', { scale: 1.22, rotation: 10, opacity: 0.45, ease: 'none' }, 0)
-          .to('.hero-inner', { y: -110, opacity: 0, ease: 'none' }, 0);
-      });
-      mm.add('(min-width: 961px) and (hover: hover)', () => {
+      gsap.matchMedia().add('(min-width: 961px) and (hover: hover)', () => {
         // Rings lean gently toward the pointer
         const hero = document.querySelector('.hero');
         const xTo = gsap.quickTo('.hero-rings', 'x', { duration: 1.2, ease: 'power3' });
@@ -1289,9 +1281,44 @@
         hero.addEventListener('pointermove', move);
         return () => hero.removeEventListener('pointermove', move);
       });
+    }
 
+    function initScroll() {
+      if (!window.__motionReady || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.matchMedia().add('(min-width: 961px)', () => {
+        // Scroll-linked hero exit: rings widen and turn, copy lifts away
+        gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } })
+          .to('.hero-rings', { scale: 1.22, rotation: 10, opacity: 0.45, ease: 'none' }, 0)
+          .to('.hero-inner', { y: -110, opacity: 0, ease: 'none' }, 0);
+      });
       // Layout shifts once web fonts land; re-measure trigger positions
       if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+
+    function initLenis() {
+      if (!window.__motionReady || !window.Lenis) return;
+      // Smooth scroll, driven by GSAP's ticker so ScrollTrigger (when present) stays in sync
+      const lenis = new Lenis({ lerp: 0.11 });
+      lenis.on('scroll', () => { if (window.ScrollTrigger) ScrollTrigger.update(); });
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+      // same-page anchors glide instead of jumping (skip link keeps native focus behavior)
+      document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(a => {
+        a.addEventListener('click', e => {
+          const hash = a.getAttribute('href');
+          const target = hash === '#main' ? 0 : document.querySelector(hash);
+          if (target === null) return;
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -84, onComplete: () => {
+            // keep keyboard/screen-reader position and the URL in step with the glide
+            if (target === 0) return;
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+            history.replaceState(null, '', hash);
+          } });
+        });
+      });
     }
   </script>
 
