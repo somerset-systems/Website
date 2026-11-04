@@ -688,8 +688,8 @@
       <div class="case-log reveal">
         <h3 class="log-h">On pace for a full year</h3>
         <ul class="log-rows" role="list">
-          <li class="log-row"><span class="log-n">1,500+</span> <span class="log-l">auto-scheduled visits, none moved by hand</span></li>
-          <li class="log-row"><span class="log-n">250+</span> <span class="log-l">office hours saved, estimated</span></li>
+          <li class="log-row"><span class="log-n" data-count="1500">1,500+</span> <span class="log-l">auto-scheduled visits, none moved by hand</span></li>
+          <li class="log-row"><span class="log-n" data-count="250">250+</span> <span class="log-l">office hours saved, estimated</span></li>
         </ul>
       </div>
       <ul class="case-foot reveal" role="list">
@@ -810,6 +810,28 @@
       const ro = new ResizeObserver(fit); ro.observe(bar); ro.observe(wm);
       if (document.fonts) document.fonts.ready.then(fit);
     })();
+
+    // Case study numbers count up on arrival. The final number is in the HTML, so no JS or reduced motion just shows it.
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.log-n[data-count]').forEach(num => {
+        if (num.getBoundingClientRect().bottom < 0) return;
+        const total = Number(num.dataset.count), done = num.textContent;
+        num.textContent = '0';
+        const io = new IntersectionObserver(es => {
+          if (!es.some(e => e.isIntersecting)) return;
+          io.disconnect();
+          const t0 = performance.now(), run = now => {
+            const t = Math.min((now - t0) / 1800, 1);
+            if (t === 1) { num.textContent = done; return; }
+            num.textContent = Math.round(total * (1 - Math.pow(2, -8 * t))).toLocaleString('en-US');
+            requestAnimationFrame(run);
+          };
+          requestAnimationFrame(run);
+        }, { threshold: 0.5 });
+        io.observe(num);
+        window.addEventListener('beforeprint', () => { num.textContent = done; });
+      });
+    }
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
