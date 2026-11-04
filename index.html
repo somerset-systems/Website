@@ -534,10 +534,10 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity .7s var(--ease) .25s, transform .7s var(--ease) .25s; }
-      .js .stagger.in .proof-after { opacity: 1; transform: none; }
-      .js .stagger.in .proof-row:nth-child(2) .proof-after { transition-delay: .4s; }
-      .js .stagger.in .proof-row:nth-child(3) .proof-after { transition-delay: .55s; }
+      .js .proof-after { opacity: 0; transform: translateX(-16px); transition: opacity 1.4s var(--ease), transform 1.4s var(--ease); }
+      .js .proof-after.is-in { opacity: 1; transform: none; }
+      .js .proof-row:nth-child(2) .proof-after.is-in { transition-delay: .15s; }
+      .js .proof-row:nth-child(3) .proof-after.is-in { transition-delay: .3s; }
     }
 
     /* ── HOVER (pointer devices only, off for reduced motion) ── */
@@ -1127,6 +1127,17 @@
       revealEls.forEach(el => io.observe(el));
     } else {
       revealEls.forEach(el => el.classList.add('in'));
+    }
+
+    // Case study Now cards: each lands once it's well on screen, not when the list first peeks in
+    const nowCards = document.querySelectorAll('.proof-after');
+    if ('IntersectionObserver' in window) {
+      const nowIo = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); nowIo.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -30% 0px' });
+      nowCards.forEach(el => nowIo.observe(el));
+    } else {
+      nowCards.forEach(el => el.classList.add('is-in'));
     }
 
     // Founder bios: on phones only the first paragraph shows until "Read more" (CSS gates it to ≤560px)
