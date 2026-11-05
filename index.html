@@ -33,6 +33,7 @@
         "logo": "https://somersetsystems.co/web-app-manifest-512x512.png",
         "description": "AI operations and automation consultancy for small field-service businesses. We connect the software you already run, then automate the busywork around it.",
         "email": "thomas@somersetsystems.co",
+        "telephone": "+1-805-457-5035",
         "founder": [
           { "@type": "Person", "name": "Thomas Ankenbrandt", "jobTitle": "Co-Founder", "email": "thomas@somersetsystems.co" },
           { "@type": "Person", "name": "Victor Josifovski", "jobTitle": "Co-Founder", "email": "victor@somersetsystems.co" }
@@ -361,6 +362,7 @@
 
     /* one line of proof at the foot of the hero, so the fold carries a real result.
        In normal flow (not absolute) so it can never sit on top of the buttons on short screens. */
+    .hero-assure { margin-top: 18px; font-size: 15px; line-height: 1.5; color: var(--on-green-muted); text-wrap: balance; }
     .hero-proof {
       position: relative; align-self: stretch; margin: 48px -40px 0;
       display: block; padding: 20px 24px; text-align: center;
@@ -685,6 +687,8 @@
       margin-bottom: 18px; color: var(--on-green); text-wrap: balance;
     }
     .cta-wrap p { font-size: 18px; color: var(--on-green-soft); margin: 0 auto 40px; max-width: 520px; text-wrap: balance; }
+    .cta-wrap .cta-call { margin: 18px auto 0; font-size: 16px; color: var(--on-green-muted); }
+    .cta-call a { display: inline-block; padding: 12px 2px; font-weight: 600; color: #fff; text-underline-offset: 3px; white-space: nowrap; }
     .cta-logo { height: 84px; width: auto; margin-bottom: 30px; opacity: .95; }
 
     /* ── FOOTER ────────────────────────────────────────────── */
@@ -716,7 +720,7 @@
       footer { padding: 32px 24px 28px; flex-direction: column; gap: 18px; }
       .footer-links { flex-wrap: wrap; justify-content: center; gap: 0 20px; text-align: center; }
       .footer-links a { padding: 11px 4px; font-size: 15px; }
-      .footer-links a[href^="mailto"] { flex-basis: 100%; }
+      .footer-links a[href^="mailto"], .footer-links a[href^="tel"] { flex-basis: 100%; }
       .footer-copy { font-size: 14px; }
       .founders-grid { grid-template-columns: 1fr; }
     }
@@ -822,7 +826,7 @@
     </div>
     <div class="hero-inner">
       <img class="hero-mark hero-anim" src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
-      <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the service industry.</span></h1>
+      <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the home service industry.</span></h1>
       <p class="hero-sub hero-anim">We connect the tools you already run and automate the busywork around them.</p>
       <div class="hero-actions hero-anim">
         <a href="https://calendly.com/thomas-somersetsystems/walkthrough" target="_blank" rel="noopener" class="btn btn-light">
@@ -831,6 +835,7 @@
         <span class="sr-only"> (opens in a new tab)</span></a>
         <a href="what-we-build.html" class="btn btn-ghost">See what we build</a>
       </div>
+      <p class="hero-assure hero-anim">Free 30-minute call, no obligation. We never ask for your passwords.</p>
     </div>
     <a class="hero-proof" href="what-we-build.html#case-study">
       <strong>Case study:</strong> a 250-account service contractor went from a wall calendar to routes that schedule themselves.
@@ -1007,6 +1012,7 @@
       Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     <span class="sr-only"> (opens in a new tab)</span></a>
+    <p class="cta-call">Prefer to talk? Call <a href="tel:+18054575035">(805) 457-5035</a></p>
   </section>
 
   </main>
@@ -1019,6 +1025,7 @@
       <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
     </div>
     <div class="footer-links">
+      <a href="tel:+18054575035">(805) 457-5035</a>
       <a href="mailto:thomas@somersetsystems.co">thomas@somersetsystems.co</a>
       <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>
       <a href="privacy.html">Privacy Policy</a>
@@ -1317,7 +1324,8 @@
         .from('.hero-mark', { autoAlpha: 0, scale: 0.8, rotation: -40, duration: 1 }, 0.05)
         .from('.hero-h .ch', { autoAlpha: 0, yPercent: 55, duration: 0.75, stagger: 0.012 }, 0.2)
         .from('.hero-sub', { autoAlpha: 0, y: 15, duration: 0.75 }, 0.85)
-        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0);
+        .from('.hero-actions > *', { autoAlpha: 0, y: 13, duration: 0.7, stagger: 0.07 }, 1.0)
+        .from('.hero-assure', { autoAlpha: 0, y: 10, duration: 0.7 }, 1.2);
       window.__motionReady = true;   // the head's safety net checks this
 
       gsap.matchMedia().add('(min-width: 961px) and (hover: hover)', () => {

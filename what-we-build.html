@@ -466,6 +466,8 @@
         radial-gradient(55% 60% at 50% 110%, color-mix(in srgb, var(--sage-light) 38%, transparent), transparent 70%),
         radial-gradient(70% 50% at 50% -10%, color-mix(in srgb, var(--deep) 60%, transparent), transparent 75%);
     }
+    .cta-wrap .cta-call { margin: 18px auto 0; font-size: 16px; color: var(--on-green-muted); }
+    .cta-call a { display: inline-block; padding: 12px 2px; font-weight: 600; color: #fff; text-underline-offset: 3px; white-space: nowrap; }
     .cta-logo { height: 84px; width: auto; margin-bottom: 30px; opacity: .95; }
     .cta-wrap h2 {
       font-size: clamp(34px, 4.6vw, 62px);
@@ -503,7 +505,7 @@
       footer { padding: 32px 24px 28px; flex-direction: column; gap: 18px; }
       .footer-links { flex-wrap: wrap; justify-content: center; gap: 0 20px; text-align: center; }
       .footer-links a { padding: 11px 4px; font-size: 15px; }
-      .footer-links a[href^="mailto"] { flex-basis: 100%; }
+      .footer-links a[href^="mailto"], .footer-links a[href^="tel"] { flex-basis: 100%; }
       .footer-copy { font-size: 14px; }
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
       .steps-line { display: none; }
@@ -742,6 +744,7 @@
       Book a Demo
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     <span class="visually-hidden"> (opens in a new tab)</span></a>
+    <p class="cta-call">Prefer to talk? Call <a href="tel:+18054575035">(805) 457-5035</a></p>
   </section>
 
   </main>
@@ -754,6 +757,7 @@
       <span><span class="footer-wm-1">SOMERSET</span> <span class="footer-wm-2">SYSTEMS</span></span>
     </div>
     <div class="footer-links">
+      <a href="tel:+18054575035">(805) 457-5035</a>
       <a href="mailto:thomas@somersetsystems.co">thomas@somersetsystems.co</a>
       <a href="mailto:victor@somersetsystems.co">victor@somersetsystems.co</a>
       <a href="privacy.html">Privacy Policy</a>
