@@ -351,19 +351,6 @@
       position: absolute; top: 84px; right: 16px; z-index: 2; padding: 10px 14px; border: 1px solid var(--line-on-green-2);
       border-radius: 10px; background: var(--deep); color: var(--on-green); font: 600 14px/1 var(--font-body); cursor: pointer;
     }
-    /* heading options, ?text=rise | words | underline */
-    .text-rise .tw, .text-words .tw { display: inline-block; }
-    .text-rise .tw { overflow: hidden; padding-bottom: .14em; margin-bottom: -.14em; vertical-align: top; }
-    .text-rise .tw > span, .text-words .tw > span { display: inline-block; }
-    .text-rise .tw > span { transform: translateY(112%); transition: transform .8s cubic-bezier(.16, 1, .3, 1); transition-delay: calc(var(--i) * 55ms); }
-    .text-rise .text-in .tw > span { transform: none; }
-    .text-words .tw > span { opacity: 0; transition: opacity .55s ease-out; transition-delay: calc(var(--i) * 130ms); }
-    .text-words .text-in .tw > span { opacity: 1; }
-    .text-underline h2 em { position: relative; display: inline-block; white-space: nowrap; }
-    .text-underline .ul { position: absolute; left: -1%; bottom: -.16em; width: 102%; height: .26em; overflow: visible; clip-path: inset(-40% 100% -40% -2%); transition: clip-path 1s cubic-bezier(.65, 0, .2, 1) .25s; }
-    .text-underline .ul path { fill: none; stroke: var(--green); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-    .text-underline .on-green .ul path, .text-underline .on-green.ul path { stroke: var(--sage-light); }
-    .text-underline .text-in .ul { clip-path: inset(-40% -2% -40% -2%); }
 
     .grain-toggle:not(:focus-visible) {
       width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
@@ -388,10 +375,6 @@
     /* one line of proof at the foot of the hero, so the fold carries a real result.
        In normal flow (not absolute) so it can never sit on top of the buttons on short screens. */
     .hero-assure { margin-top: 18px; font-size: 15px; line-height: 1.5; color: var(--on-green-muted); text-wrap: balance; }
-    /* review only: switch hero motion, not for production */
-    .motion-review { position: fixed; left: 12px; bottom: 12px; z-index: 9999; display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; border-radius: 10px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.25); font: 500 13px/1 var(--font-body); }
-    .motion-review a { padding: 9px 11px; border-radius: 7px; color: var(--text); text-decoration: none; }
-    .motion-review a[aria-current] { background: var(--green); color: #fff; }
     .hero-proof {
       position: relative; align-self: stretch; margin: 48px -40px 0;
       display: block; padding: 20px 24px; text-align: center;
@@ -1433,7 +1416,7 @@
 
   <script>
     /* Cut slab: the wood is baked once into a texture, so no ring ever bends. It grows out of the mark on load,
-       then breathes: the whole slab swells and settles, and light moves across it. Without WebGL2 the SVG rings stay. */
+       then settles to a stop; after that only the light moves, slowly. Without WebGL2 the SVG rings stay. */
     (function () {
       const hero = document.querySelector('.hero');
       const canvas = document.getElementById('heroGrain');
@@ -1690,23 +1673,12 @@
       hero.addEventListener('pointerdown', aim, { passive: true });
       hero.addEventListener('pointerleave', () => { lamp.last = -1e9; });
 
-      /* ?motion=settle (default): one continuous growth that eases to a stop, then still.
-         ?motion=layers: the same, landing in five beats. ?motion=breathe: the old repeating swell, kept to compare.
-         Settle and layers have no repeating pulse; after the growth only the light moves, and slowly. */
-      const mode = new URLSearchParams(location.search).get('motion') || 'settle';
-      const repeats = mode === 'breathe';
-      const GROW = repeats ? 2.9 : mode === 'layers' ? 2.8 : 2.4;
-      const SUN = repeats ? 0.17 : 0.05;
-      const BEATS = 5;
+      /* One continuous growth that eases to a stop, then the slab stays still and only the light moves, slowly. */
+      const GROW = 2.4;
+      const SUN = 0.05;
       const edge = () => Math.max(Math.hypot(W / 2, H), Math.hypot(W / 2, H * 0.3)) + 80;
-      const growTo = t => {
-        if (repeats) return (1 - Math.pow(1 - t, 1.9)) * (Math.hypot(W, H) + 200);
-        if (mode !== 'layers') return (1 - Math.pow(1 - t, 3.2)) * edge();
-        const seg = t * BEATS, k = Math.min(Math.floor(seg), BEATS - 1), u = seg - k;
-        const at = i => Math.pow(i / BEATS, 1.15) * edge();
-        return at(k) + (at(k + 1) - at(k)) * (1 - Math.pow(1 - u, 3));
-      };
-      let seat = repeats || reduced ? 0 : 1;
+      const growTo = t => (1 - Math.pow(1 - t, 3.2)) * edge();
+      let seat = reduced ? 0 : 1;
 
       let time = 0, born = 0, front = reduced ? 1e5 : 0, grown = reduced, scroll = 0, breathTime = 0, breathing = 0;
 
@@ -1737,12 +1709,8 @@
           front = growTo(t);
           if (t >= 1) grown = true;
         }
-        // the first breath starts once the slab has finished growing, easing in from rest
-        if (!repeats) seat = Math.max(0, 1 - Math.pow(Math.min(born / (GROW + 0.5), 1), 3));
-        if (grown && repeats) {
-          breathTime += dt;
-          breathing = Math.min(breathing + dt / 2.5, 1);
-        }
+        // the slab lowers into place as it finishes growing, then never moves again
+        seat = Math.max(0, 1 - Math.pow(Math.min(born / (GROW + 0.5), 1), 3));
 
         // left alone, the light crosses the slab like the sun; the pointer takes it over
         const live = now - lamp.last < 2600;
@@ -1798,51 +1766,6 @@
         pauseBtn.textContent = paused ? 'Play background animation' : 'Pause background animation';
         start();
       });
-    })();
-  </script>
-  <script>
-    /* Heading options for review: add ?text=rise, ?text=words or ?text=underline to the address.
-       With no option, or with reduced motion or no JS, headings are plain and one color. */
-    (function () {
-      const mode = new URLSearchParams(location.search).get('text');
-      if (!['rise', 'words', 'underline'].includes(mode)) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const heads = [...document.querySelectorAll('.section-h, #cta-h')];
-      document.documentElement.classList.add('text-' + mode);
-
-      heads.forEach(h => {
-        h.classList.remove('reveal');
-        if (mode === 'underline') {
-          const em = h.querySelector('em');
-          if (!em) return;
-          em.insertAdjacentHTML('beforeend', '<svg class="ul" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 9C42 5 78 10 118 7S196 4 232 7 280 9 297 5"/></svg>');
-          return;
-        }
-        h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
-        const words = h.textContent.trim().split(/\s+/);
-        h.innerHTML = words.map((w, i) =>
-          `<span class="tw" aria-hidden="true" style="--i:${i}"><span>${w}</span></span>`).join(' ');
-      });
-
-      const io = new IntersectionObserver(es => es.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('text-in');
-        io.unobserve(e.target);
-      }), { threshold: 0.5 });
-      heads.forEach(h => io.observe(h));
-    })();
-  </script>
-  <div class="motion-review" role="group" aria-label="Hero motion options (review only)">
-    <a href="?motion=settle">Settle</a>
-    <a href="?motion=layers">Layers</a>
-    <a href="?motion=breathe">Breathing (old)</a>
-  </div>
-  <script>
-    (function () {
-      const m = new URLSearchParams(location.search).get('motion') || 'settle';
-      const a = document.querySelector('.motion-review a[href="?motion=' + m + '"]');
-      if (a) a.setAttribute('aria-current', 'true');
     })();
   </script>
 </body>
