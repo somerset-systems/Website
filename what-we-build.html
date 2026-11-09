@@ -8,7 +8,7 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="What We Build: Somerset Systems" />
-  <meta property="og:description" content="Six places we usually build, plus custom work of your own, and the paper wall calendar we replaced for a koi-pond contractor in the South Bay." />
+  <meta property="og:description" content="Six places we usually build, plus custom work of your own." />
   <meta property="og:url" content="https://somersetsystems.co/what-we-build.html" />
   <meta property="og:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
   <meta property="og:site_name" content="Somerset Systems" />
@@ -358,79 +358,6 @@
       .build-card:hover { translate: 0 -4px; border-color: var(--green-border); }
     }
 
-    /* ── CASE STUDY (before / after) ─────────────────────────── */
-    .case-wrap { max-width: 1040px; margin: 0 auto; padding: clamp(80px, 9vw, 120px) clamp(24px, 5vw, 60px); }
-    .case-head { max-width: 760px; margin-bottom: clamp(40px, 5vw, 56px); }
-    .case-eyebrow { display: block; font-size: 15px; font-weight: 600; color: var(--on-green-accent); margin-bottom: 16px; }
-    .case-h {
-      font-size: clamp(30px, 3.8vw, 50px); font-weight: 700;
-      letter-spacing: -0.035em; line-height: 1.06; margin-bottom: 20px; text-wrap: balance;
-    }
-    .case-h em { font-style: normal; color: var(--on-green-accent); }
-    .case-lede { font-size: 18px; color: var(--on-green-soft); line-height: 1.65; text-wrap: pretty; }
-
-    .ba-head, .ba-row { display: grid; grid-template-columns: minmax(0, 0.95fr) 24px minmax(0, 1.25fr); column-gap: 14px; }
-    .ba-head { padding-bottom: 10px; font-size: 14px; font-weight: 600; color: var(--on-green-muted); }
-    .ba-head span:last-child { grid-column: 3; color: var(--on-green-accent); }
-    .ba { list-style: none; display: grid; gap: 12px; }
-    .ba-row { align-items: stretch; }
-    .ba-row > * { min-width: 0; }
-    .ba-before {
-      display: flex; align-items: center; padding: 16px 18px;
-      border: 1.5px dashed color-mix(in srgb, var(--on-green) 50%, transparent); border-radius: 14px;
-      font-size: 16px; line-height: 1.4; color: var(--on-green-soft);
-    }
-    .ba-before s { text-decoration: none; }
-    .ba-text { text-wrap: pretty; }
-    .ba-ico { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
-    .ba-ico svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .ba-after {
-      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
-      background: var(--bg); color: var(--green-deep); border-radius: 14px;
-      font-size: 16.5px; font-weight: 600; line-height: 1.4; text-wrap: pretty;
-    }
-    .ba-arrow { width: 22px; height: 22px; stroke: var(--on-green-accent); align-self: center; justify-self: center; }
-    .ba-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* read aloud, shown on phones */
-    .case-log { margin-top: clamp(44px, 4vw, 48px); }
-    .case-foot {
-      list-style: none; margin-top: 32px;
-      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px clamp(24px, 4vw, 48px);
-      font-size: 16px; line-height: 1.5; color: var(--on-green-soft);
-    }
-    .case-foot li { position: relative; padding-left: 22px; text-wrap: pretty; }
-    .case-foot li::before {
-      content: ""; position: absolute; left: 0; top: 6px; width: 11px; height: 6px;
-      border-left: 2px solid var(--on-green-accent); border-bottom: 2px solid var(--on-green-accent);
-      transform: rotate(-45deg);
-    }
-    @media (max-width: 720px) {
-      .ba-head { display: none; }
-      .ba-row { grid-template-columns: 1fr; row-gap: 8px; }
-      .ba-before { display: block; padding-left: 72px; }
-      .ba { gap: 26px; }
-      .ba-row { row-gap: 4px; }
-      .ba-arrow { width: 18px; height: 18px; }
-      .case-lede { font-size: 17px; }
-      .case-foot { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-      .ba-arrow { transform: rotate(90deg); justify-self: start; margin-left: 27px; }
-      .ba-tag { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-      .ba-before .ba-tag { color: var(--on-green-muted); }
-      .ba-after .ba-tag { color: var(--green); }
-    }
-
-    /* ── THE LOG (real counts from the live system, dated; reads like a log sheet, not a metrics banner) ── */
-    .log-h { font: 700 clamp(20px, 2vw, 24px)/1.2 var(--font-display); letter-spacing: -0.02em; color: #fff; margin-bottom: 16px; }
-    .log-rows { list-style: none; border-top: 1px solid var(--line-on-green-2); border-bottom: 1px solid var(--line-on-green-2); }
-    .log-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 12px 0; border-top: 1px solid var(--line-on-green); }
-    .log-row:first-child { border-top: 0; }
-    .log-n { flex: none; min-width: 152px; font: 700 40px/1.1 var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: #fff; }
-    .log-l { flex: 1 1 150px; min-width: 0; overflow-wrap: anywhere; font-size: 16px; line-height: 1.45; color: var(--on-green-soft); text-wrap: balance; }
-    @media (max-width: 720px) {
-      .log-row { align-items: center; gap: 4px 12px; padding: 14px 0; min-height: 75px; }
-      .log-n { min-width: 112px; font-size: 30px; }
-      .log-l { flex-basis: 130px; max-width: 27ch; }
-    }
-
     /* ── PROCESS (a timeline that draws itself) ─────────────── */
     .process-bg { background: var(--bg-white); }
     .steps-grid {
@@ -601,7 +528,7 @@
         Book a Demo
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       <span class="visually-hidden"> (opens in a new tab)</span></a>
-      <a href="#case-study" class="btn btn-ghost">See a real example</a>
+      <a href="index.html#proof" class="btn btn-ghost">See a real example</a>
     </div>
   </header>
 
@@ -616,7 +543,7 @@
           <h3 class="build-card-h">Scheduling &amp; routes</h3>
           <p class="build-out">Recurring jobs scheduled from the notes you already keep, routes planned around traffic, and the day's stops on each crew phone.</p>
           <p class="build-incl">Includes routes, recurring jobs, crew phone</p>
-          <a class="build-ex" href="#case-study">See an example below <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          <a class="build-ex" href="index.html#proof">See an example <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
         <li class="build-card">
           <span class="build-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
@@ -656,49 +583,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         <span class="visually-hidden"> (opens in a new tab)</span></a>
       </div>
-    </div>
-  </section>
-
-
-  <!-- CASE STUDY -->
-  <section class="case-bg on-green is-deep" id="case-study" aria-labelledby="case-h">
-    <div class="case-wrap">
-      <div class="case-head reveal">
-        <span class="case-eyebrow">One build, as an example</span>
-        <h2 class="case-h" id="case-h">From a wall calendar to scheduling that runs itself</h2>
-        <p class="case-lede">Routes optimized and synced with QuickBooks, built around how they already work. The client: a family-owned koi-pond and water-feature contractor in the South Bay, running 250-odd accounts.</p>
-      </div>
-      <div class="ba-head" aria-hidden="true"><span>Before</span><span>Now</span></div>
-      <ol class="ba stagger" role="list">
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">A hand-copied wall calendar, a full day every month</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>A recurring schedule built automatically from the notes they already keep</span></p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">Printed route sheets, about an hour every day</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>Routes optimized around geography and morning traffic</span></p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">The crew working off a clipboard</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>The day's stops, gate codes, and warnings on each crew phone</span></p>
-        </li>
-        <li class="ba-row">
-          <p class="ba-before"><span class="ba-tag">Before</span><span class="ba-text">Arguments over when the crew showed up</span></p><svg class="ba-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          <p class="ba-after"><span class="ba-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="ba-text"><span class="ba-tag">Now</span>&ldquo;We were there 9:14 to 10:02,&rdquo; logged to the minute, even with no signal</span></p>
-        </li>
-      </ol>
-      <div class="case-log reveal">
-        <h3 class="log-h">On pace for a full year</h3>
-        <ul class="log-rows" role="list">
-          <li class="log-row"><span class="log-n" data-count="1500">1,500+</span> <span class="log-l">auto-scheduled visits, none moved by hand</span></li>
-          <li class="log-row"><span class="log-n" data-count="250">250+</span> <span class="log-l">office hours saved, estimated</span></li>
-        </ul>
-      </div>
-      <ul class="case-foot reveal" role="list">
-        <li>Nothing reaches a truck until the owner approves the route</li>
-        <li>Still prints identical to the paper log it replaced</li>
-        <li>Intuit-approved QuickBooks app, read only</li>
-      </ul>
     </div>
   </section>
 
@@ -814,28 +698,6 @@
       const ro = new ResizeObserver(fit); ro.observe(bar); ro.observe(wm);
       if (document.fonts) document.fonts.ready.then(fit);
     })();
-
-    // Case study numbers count up on arrival. The final number is in the HTML, so no JS or reduced motion just shows it.
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.log-n[data-count]').forEach(num => {
-        if (num.getBoundingClientRect().bottom < 0) return;
-        const total = Number(num.dataset.count), done = num.textContent;
-        num.textContent = '0';
-        const io = new IntersectionObserver(es => {
-          if (!es.some(e => e.isIntersecting)) return;
-          io.disconnect();
-          const t0 = performance.now(), run = now => {
-            const t = Math.min((now - t0) / 1800, 1);
-            if (t === 1) { num.textContent = done; return; }
-            num.textContent = Math.round(total * (1 - Math.pow(2, -8 * t))).toLocaleString('en-US');
-            requestAnimationFrame(run);
-          };
-          requestAnimationFrame(run);
-        }, { threshold: 0.5 });
-        io.observe(num);
-        window.addEventListener('beforeprint', () => { num.textContent = done; });
-      });
-    }
 
     // Scroll reveals: enhance already-visible content (gated behind .js)
     const revealEls = document.querySelectorAll('.reveal, .stagger');
