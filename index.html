@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="We connect the software you already run, then automate the busywork around it. No new tools to learn." />
   <meta name="twitter:image" content="https://somersetsystems.co/web-app-manifest-512x512.png" />
 
-  <link rel="canonical" href="https://somersetsystems.co/" />
+  <meta name="robots" content="noindex" />
 
   <!-- Structured data: Organization + site -->
   <script type="application/ld+json">
@@ -344,6 +344,31 @@
     .hero-rings .ring { fill: none; stroke: color-mix(in srgb, var(--on-green) 13%, transparent); stroke-width: 1.2; }
     .hero-rings .ring.accent { stroke: color-mix(in srgb, var(--on-green) 32%, transparent); }
 
+    /* hero background prototype; the SVG field above is its fallback */
+    .hero-grain { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .has-grain .hero-rings { display: none; }
+    .grain-toggle {
+      position: absolute; top: 84px; right: 16px; z-index: 2; padding: 10px 14px; border: 1px solid var(--line-on-green-2);
+      border-radius: 10px; background: var(--deep); color: var(--on-green); font: 600 14px/1 var(--font-body); cursor: pointer;
+    }
+    /* heading options, ?text=rise | words | underline */
+    .text-rise .tw, .text-words .tw { display: inline-block; }
+    .text-rise .tw { overflow: hidden; padding-bottom: .14em; margin-bottom: -.14em; vertical-align: top; }
+    .text-rise .tw > span, .text-words .tw > span { display: inline-block; }
+    .text-rise .tw > span { transform: translateY(112%); transition: transform .8s cubic-bezier(.16, 1, .3, 1); transition-delay: calc(var(--i) * 55ms); }
+    .text-rise .text-in .tw > span { transform: none; }
+    .text-words .tw > span { opacity: 0; transition: opacity .55s ease-out; transition-delay: calc(var(--i) * 130ms); }
+    .text-words .text-in .tw > span { opacity: 1; }
+    .text-underline h2 em { position: relative; display: inline-block; white-space: nowrap; }
+    .text-underline .ul { position: absolute; left: -1%; bottom: -.16em; width: 102%; height: .26em; overflow: visible; clip-path: inset(-40% 100% -40% -2%); transition: clip-path 1s cubic-bezier(.65, 0, .2, 1) .25s; }
+    .text-underline .ul path { fill: none; stroke: var(--green); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .text-underline .on-green .ul path, .text-underline .on-green.ul path { stroke: var(--sage-light); }
+    .text-underline .text-in .ul { clip-path: inset(-40% -2% -40% -2%); }
+
+    .grain-toggle:not(:focus-visible) {
+      width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+    }
+
     .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; max-width: min(1180px, 100%); margin-block: auto; }
     .hero-mark { width: 92px; height: 92px; margin-bottom: 32px; display: block; }
     .hero-h {
@@ -363,6 +388,10 @@
     /* one line of proof at the foot of the hero, so the fold carries a real result.
        In normal flow (not absolute) so it can never sit on top of the buttons on short screens. */
     .hero-assure { margin-top: 18px; font-size: 15px; line-height: 1.5; color: var(--on-green-muted); text-wrap: balance; }
+    /* review only: switch hero motion, not for production */
+    .motion-review { position: fixed; left: 12px; bottom: 12px; z-index: 9999; display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; border-radius: 10px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.25); font: 500 13px/1 var(--font-body); }
+    .motion-review a { padding: 9px 11px; border-radius: 7px; color: var(--text); text-decoration: none; }
+    .motion-review a[aria-current] { background: var(--green); color: #fff; }
     .hero-proof {
       position: relative; align-self: stretch; margin: 48px -40px 0;
       display: block; padding: 20px 24px; text-align: center;
@@ -371,7 +400,7 @@
       transition: background .3s var(--ease);
     }
     .hero-proof strong { font-weight: 600; color: #fff; }
-    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-weight: 600; color: var(--on-green-accent); white-space: nowrap; }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-weight: 600; color: #fff; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; white-space: nowrap; }
     .hero-proof svg { width: 14px; height: 14px; stroke: currentColor; transition: transform .3s var(--ease); }
     .hero-proof:hover { background: color-mix(in srgb, var(--on-green) 6%, transparent); }
     .hero-proof:hover svg { transform: translateX(3px); }
@@ -386,8 +415,8 @@
       font-weight: 700; letter-spacing: -0.035em; line-height: 1.06;
       margin-bottom: 40px; text-wrap: balance;
     }
-    .section-h em { font-style: normal; color: var(--green); }
-    .on-green .section-h em, .on-green h2 em { color: var(--on-green-accent); }
+    .section-h em { font-style: normal; color: inherit; }
+    .on-green .section-h em, .on-green h2 em { color: inherit; }
 
     /* ── PROOF (one real build, three Before/Now rows) ─────── */
     .proof-grid {
@@ -482,7 +511,7 @@
     .trades-head { display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 4vw, 48px); margin-bottom: clamp(28px, 4vw, 44px); }
     .trades-h { flex: 0 1 auto; min-width: 0; max-width: 20ch; margin-bottom: 0; }
     .trades-sub { flex: 1 1 0; max-width: 44ch; font-size: 17px; line-height: 1.6; color: var(--soft); text-wrap: pretty; }
-    .trades-row { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .trades-row { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
     .trade { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4 / 5; background: var(--deep); }
     .trade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .trade::after {
@@ -807,6 +836,7 @@
   <section class="hero on-green" aria-labelledby="hero-h">
     <div class="hero-bg" aria-hidden="true">
       <div class="hero-glow"></div>
+      <canvas class="hero-grain" id="heroGrain"></canvas>
       <!-- tree-ring field: irregular spacing like real growth rings -->
       <svg class="hero-rings" viewBox="-750 -750 1500 1500">
         <circle class="ring" pathLength="1" r="58"/>
@@ -824,6 +854,7 @@
         <circle class="ring" pathLength="1" r="716"/>
       </svg>
     </div>
+    <button class="grain-toggle" id="grainToggle" type="button">Pause background animation</button>
     <div class="hero-inner">
       <img class="hero-mark hero-anim" src="Somerset-Systems-11-192.png" alt="" aria-hidden="true" width="92" height="92" decoding="async" />
       <h1 class="hero-h hero-anim" id="hero-h"><span class="hl">Layered intelligence</span> <span class="hl">for the home service industry.</span></h1>
@@ -857,6 +888,7 @@
         <li class="trade"><picture><source type="image/webp" srcset="images/trade-plumbing-400.webp 400w, images/trade-plumbing.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-plumbing.jpg" alt="A plumber's hands tightening a pipe fitting" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Plumbing</span></li>
         <li class="trade"><picture><source type="image/webp" srcset="images/trade-lawn-care-400.webp 400w, images/trade-lawn-care.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-lawn-care.jpg" alt="A push mower cutting a lawn in low sun" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Lawn care</span></li>
         <li class="trade"><picture><source type="image/webp" srcset="images/trade-landscaping-400.webp 400w, images/trade-landscaping.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-landscaping.jpg" alt="A landscaper unrolling fresh turf" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Landscaping</span></li>
+        <li class="trade"><picture><source type="image/webp" srcset="images/trade-pool-service-400.webp 400w, images/trade-pool-service.webp 640w" sizes="(max-width: 880px) 60vw, 290px" /><img src="images/trade-pool-service.jpg" alt="A technician skimming a swimming pool with a long pole" width="640" height="800" loading="lazy" decoding="async" /></picture><span class="trade-label">Pool service</span></li>
       </ul>
       <div class="feed-controls" hidden>
         <button class="feed-toggle" id="feedToggle" type="button" aria-controls="trades-row">
@@ -1399,5 +1431,419 @@
     }
   </script>
 
+  <script>
+    /* Cut slab: the wood is baked once into a texture, so no ring ever bends. It grows out of the mark on load,
+       then breathes: the whole slab swells and settles, and light moves across it. Without WebGL2 the SVG rings stay. */
+    (function () {
+      const hero = document.querySelector('.hero');
+      const canvas = document.getElementById('heroGrain');
+      const pauseBtn = document.getElementById('grainToggle');
+      const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
+      const bail = () => { canvas.remove(); pauseBtn.remove(); };
+      if (!gl) { bail(); return; }
+
+      const VERT = `#version 300 es
+      in vec2 a;
+      void main() { gl_Position = vec4(a, 0.0, 1.0); }`;
+
+      const BAKE = `#version 300 es
+      precision highp float;
+      uniform vec2  uBuf;
+      uniform float uPx;
+      uniform vec2  uPith;
+      uniform float uSpacing;
+      out vec4 o;
+      const float TAU = 6.2831853;
+
+      float h11(float p) { p = fract(p * 0.1031); p *= p + 33.33; p *= p + p; return fract(p); }
+      float h21(vec2 p) {
+        vec3 q = fract(vec3(p.xyx) * 0.1031);
+        q += dot(q, q.yzx + 33.33);
+        return fract((q.x + q.y) * q.z);
+      }
+      // value noise that wraps around the trunk, so there is no seam
+      float vw(vec2 p, float period) {
+        vec2 i = floor(p), f = fract(p);
+        vec2 u = f * f * (3.0 - 2.0 * f);
+        float x0 = mod(i.x, period), x1 = mod(i.x + 1.0, period);
+        return mix(mix(h21(vec2(x0, i.y)), h21(vec2(x1, i.y)), u.x),
+                   mix(h21(vec2(x0, i.y + 1.0)), h21(vec2(x1, i.y + 1.0)), u.x), u.y);
+      }
+
+      float crack(float a, float r, float a0, float r0, float r1, float w0, float seed) {
+        // checks split along the rays: nearly straight, with small kinks where they cross a ring
+        float wander = (vw(vec2(r * 0.004 + seed, seed), 4096.0) - 0.5) * 0.010;
+        float kink = (vw(vec2(r * 0.05 + seed * 3.0, seed), 4096.0) - 0.5) * 5.0;
+        float da = abs((fract(a - a0 - wander + 0.5) - 0.5) * TAU * r + kink);
+        float t = clamp((r - r0) / (r1 - r0), 0.0, 1.0);
+        float w = w0 * pow(sin(t * 3.14159), 0.8) * (0.45 + 0.55 * (1.0 - t));
+        return (1.0 - smoothstep(w, w + 1.4, da)) * step(r0, r) * step(r, r1);
+      }
+
+      // x: height of the surface, y: darkness, z: growth distance from the pith in px
+      vec3 wood(vec2 d) {
+        float r = max(length(d), 1.0);
+        vec2 dir = d / r;
+        float a = atan(d.y, d.x) / TAU + 0.5;
+
+        // the trunk: a few lobes and an off-center pith. These persist from ring to ring, as they do in a tree
+        float lobes = (vw(vec2(a * 5.0, r * 0.0005), 5.0) - 0.5) * 0.15
+                    + (vw(vec2(a * 11.0, r * 0.0009 + 4.0), 11.0) - 0.5) * 0.06;
+        float ecc = 0.09 * dot(dir, vec2(0.45, 0.89));
+        // small wiggles shared by neighboring rings
+        float wig = (vw(vec2(a * 44.0, r * 0.005 + 9.0), 44.0) - 0.5) * 4.5
+                  + (vw(vec2(a * 150.0, r * 0.014 + 2.0), 150.0) - 0.5) * 1.5;
+        float gpx = r * (1.0 + lobes + ecc) + wig;
+
+        // good years and lean years: ring width swings about 5x and comes in runs
+        float g = gpx / uSpacing;
+        float x = g - (0.5 / 0.11) * cos(g * 0.11) - (0.2 / 0.37) * cos(g * 0.37 + 1.0);
+        float id = floor(x);
+        float f = x - id;
+        float w = max(fwidth(x), 1e-4);
+
+        // each year: pale early wood, darkening to a hard late-wood edge
+        float depth = 0.32 + 0.68 * pow(h11(id + 13.1), 2.0);
+        float late = smoothstep(0.42, 0.97, f) * depth;
+        float edge = 1.0 - smoothstep(0.0, 1.4 * w, 1.0 - f);
+        late = max(late, edge * depth);
+        late *= 1.0 - smoothstep(0.35, 0.8, w);   // rings too fine to resolve melt to an average
+        late += smoothstep(0.35, 0.8, w) * 0.22;
+
+        // pores in the early wood, thin rays crossing the rings
+        float pore = step(0.80, vw(vec2(a * 1500.0, gpx * 0.42), 1500.0)) * (1.0 - f) * 0.34;
+        float fleck = smoothstep(0.76, 0.96, vw(vec2(a * 620.0, gpx * 0.016), 620.0));
+
+        // seasoning checks
+        float c = crack(a, r, 0.445, 70.0, 640.0, 2.1, 1.0)
+                + crack(a, r, 0.985, 110.0, 860.0, 2.6, 5.0);
+        c = min(c, 1.0);
+
+        float tone = clamp(late + pore - fleck * 0.14, 0.0, 1.0);
+        tone = max(tone, c);
+        float height = -late * 0.75 - pore * 0.8 + fleck * 0.2 - c * 2.4;
+        return vec3(height, tone, gpx);
+      }
+
+      void main() {
+        vec2 p = vec2(gl_FragCoord.x, uBuf.y - gl_FragCoord.y) / uPx;
+        vec2 d = p - uPith;
+        vec3 w0 = wood(d);
+        float e = 1.0 / uPx;
+        vec3 wx = wood(d + vec2(e, 0.0));
+        vec3 wy = wood(d + vec2(0.0, e));
+        vec2 n = clamp(vec2(w0.x - wx.x, w0.x - wy.x) * 0.5, -1.0, 1.0);
+        o = vec4(n * 0.5 + 0.5, w0.y, clamp(w0.z / 2400.0, 0.0, 1.0));
+      }`;
+
+      const LIGHT = `#version 300 es
+      precision highp float;
+      uniform sampler2D uT;
+      uniform vec2  uBuf;
+      uniform float uPx;
+      uniform vec2  uPith;
+      uniform vec4  uCopy;
+      uniform float uFootY;
+      uniform vec3  uLamp;     // x, y in CSS px, z = height above the slab
+      uniform float uReach;
+      uniform float uFront;
+      uniform float uTime;
+      uniform float uSeat;     // one-shot: the slab lowers into place as it finishes growing, then never moves again
+      uniform float uBreath;   // 1 while breathing, 0 for a still frame
+      uniform vec3  uDark;
+      uniform vec3  uLight;
+      out vec4 o;
+      const float TAU = 6.2831853;
+      const float CYCLE = 6.0;   // seconds per breath
+
+      void main() {
+        vec2 p = vec2(gl_FragCoord.x, uBuf.y - gl_FragCoord.y) / uPx;
+
+        // the whole slab swells and settles as one piece; the lag stays tiny so the swell never reads as a rolling wave
+        vec2 dp = p - uPith;
+        float r0 = length(dp);
+        float phase = uTime * TAU / CYCLE - r0 * 0.0007;
+        float breath = (0.5 - 0.5 * cos(phase)) * uBreath;
+        vec2 src = uPith + dp / (1.0 + 0.035 * breath + 0.014 * uSeat);
+        vec4 t = texture(uT, vec2(src.x * uPx, uBuf.y - src.y * uPx) / uBuf);
+        vec2 n2 = t.xy * 2.0 - 1.0;
+        float tone = t.z;
+        float gpx = t.w * 2400.0;
+
+        vec3 N = normalize(vec3(n2 * 2.2, 1.0));
+        vec3 toL = vec3(uLamp.xy - p, uLamp.z);
+        vec3 L = normalize(vec3(toL.x, -toL.y, toL.z));
+        vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
+        float spec = pow(max(dot(N, H), 0.0), 26.0);
+        float rake = max(dot(N, L), 0.0);
+        float reach = exp(-dot(toL.xy, toL.xy) / (2.0 * uReach * uReach));
+
+        // finished timber shimmers on the pale wood, not on the dark late wood
+        float sheen = (spec * 0.75 + rake * 0.16) * reach * (1.0 - tone * 0.8);
+
+        vec2 q = abs(p - uCopy.xy) - uCopy.zw;
+        float calm = smoothstep(0.0, 120.0, length(max(q, 0.0)));
+        float quiet = mix(0.12, 1.0, calm) * (1.0 - 0.8 * smoothstep(uFootY - 34.0, uFootY + 2.0, p.y));
+
+        float r = length(p - uPith);
+        float grown = smoothstep(0.0, 22.0, uFront - gpx) * smoothstep(46.0, 66.0, r);
+        // each breath: the wood deepens and relaxes, and a soft wash of light leaves the mark. Only the wash adds light
+        float darkA = clamp(tone * (0.40 + 0.38 * breath) + 0.09 * breath, 0.0, 1.0) * grown;
+        float wave = fract(uTime / CYCLE) * 1500.0 - 120.0;
+        float wash = exp(-pow((gpx - wave) / 230.0, 2.0)) * (1.0 - smoothstep(500.0, 1380.0, wave)) * uBreath;
+        float lightA = clamp((sheen * 0.40 + wash * 0.32 * (1.0 - tone * 0.85)) * quiet, 0.0, 1.0) * grown;
+
+        vec3 rgb = uLight * lightA + uDark * darkA * (1.0 - lightA);
+        o = vec4(rgb, lightA + darkA * (1.0 - lightA));
+      }`;
+
+      const compile = (type, src) => {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src); gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+        return s;
+      };
+      const program = frag => {
+        const p = gl.createProgram();
+        gl.attachShader(p, compile(gl.VERTEX_SHADER, VERT));
+        gl.attachShader(p, compile(gl.FRAGMENT_SHADER, frag));
+        gl.bindAttribLocation(p, 0, 'a');
+        gl.linkProgram(p);
+        if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+        return p;
+      };
+      let bake, light;
+      try { bake = program(BAKE); light = program(LIGHT); } catch (err) { console.error(err); bail(); return; }
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      const uniforms = (p, names) => Object.fromEntries(names.map(n => [n, gl.getUniformLocation(p, n)]));
+      const B = uniforms(bake, ['uBuf', 'uPx', 'uPith', 'uSpacing']);
+      const U = uniforms(light, ['uT', 'uBuf', 'uPx', 'uPith', 'uCopy', 'uFootY', 'uLamp', 'uReach', 'uFront', 'uTime', 'uBreath', 'uSeat', 'uDark', 'uLight']);
+
+      const tex = gl.createTexture();
+      const fbo = gl.createFramebuffer();
+
+      const token = n => {
+        let h = getComputedStyle(document.documentElement).getPropertyValue(n).trim().slice(1);
+        if (h.length === 3) h = [...h].map(c => c + c).join('');
+        return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+      };
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let W = 1, H = 1, px = 1, heroTop = 0;
+
+      function measure() {
+        const hr = hero.getBoundingClientRect();
+        W = hr.width; H = hr.height; heroTop = hr.top + window.scrollY;
+        px = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(3.2e6 / Math.max(W * H, 1)));
+        const bw = Math.round(W * px), bh = Math.round(H * px);
+        canvas.width = bw; canvas.height = bh;
+
+        const m = document.querySelector('.hero-mark').getBoundingClientRect();
+        const pith = [m.left + m.width / 2 - hr.left, m.top + m.height / 2 - hr.top];
+
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, bw, bh, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+        gl.viewport(0, 0, bw, bh);
+        gl.disable(gl.BLEND);
+        gl.useProgram(bake);
+        gl.uniform2f(B.uBuf, bw, bh);
+        gl.uniform1f(B.uPx, px);
+        gl.uniform2f(B.uPith, pith[0], pith[1]);
+        gl.uniform1f(B.uSpacing, Math.min(11, Math.max(7.5, W * 0.0075)));
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+        gl.useProgram(light);
+        gl.uniform1i(U.uT, 0);
+        gl.uniform2f(U.uBuf, bw, bh);
+        gl.uniform1f(U.uPx, px);
+        gl.uniform2f(U.uPith, pith[0], pith[1]);
+        gl.uniform3fv(U.uDark, token('--deep'));
+        gl.uniform3fv(U.uLight, token('--sage-light'));
+        const h1 = document.querySelector('.hero-h');
+        const words = document.createRange();
+        words.selectNodeContents(h1);
+        const top = h1.getBoundingClientRect().top;
+        const sub = document.querySelector('.hero-sub').getBoundingClientRect();
+        const act = document.querySelector('.hero-actions').getBoundingClientRect();
+        const halfW = Math.max(words.getBoundingClientRect().width, sub.width) / 2 + 20;
+        gl.uniform4f(U.uCopy, W / 2, (top + act.bottom) / 2 - hr.top, Math.min(halfW, W / 2), (act.bottom - top) / 2 + 14);
+        gl.uniform1f(U.uFootY, document.querySelector('.hero-proof').getBoundingClientRect().top - hr.top);
+        gl.uniform1f(U.uReach, Math.max(260, W * 0.34));
+      }
+
+      const lamp = { x: 0, y: 0, tx: 0, ty: 0, last: -1e9 };
+      const aim = e => {
+        const hr = hero.getBoundingClientRect();
+        lamp.tx = e.clientX - hr.left; lamp.ty = e.clientY - hr.top; lamp.last = performance.now();
+      };
+      hero.addEventListener('pointermove', aim, { passive: true });
+      hero.addEventListener('pointerdown', aim, { passive: true });
+      hero.addEventListener('pointerleave', () => { lamp.last = -1e9; });
+
+      /* ?motion=settle (default): one continuous growth that eases to a stop, then still.
+         ?motion=layers: the same, landing in five beats. ?motion=breathe: the old repeating swell, kept to compare.
+         Settle and layers have no repeating pulse; after the growth only the light moves, and slowly. */
+      const mode = new URLSearchParams(location.search).get('motion') || 'settle';
+      const repeats = mode === 'breathe';
+      const GROW = repeats ? 2.9 : mode === 'layers' ? 2.8 : 2.4;
+      const SUN = repeats ? 0.17 : 0.05;
+      const BEATS = 5;
+      const edge = () => Math.max(Math.hypot(W / 2, H), Math.hypot(W / 2, H * 0.3)) + 80;
+      const growTo = t => {
+        if (repeats) return (1 - Math.pow(1 - t, 1.9)) * (Math.hypot(W, H) + 200);
+        if (mode !== 'layers') return (1 - Math.pow(1 - t, 3.2)) * edge();
+        const seg = t * BEATS, k = Math.min(Math.floor(seg), BEATS - 1), u = seg - k;
+        const at = i => Math.pow(i / BEATS, 1.15) * edge();
+        return at(k) + (at(k + 1) - at(k)) * (1 - Math.pow(1 - u, 3));
+      };
+      let seat = repeats || reduced ? 0 : 1;
+
+      let time = 0, born = 0, front = reduced ? 1e5 : 0, grown = reduced, scroll = 0, breathTime = 0, breathing = 0;
+
+      function draw() {
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform3f(U.uLamp, lamp.x, lamp.y, 240);
+        gl.uniform1f(U.uFront, grown ? 1e5 : front);
+        gl.uniform1f(U.uTime, breathTime);
+        gl.uniform1f(U.uBreath, breathing);
+        gl.uniform1f(U.uSeat, seat);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
+
+      let raf = 0, last = 0, onScreen = true, paused = false, slow = 0, frames = 0, frozen = false;
+      const shouldRun = () => !reduced && !paused && !frozen && onScreen && !document.hidden;
+
+      function frame(now) {
+        raf = 0;
+        if (!shouldRun()) return;
+        const raw = last ? now - last : 16;
+        last = now;
+        const dt = Math.min(raw, 50) / 1000;
+        time += dt; born += dt;
+
+        if (!grown) {
+          const t = Math.min(Math.max(born - 0.1, 0) / GROW, 1);
+          front = growTo(t);
+          if (t >= 1) grown = true;
+        }
+        // the first breath starts once the slab has finished growing, easing in from rest
+        if (!repeats) seat = Math.max(0, 1 - Math.pow(Math.min(born / (GROW + 0.5), 1), 3));
+        if (grown && repeats) {
+          breathTime += dt;
+          breathing = Math.min(breathing + dt / 2.5, 1);
+        }
+
+        // left alone, the light crosses the slab like the sun; the pointer takes it over
+        const live = now - lamp.last < 2600;
+        const target = Math.min(Math.max((window.scrollY - heroTop) / Math.max(H, 1), 0), 1);
+        scroll += (target - scroll) * (1 - Math.exp(-dt * 6));
+        if (!live) {
+          lamp.tx = W * (0.5 + 0.46 * Math.sin(time * SUN - 1.2));
+          lamp.ty = H * (0.42 + 0.30 * Math.cos(time * SUN - 1.2)) + scroll * H * 0.6;
+        }
+        const follow = 1 - Math.exp(-dt * (live ? 5 : 1.5));
+        lamp.x += (lamp.tx - lamp.x) * follow;
+        lamp.y += (lamp.ty - lamp.y) * follow;
+
+        draw();
+
+        frames++;
+        if (raw > 34) slow++;
+        if (frames >= 60) {
+          if (slow > 40) { frozen = true; grown = true; draw(); return; }
+          frames = 0; slow = 0;
+        }
+        raf = requestAnimationFrame(frame);
+      }
+      const start = () => { if (!raf && shouldRun()) { last = 0; raf = requestAnimationFrame(frame); } };
+
+      measure();
+      lamp.x = lamp.tx = W * 0.14; lamp.y = lamp.ty = H * 0.3;
+      hero.classList.add('has-grain');
+      draw();
+      start();
+
+      let bw0 = W, bh0 = H;
+      new ResizeObserver(() => {
+        const hr = hero.getBoundingClientRect();
+        if (hr.width === bw0 && hr.height === bh0) return;
+        bw0 = hr.width; bh0 = hr.height;
+        measure(); draw();
+      }).observe(hero);
+      if (document.fonts) document.fonts.ready.then(() => { measure(); draw(); });
+      new IntersectionObserver(es => { onScreen = es[es.length - 1].isIntersecting; start(); }).observe(hero);
+      document.addEventListener('visibilitychange', start);
+
+      canvas.addEventListener('webglcontextlost', e => {
+        e.preventDefault();
+        frozen = true;
+        hero.classList.remove('has-grain');
+        bail();
+      });
+
+      if (reduced) pauseBtn.remove();
+      else pauseBtn.addEventListener('click', () => {
+        paused = !paused;
+        pauseBtn.textContent = paused ? 'Play background animation' : 'Pause background animation';
+        start();
+      });
+    })();
+  </script>
+  <script>
+    /* Heading options for review: add ?text=rise, ?text=words or ?text=underline to the address.
+       With no option, or with reduced motion or no JS, headings are plain and one color. */
+    (function () {
+      const mode = new URLSearchParams(location.search).get('text');
+      if (!['rise', 'words', 'underline'].includes(mode)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const heads = [...document.querySelectorAll('.section-h, #cta-h')];
+      document.documentElement.classList.add('text-' + mode);
+
+      heads.forEach(h => {
+        h.classList.remove('reveal');
+        if (mode === 'underline') {
+          const em = h.querySelector('em');
+          if (!em) return;
+          em.insertAdjacentHTML('beforeend', '<svg class="ul" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 9C42 5 78 10 118 7S196 4 232 7 280 9 297 5"/></svg>');
+          return;
+        }
+        h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+        const words = h.textContent.trim().split(/\s+/);
+        h.innerHTML = words.map((w, i) =>
+          `<span class="tw" aria-hidden="true" style="--i:${i}"><span>${w}</span></span>`).join(' ');
+      });
+
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('text-in');
+        io.unobserve(e.target);
+      }), { threshold: 0.5 });
+      heads.forEach(h => io.observe(h));
+    })();
+  </script>
+  <div class="motion-review" role="group" aria-label="Hero motion options (review only)">
+    <a href="?motion=settle">Settle</a>
+    <a href="?motion=layers">Layers</a>
+    <a href="?motion=breathe">Breathing (old)</a>
+  </div>
+  <script>
+    (function () {
+      const m = new URLSearchParams(location.search).get('motion') || 'settle';
+      const a = document.querySelector('.motion-review a[href="?motion=' + m + '"]');
+      if (a) a.setAttribute('aria-current', 'true');
+    })();
+  </script>
 </body>
 </html>
