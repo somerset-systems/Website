@@ -186,7 +186,8 @@
     }
     .work-header-in { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 60px); }
     .work-title {
-      font-size: clamp(30px, 3.8vw, 46px);
+      /* Sized so the title holds one line from ~830px up (it needs ~24.5em of width); phones wrap. */
+      font-size: clamp(30px, 3.55vw, 38px);
       font-weight: 700; letter-spacing: -0.04em; line-height: 1.06;
       margin: 0 0 10px; text-wrap: balance;
     }
@@ -333,9 +334,7 @@
   <header class="work-header on-green">
     <div class="work-header-bg" aria-hidden="true"></div>
     <div class="work-header-in">
-      <h1 class="work-title">Scheduling, Route Building, and Workforce Management Dashboard</h1>
-      <p class="work-lede">What we built for a pond and fountain service company, in under two minutes.</p>
-    </div>
+      <h1 class="work-title">Scheduling, Routing, and Workforce Management</h1>    </div>
   </header>
 
   <section class="builds-wrap" aria-label="Route desk demo">
@@ -350,7 +349,7 @@
       <div class="build-body">
         <div>
           <p class="build-status">In use since August 2026.</p>
-          <p class="build-desc" style="margin-top:14px">They planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
+          <p class="build-desc" style="margin-top:14px">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
         </div>
         <div>
           <ul class="build-does" style="margin-top:0">
