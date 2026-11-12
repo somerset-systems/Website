@@ -211,11 +211,7 @@
       border: 1px solid var(--border-strong);
       box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 18px 40px -24px rgba(28, 46, 36, .35);
     }
-    .build-body { margin-top: 36px; max-width: 68ch; }
-    .build-name {
-      font-size: clamp(24px, 2.6vw, 32px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance;
-    }
+    .build-body { margin-top: 36px; }
     /* A quiet way out to the catalog; the CTA band below stays the only loud action. */
     .build-more { margin-top: clamp(28px, 4vw, 40px); }
     .build-more a {
@@ -225,15 +221,20 @@
       transition: text-decoration-color .2s;
     }
     .build-more a:hover { text-decoration-color: currentColor; }
-    .build-sub { margin-top: 26px; font: 600 15px/1.3 var(--font-body); color: var(--text); }
-    .build-does { list-style: none; margin-top: 10px; }
+    /* Two columns that span the video's width, so the notes square up with it instead of trailing off.
+       Equal row and column gaps, so the four read as four, not two pairs. */
+    .build-does {
+      list-style: none; margin: 0; padding: 0;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px;
+    }
     .build-does li {
       position: relative; padding-left: 22px;
       font-size: 17px; line-height: 1.6; color: var(--soft); text-wrap: pretty;
     }
-    .build-does li + li { margin-top: 12px; }
+    /* Each note's opening words carry the weight; same color, so the sentence stays one color. */
+    .build-does strong { font-weight: 600; color: inherit; }
     .build-does li::before {
-      content: ""; position: absolute; left: 2px; top: 0.66em;
+      content: ""; position: absolute; left: 2px; top: 0.66em; top: calc((1lh - 7px) / 2);
       width: 7px; height: 7px; border-radius: 50%; background: var(--green);
     }
 
@@ -285,6 +286,9 @@
     }
     @media (max-width: 720px) {
       .build-body { margin-top: 22px; }
+      .build-does { grid-template-columns: 1fr; gap: 12px; }
+      .build-does li { font-size: 16px; line-height: 1.5; padding-left: 18px; }
+      .build-does li::before { left: 1px; }
       .build-video { border-radius: 8px; }
     }
     @media (max-width: 560px) {
@@ -364,11 +368,11 @@
         Your browser can't play this video. <a href="video/route-desk.mp4">Download it instead.</a>
       </video>
       <div class="build-body">
-          <ul class="build-does" style="margin-top:0">
-            <li>Reads the notes already in QuickBooks, like “2nd Tuesday of the month, before 10am,” and fills in the calendar.</li>
-            <li>Orders each truck's day around traffic and customer time windows, and the owner approves every route before it goes out.</li>
-            <li>Sends each day's stops to the respective technicians, where they can input job times and photos, request parts, and write notes.</li>
-            <li>Saves every route sheet, so there's nothing to file: print any day or range of dates whenever they need to.</li>
+          <ul class="build-does">
+            <li><strong>Reads the notes already in QuickBooks</strong>, like “2nd Tuesday of the month, before 10am,” and fills in the calendar.</li>
+            <li><strong>Orders each truck's day</strong> around traffic and customer time windows, and the owner approves every route before it goes out.</li>
+            <li><strong>Sends each day's stops</strong> to the respective technicians, where they can input job times and photos, request parts, and write notes.</li>
+            <li><strong>Saves every route sheet</strong>, so there's nothing to file: print any day or range of dates whenever they need to.</li>
           </ul>
       </div>
       <div class="build-more">
