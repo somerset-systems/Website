@@ -192,28 +192,10 @@
       margin: 0 0 10px; text-wrap: balance;
     }
     .work-title em { color: var(--on-green-accent); }
-    /* Consultancy-style case-study header: a type label, the title, then a ruled row of facts. */
+    /* Consultancy-style case-study header: a type label over the title. */
     .work-kicker {
       font: 600 13px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--on-green-muted); margin: 0 0 14px;
-    }
-    .work-facts {
-      display: grid; grid-template-columns: repeat(3, max-content);
-      margin: clamp(20px, 2.6vw, 28px) 0 0; border-top: 1px solid var(--line-on-green);
-    }
-    .work-facts > div { padding: 14px clamp(20px, 3vw, 40px) 0 0; }
-    .work-facts > div + div { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line-on-green); }
-    .work-facts dt { font-size: 13px; color: var(--on-green-muted); margin-bottom: 4px; }
-    .work-facts dd { margin: 0; font-size: 16px; font-weight: 600; color: var(--on-green); }
-    @media (max-width: 560px) {
-      .work-facts { grid-template-columns: 1fr; }
-      .work-facts > div, .work-facts > div + div {
-        display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-        padding: 12px 0; border-left: 0;
-      }
-      .work-facts > div + div { border-top: 1px solid var(--line-on-green); }
-      .work-facts dt { margin: 0; }
-      .work-facts dd { text-align: right; }
     }
     .work-lede {
       font-size: clamp(17px, 1.7vw, 19px); color: var(--on-green-soft);
@@ -363,11 +345,6 @@
     <div class="work-header-in">
       <p class="work-kicker">Case study</p>
       <h1 class="work-title">Scheduling, Routing, and Crew App</h1>
-      <dl class="work-facts">
-        <div><dt>Industry</dt><dd>Water feature service</dd></div>
-        <div><dt>Built with</dt><dd>Owner, office and crew</dd></div>
-        <div><dt>In use since</dt><dd>August 2026</dd></div>
-      </dl>
     </div>
   </header>
 
@@ -382,7 +359,8 @@
       </video>
       <div class="build-body">
         <div>
-          <p class="build-desc">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
+          <p class="build-status">In use since August 2026.</p>
+          <p class="build-desc" style="margin-top:14px">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
         </div>
         <div>
           <ul class="build-does" style="margin-top:0">
