@@ -1625,7 +1625,10 @@
         canvas.width = bw; canvas.height = bh;
 
         const m = document.querySelector('.hero-mark').getBoundingClientRect();
-        const pith = [m.left + m.width / 2 - hr.left, m.top + m.height / 2 - hr.top];
+        // the scroll exit lifts .hero-inner; measure from where it sits at rest, or a re-measure while
+        // scrolled (resize, reload mid-page, fonts landing) bakes the rings' center above the mark
+        const lift = new DOMMatrixReadOnly(getComputedStyle(document.querySelector('.hero-inner')).transform);
+        const pith = [m.left + m.width / 2 - hr.left - lift.m41, m.top + m.height / 2 - hr.top - lift.m42];
 
         gl.bindTexture(gl.TEXTURE_2D, tex);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, bw, bh, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
@@ -1659,7 +1662,7 @@
         const sub = document.querySelector('.hero-sub').getBoundingClientRect();
         const act = document.querySelector('.hero-actions').getBoundingClientRect();
         const halfW = Math.max(words.getBoundingClientRect().width, sub.width) / 2 + 20;
-        gl.uniform4f(U.uCopy, W / 2, (top + act.bottom) / 2 - hr.top, Math.min(halfW, W / 2), (act.bottom - top) / 2 + 14);
+        gl.uniform4f(U.uCopy, W / 2, (top + act.bottom) / 2 - hr.top - lift.m42,Math.min(halfW, W / 2), (act.bottom - top) / 2 + 14);
         gl.uniform1f(U.uFootY, document.querySelector('.hero-proof').getBoundingClientRect().top - hr.top);
         gl.uniform1f(U.uReach, Math.max(260, W * 0.34));
       }
