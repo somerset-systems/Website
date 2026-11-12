@@ -211,10 +211,7 @@
       border: 1px solid var(--border-strong);
       box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 18px 40px -24px rgba(28, 46, 36, .35);
     }
-    .build-body {
-      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-      gap: 12px 56px; margin-top: 36px; align-items: start;
-    }
+    .build-body { margin-top: 36px; max-width: 68ch; }
     .build-name {
       font-size: clamp(24px, 2.6vw, 32px); font-weight: 700;
       letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance;
@@ -228,9 +225,6 @@
       transition: text-decoration-color .2s;
     }
     .build-more a:hover { text-decoration-color: currentColor; }
-    /* Status sits above the story, so it is read first. */
-    .build-status { font-size: 15px; font-weight: 600; color: var(--green); text-wrap: pretty; }
-    .build-desc { font-size: 17px; color: var(--soft); line-height: 1.65; text-wrap: pretty; }
     .build-sub { margin-top: 26px; font: 600 15px/1.3 var(--font-body); color: var(--text); }
     .build-does { list-style: none; margin-top: 10px; }
     .build-does li {
@@ -290,7 +284,7 @@
       .footer-links a { padding: 12px 8px; }
     }
     @media (max-width: 720px) {
-      .build-body { grid-template-columns: 1fr; margin-top: 22px; }
+      .build-body { margin-top: 22px; }
       .build-video { border-radius: 8px; }
     }
     @media (max-width: 560px) {
@@ -370,17 +364,12 @@
         Your browser can't play this video. <a href="video/route-desk.mp4">Download it instead.</a>
       </video>
       <div class="build-body">
-        <div>
-          <p class="build-desc">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
-        </div>
-        <div>
           <ul class="build-does" style="margin-top:0">
             <li>Reads the notes already in QuickBooks, like “2nd Tuesday of the month, before 10am,” and fills in the calendar.</li>
             <li>Orders each truck's day around traffic and customer time windows, and the owner approves every route before it goes out.</li>
             <li>Sends each day's stops to the respective technicians, where they can input job times and photos, request parts, and write notes.</li>
             <li>Saves every route sheet, so there's nothing to file: print any day or range of dates whenever they need to.</li>
           </ul>
-        </div>
       </div>
       <div class="build-more">
         <a href="what-we-build.html">See everything we build <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
