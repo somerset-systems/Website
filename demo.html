@@ -301,6 +301,13 @@
       .skip-link, .btn::before, .mobile-menu, .nav-links a::after { transition: none; }
       .btn:hover svg { transform: none; }
     }
+    /* Case-study header: summary sentence, then a ruled line with the date and a jump to the video. */
+    .work-title { margin-bottom: 14px; }
+    .hx-deck { max-width: 56ch; margin: 0; font-size: clamp(17px, 1.6vw, 19px); line-height: 1.55; color: var(--on-green-soft); text-wrap: pretty; }
+    .hx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; margin-top: clamp(18px, 2.2vw, 24px); padding-top: 12px; border-top: 1px solid var(--line-on-green); font-size: 14px; color: var(--on-green-muted); }
+    .hx-foot a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 0; color: var(--on-green); font-weight: 600; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+    .hx-foot a:hover { text-decoration-color: currentColor; }
+    .hx-foot svg { width: 16px; height: 16px; }
   </style>
 </head>
 <body>
@@ -345,6 +352,11 @@
     <div class="work-header-in">
       <p class="work-kicker">Case study</p>
       <h1 class="work-title">Scheduling, Routing, and Crew App</h1>
+      <p class="hx-deck">Built for a water feature service company, around the paper wall calendar and route sheets they already ran on.</p>
+      <div class="hx-foot">
+        <span>In use since August 2026</span>
+        <a href="#walkthrough"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor"/></svg>Watch the walkthrough (1:48)</a>
+      </div>
     </div>
   </header>
 
@@ -352,15 +364,14 @@
 
     <!-- To add a build: copy an <article>, give the <video> its own data-video id. Tracking picks it up. -->
     <article class="build" aria-label="Route desk walkthrough">
-      <video class="build-video" data-video="route-desk" controls playsinline preload="metadata"
+      <video id="walkthrough" class="build-video" data-video="route-desk" controls playsinline preload="metadata"
              poster="video/route-desk-poster.jpg" width="1440" height="900">
         <source src="video/route-desk.mp4" type="video/mp4" />
         Your browser can't play this video. <a href="video/route-desk.mp4">Download it instead.</a>
       </video>
       <div class="build-body">
         <div>
-          <p class="build-status">In use since August 2026.</p>
-          <p class="build-desc" style="margin-top:14px">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
+          <p class="build-desc">A pond and fountain service company planned every visit on a paper wall calendar, then copied each day by hand onto the crew's route sheet. Now the software drafts both.</p>
         </div>
         <div>
           <ul class="build-does" style="margin-top:0">
